@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "semi": [
+      2,
+      "always"
+    ],
+    "no-extra-semi": 1,
+    "no-undef": 2,
+    "no-console": 0,
+    "no-unused-vars": 1
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "s": false,
+    "angular": false,
+    "_": false,
+    "$": false
+  },
+  "extends": "eslint:recommended"
+}
