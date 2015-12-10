@@ -19,7 +19,8 @@ module.exports = () => {
     //******************GULP*************************
     //***********************************************
         jscs            : require('gulp-jscs'),
-        beep            : require('beepbeep')
+        beep            : require('beepbeep'),
+        wiredep         : require('wiredep').stream
     };
 
     return vars;

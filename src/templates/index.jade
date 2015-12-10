@@ -1,3 +1,40 @@
 //
    Created by donmclean on 12/5/15.
 
+doctype html
+html(lang="en" ng-app="SPU" ng-controller="MainController")
+    head
+        title(ng-bind="models.title")
+        link(href="css/styles.min.css" rel="stylesheet" type="text/css")
+
+        <!--bower:css -->
+        <!--endbower -->
+
+        <!--inject:css -->
+        <!--endinject -->
+
+    body(ng-controller="ErrorController")
+        h1(class="center-align-text" ng-bind="models.title")
+
+        .main-nav
+            nav
+                ul
+                    li(ng-repeat="t in tabs")
+                        a(href="#" ng-bind="t")
+
+        //.center-align-clock
+        //    .clocks
+        //
+        //.container
+        //    .searchbox
+        //        .center-align-searchbox
+        //            form(class="search" action="")
+        //                input(type="search" placeholder="Enter Search Here" required)
+        //
+        //.section-break
+
+        <!--bower:js -->
+        <!--endbower -->
+
+        <!--inject:js -->
+        <!--endinject -->

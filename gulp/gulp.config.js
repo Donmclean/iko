@@ -13,6 +13,12 @@ module.exports = () => {
         jsSources           : ['src/js/**/*.js'],
         jsDependencies      : [],
 
+        bower               : {
+            json            : require(process.cwd()+'/bower.json'),
+            directory       : process.cwd()+'/bower_components',
+            ignorePath      : '../'
+        },
+
         js                  : {
             src             : [     process.cwd()+'/src/js/**/*.js'],
             dest            :       process.cwd()+'/app/assets/js'
