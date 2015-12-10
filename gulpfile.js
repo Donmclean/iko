@@ -1,12 +1,12 @@
 /**
  * Created by donmclean on 12/2/15.
  */
-
+"use strict";
 // Variables
 const
     gulp            = require('gulp'),
     config          = require('./gulp/gulp.config')(),
-    $               = require('gulp-load-plugins')({lazy: true, DEBUG: false, scope: ['devDependencies']}),
+    $               = require('gulp-load-plugins')({lazy: true, DEBUG: true, scope: ['devDependencies']}),
     _               = require('lodash'),
 
     taskPath        = './gulp/tasks/',
@@ -14,10 +14,10 @@ const
 
 //********************************************************************************************************
 //Load all functions
-    funcs           = require('./gulp/functions/funcs')(gulp, $, config, funcs);
+    funcs           = require('./gulp/functions/funcs')(gulp, $, config);
 
 //Load all gulp tasks
-_.forEach(taskList, function(taskFile) {
+_.forEach(taskList, (taskFile) => {
     $.util.log('Collecting task: ' + taskFile);
     require(taskPath + taskFile)(gulp, $, config, funcs);
 });

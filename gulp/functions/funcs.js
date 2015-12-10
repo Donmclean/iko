@@ -1,21 +1,31 @@
 /**
  * Created by donmclean on 12/6/15.
  */
-module.exports = function (gulp, $) {
+module.exports = (gulp, $, config) => {
     "use strict";
     const funcs = {
-        test: function () {
+        test: () => {
             $.util.log("test funcccs");
 
         },
-        errorHandler: function (err) {
+        errorHandler: (err) => {
+            config.vars.beep();
             $.util.log($.util.colors.red("........ : ..................."));
             $.util.log($.util.colors.red("Error in file: "+ err.fileName));
             $.util.log($.util.colors.red("on line  : "+ err.lineNumber));
             $.util.log($.util.colors.red("Error:   : "+ err.message));
             $.util.log($.util.colors.red("........ : ..................."));
         },
-        resultsHandler: function (results) {
+        sassErrorHandler: (err) => {
+            config.vars.beep();
+            $.util.log($.util.colors.red("........ : ..................."));
+            $.util.log($.util.colors.red(`Error in file (${err.message.split('\n')[0]})`));
+            $.util.log($.util.colors.red(`on line ${err.line} column ${err.column}`));
+            console.log($.util.colors.red(`\n`+ err.formatted));
+            $.util.log($.util.colors.red("........ : ..................."));
+            config.vars.exec(process.exit(1));
+        },
+        resultsHandler: (results) => {
             $.util.log($.util.colors.red("........ : ..................."));
             $.util.log($.util.colors.yellow('Total Warnings: ' + results.warningCount));
 

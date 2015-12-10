@@ -1,7 +1,7 @@
 /**
  * Created by donmclean on 12/5/15.
  */
-module.exports = function () {
+module.exports = () => {
     'use strict';
     const vars = {
     //***********************************************
@@ -18,7 +18,8 @@ module.exports = function () {
     //***********************************************
     //******************GULP*************************
     //***********************************************
-        jscs            : require('gulp-jscs')
+        jscs            : require('gulp-jscs'),
+        beep            : require('beepbeep')
     };
 
     return vars;

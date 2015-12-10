@@ -1,5 +1,6 @@
 {
   "esnext": true,
   "eqeqeq": true,
-  "unused": true
+  "unused": true,
+  "node": true
 }
