@@ -9,18 +9,21 @@ module.exports = () => {
     //***********************************************
         exec            : require('child_process').exec,
         fs              : require('fs-extra'),
+        _               : require('lodash'),
     //***********************************************
     //******************SERVER***********************
     //***********************************************
+        express         : require('express'),
         app             : require('express')(),
         EXPRESS_PORT    : 3000,
-        EXPRESS_ROOT    : __dirname + '/app/',
+        EXPRESS_ROOT    : process.cwd() + '/app',
     //***********************************************
     //******************GULP*************************
     //***********************************************
         jscs            : require('gulp-jscs'),
         beep            : require('beepbeep'),
-        wiredep         : require('wiredep').stream
+        map             : require('map-stream'),
+        async           : require('async')
     };
 
     return vars;

@@ -3,12 +3,13 @@
  */
 module.exports = (gulp, $, config) => {
     "use strict";
-    gulp.task('templates', () => {
-        $.util.log(config.templates.dest);
+    gulp.task('templates', (cb) => {
+        $.util.log("Template Destination: " + config.templates.dest);
        gulp.src(config.templates.src)
            .pipe($.jade())
            .pipe(gulp.dest(config.templates.dest))
+           .pipe($.livereload());
+            cb();
     });
-
 
 };

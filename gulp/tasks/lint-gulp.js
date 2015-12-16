@@ -4,17 +4,14 @@
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
 
-    gulp.task('lint-gulp', () => {
+    gulp.task('lint-gulp', (cb) => {
         gulp.src(config.gulpFiles)
             .pipe($.jscs())
             .pipe($.jscs.reporter())
             .pipe($.jscs.reporter('failImmediately'))
             .pipe($.jshint())
-            .pipe($.jshint.reporter('jshint-stylish'))
-            .pipe($.eslint())
-            .pipe($.eslint.format())
-            .pipe($.eslint.failOnError().on('error', funcs.errorHandler))
-            .pipe($.eslint.results(funcs.resultsHandler));
+            .pipe($.jshint.reporter(funcs.jshintErrorHandler));
+            cb();
     });
 
 };

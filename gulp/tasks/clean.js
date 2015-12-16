@@ -3,11 +3,12 @@
  */
 module.exports = (gulp, $, config) => {
     'use strict';
-    gulp.task('clean', () => {
+    gulp.task('clean', (cb) => {
         try {
             config.vars.fs.removeSync(config.dest);
         } catch (err) {
             console.log(err);
         }
+        cb();
     });
 };

@@ -50,5 +50,6 @@ crashlytics-build.properties
 #CUSTOM
 node_modules
 bower_components
+app
 .sass-cache
 npm-debug.log
