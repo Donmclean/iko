@@ -4,7 +4,7 @@
   "description": "Base for creating angular v1.* projects",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp build-prod"
   },
   "author": "Don Mclean",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.1.18",
     "beepbeep": "^1.2.0",
-    "browser-sync": "^2.10.0",
+    "browser-sync": "^2.10.1",
     "connect-livereload": "^0.5.4",
     "express": "^4.13.3",
     "fs-extra": "^0.26.2",
@@ -27,7 +27,11 @@
     "gulp-bump": "^1.0.0",
     "gulp-concat": "^2.6.0",
     "gulp-data": "^1.2.1",
+    "gulp-dest": "^0.2.3",
+    "gulp-filter": "^3.0.1",
+    "gulp-flatten": "^0.2.0",
     "gulp-if": "^2.0.0",
+    "gulp-image-resize": "^0.7.1",
     "gulp-imagemin": "^2.4.0",
     "gulp-inject": "^3.0.0",
     "gulp-jade": "^1.1.0",
@@ -41,8 +45,9 @@
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^6.0.1",
-    "gulp-rev-replace": "^0.4.2",
+    "gulp-rev-replace": "^0.4.3",
     "gulp-sass": "^2.1.0",
+    "gulp-scss-lint": "^0.3.8",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-task-listing": "^1.0.1",
     "gulp-uglify": "^1.5.1",
@@ -53,11 +58,13 @@
     "lodash": "^3.10.1",
     "map-stream": "0.0.6",
     "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.5",
     "underscore": "^1.8.3",
     "yargs": "^3.30.0"
   },
   "dependencies": {
     "angular": "^1.4.8",
+    "imagemin-pngquant": "^4.2.0",
     "jquery": "^2.1.4"
   }
 }

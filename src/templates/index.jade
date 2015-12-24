@@ -5,18 +5,22 @@ doctype html
 html(lang="en" ng-app="iko" ng-controller="MainController")
     head
         title(ng-bind="models.title")
-        link(href="../../assets/css/iko/styles.min.css" rel="stylesheet" type="text/css")
+        <!-- inject:css -->
+        <!-- endinject -->
 
     body
         h1(class="center-align-text" ng-bind="models.title")
+        p lol
         div(ng-controller="ErrorController")
             h1(ng-bind="models.test")
 
-        .main-nav
-            nav
-                ul
-                    li(ng-repeat="t in tabs")
-                        a(href="#" ng-bind="t")
+        .container
+            .main-nav
+                nav
+                    ul
+                        li(ng-repeat="t in tabs")
+                            a(ui-sref="{{t.href}}" ng-bind="t.name")
+        .content(ui-view)
 
-        script(type='text/javascript' src='../../assets/js/deps.min.js')
-        script(type='text/javascript' src='../../assets/js/iko/iko.min.js')
+        <!-- inject:js -->
+        <!-- endinject -->

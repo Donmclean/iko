@@ -9,6 +9,7 @@ module.exports = () => {
     //***********************************************
         exec            : require('child_process').exec,
         fs              : require('fs-extra'),
+        path            : require('path'),
         _               : require('lodash'),
     //***********************************************
     //******************SERVER***********************
@@ -23,7 +24,10 @@ module.exports = () => {
         jscs            : require('gulp-jscs'),
         beep            : require('beepbeep'),
         map             : require('map-stream'),
-        async           : require('async')
+        async           : require('async'),
+        pngquant        : require('imagemin-pngquant'),
+        runSequence     : require('run-sequence'),
+        browserSync     : require('browser-sync').create()
     };
 
     return vars;

@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/15/15.
  */
-angular.module('test')
-    .controller('MainController', ['$scope','$http', '$timeout','logService', ($scope,$http,$timeout,logService) => {
+angular.module('iko')
+    .controller('MainController', ['$scope','$http', '$timeout','$templateCache','logService', ($scope,$http,$timeout,$templateCache,logService) => {
         "use strict";
 
         $scope.models = {
@@ -11,15 +11,20 @@ angular.module('test')
         };
 
         $scope.tabs = [
-            "tab 1",
-            "tab 2",
-            "tab 3",
-            "tab 4",
-            "tab 5"
+            {
+                name: "HOME", href: "/"
+            },
+            {
+                name: "TAB 2", href: "t2"
+            },
+            {
+                name: "TAB 3", href: "t3"
+            }
         ];
 
-        let a = "lllll";
+        let a = "x";
 
+        console.log($templateCache.get('views/t2.html'));
         //var clock = $('.clock').FlipClock({
         //    // ... your options here
         //});

@@ -3,24 +3,20 @@
  */
 module.exports = (gulp, $, config) => {
     "use strict";
-    gulp.task('watch', function () {
+    gulp.task('watch', function (cb) {
+        funcs.isWatching = true;
         gulp.watch(config.jsSrcs.src, () => {
-            config.vars.async.series([
-                (done) => {
-                    setTimeout(() => {
-                        gulp.run('lint');
-                        done();
-                    }, 1000);
-                },
-                (done) => {
-                    setTimeout(() => {
-                        gulp.run('js-srcs');
-                        done();
-                    }, 1000);
-                }]);
+            config.vars.runSequence('clean-temp','sass','template-cache','js-deps','js-srcs','templates');
         });
-        gulp.watch(config.templates.src, ['templates']);
-        gulp.watch(config.sass.watch, ['sass']);
-        $.livereload.listen();
+
+        gulp.watch(config.templates.src, () => {
+            config.vars.runSequence('clean-temp','sass','template-cache','js-deps','js-srcs','templates');
+        });
+
+        gulp.watch(config.sass.watch, () => {
+            config.vars.runSequence('clean-temp','sass','template-cache','js-deps','js-srcs','templates');
+        });
+        //$.livereload.listen(); //Using Browser Sync instead
+        cb();
     });
 };

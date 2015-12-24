@@ -51,5 +51,6 @@ crashlytics-build.properties
 node_modules
 bower_components
 app
+temp/
 .sass-cache
 npm-debug.log

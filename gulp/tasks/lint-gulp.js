@@ -11,7 +11,7 @@ module.exports = (gulp, $, config, funcs) => {
             .pipe($.jscs.reporter('failImmediately'))
             .pipe($.jshint())
             .pipe($.jshint.reporter(funcs.jshintErrorHandler));
-            cb();
+        cb();
     });
 
 };
