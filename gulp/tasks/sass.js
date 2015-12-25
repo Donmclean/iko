@@ -6,6 +6,22 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('sass', (cb) => {
         setTimeout(() => {
             try {
+                if(funcs.isWatching) {
+                    var moduleFiles = config.vars.fs.readdirSync(config.sass.dest);
+
+                    moduleFiles = config.vars._.filter(moduleFiles, (file) => {
+                        return file.split('-')[0] === 'styles';
+                    });
+                    config.vars._.forEach(moduleFiles, (file) => {
+                        config.vars.fs.removeSync(config.sass.dest + '/' + file);
+                    });
+                }
+            }
+            catch (err) {
+                $.util.log(err);
+            }
+
+            try {
                 gulp.src(config.sass.src)
                     .pipe($.sourcemaps.init())
                     .pipe($.scssLint())

@@ -6,22 +6,23 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('js-srcs', (cb) => {
         setTimeout(() => {
             try {
-                var moduleFiles = config.vars.fs.readdirSync(config.jsSrcs.dest);
+                if(funcs.isWatching) {
+                    var moduleFiles = config.vars.fs.readdirSync(config.jsSrcs.dest);
 
-                moduleFiles = config.vars._.filter(moduleFiles, (file) => {
-                    return file.split('-')[0] === config.moduleName;
-                });
-
-                config.vars._.forEach(moduleFiles, (file) => {
-                    config.vars.fs.removeSync(config.jsSrcs.dest + '/' + file);
-                });
+                    moduleFiles = config.vars._.filter(moduleFiles, (file) => {
+                        return file.split('-')[0] === config.moduleName;
+                    });
+                    config.vars._.forEach(moduleFiles, (file) => {
+                        config.vars.fs.removeSync(config.jsSrcs.dest + '/' + file);
+                    });
+                }
             }
             catch (err) {
                 $.util.log(err);
             }
 
             try {
-                gulp.src(config.vars._.flattenDeep([config.jsSrcs.src,config.jsSrcs.templateCache]))
+                gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
                     .pipe($.sourcemaps.init())
                     .pipe($.ngAnnotate())
                     .pipe($.babel({presets: ['es2015']}))
@@ -40,6 +41,6 @@ module.exports = (gulp, $, config, funcs) => {
             catch (err) {
                 $.util.log(err);
             }
-        }, 1000);
+        }, 100);
     });
 };

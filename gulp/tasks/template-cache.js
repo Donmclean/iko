@@ -17,6 +17,6 @@ module.exports = (gulp, $, config, funcs) => {
             catch (err) {
                 $.util.log(err);
             }
-        },1000);
+        },100);
     });
 };

@@ -11,6 +11,6 @@ module.exports = (gulp, $, config) => {
                 $.util.log(err);
             }
             cb();
-        },1000);
+        },100);
     });
 };
