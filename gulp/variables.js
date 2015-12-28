@@ -23,6 +23,7 @@ module.exports = () => {
     //***********************************************
         jscs            : require('gulp-jscs'),
         beep            : require('beepbeep'),
+        args            : require('yargs').argv,
         map             : require('map-stream'),
         async           : require('async'),
         pngquant        : require('imagemin-pngquant'),

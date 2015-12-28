@@ -6,11 +6,12 @@ module.exports = () => {
 
     const config = {
         moduleName          :       'iko',
-        basePath            :       process.cwd()+'/',
+        basePath            :       process.cwd(),
         tempPath            :       process.cwd()+'/temp',
         dest                :       process.cwd()+'/app',
         vars                :       require(process.cwd()+'/gulp/variables')(),
         mainFileName        :       'index.html',
+        packageFile         :       process.cwd()+'/package.json',
         gulpFile            :       process.cwd()+'/gulpfile.js',
         gulpFiles           : [     process.cwd()+'/gulpfile.js', process.cwd()+'/gulp/**/*.js'],
 
