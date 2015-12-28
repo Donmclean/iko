@@ -1,7 +1,7 @@
 {
   "name": "iko",
   "version": "1.0.0",
-  "description": "Base for creating angular v1.* projects",
+  "description": "Gulp 3.9.x Build System for Angular JS 1.4.x projects",
   "main": "gulpfile.js",
   "scripts": {
     "start": "gulp build-prod"
@@ -10,7 +10,6 @@
   "license": "MIT",
   "devDependencies": {
     "angular-ui-router": "^0.2.15",
-    "async-series": "0.0.1",
     "babel-cli": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.1.18",
@@ -53,6 +52,7 @@
     "gulp-uglify": "^1.5.1",
     "gulp-useref": "^3.0.3",
     "gulp-util": "^3.0.7",
+    "imagemin-pngquant": "^4.2.0",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.1.0",
     "lodash": "^3.10.1",
@@ -64,7 +64,6 @@
   },
   "dependencies": {
     "angular": "^1.4.8",
-    "imagemin-pngquant": "^4.2.0",
     "jquery": "^2.1.4"
   }
 }
