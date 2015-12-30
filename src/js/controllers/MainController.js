@@ -22,20 +22,24 @@ angular.module('iko')
             }
         ];
 
-        let a = "x";
+        let a = "z";
 
-        console.log($templateCache.get('views/t2.html'));
+        $scope.sayHello = () => {
+            return 'HELLO WORLD!';
+        };
+
+        //console.log($templateCache.get('views/t2.html'));
         //var clock = $('.clock').FlipClock({
         //    // ... your options here
         //});
 
         //var $ = "test";
 
-        _.each($scope.models, function(m){
-            console.log(m);
-        });
+        //_.each($scope.models, function(m){
+        //    console.log(m);
+        //});
 
-        logService.greets(a);
+        //logService.greets(a);
 
         $.ajax("").success(function(){
             console.log("success!!!!!!!!!!!!!!");

@@ -3,6 +3,7 @@
  */
 module.exports = () => {
     "use strict";
+    const vars = require(process.cwd()+'/gulp/variables')();
 
     const config = {
         moduleName          :       'iko',
@@ -27,7 +28,7 @@ module.exports = () => {
         },
 
         jsSrcs              : {
-            src             : [     process.cwd()+'/src/js/**/*.js'],
+            src             : [     process.cwd()+'/src/js/**/*.module.js', process.cwd()+'/src/js/**/*.js'],
             dest            :       process.cwd()+'/app/assets/js',
             templateCache   :       process.cwd()+'/temp/templates.js'
         },
@@ -72,6 +73,82 @@ module.exports = () => {
             fonts           : {
                 src         : [     process.cwd()+'/src/media/fonts/*'],
                 dest        :       process.cwd()+'/app/assets/media/fonts'
+            }
+        },
+
+
+        tests               : {
+            all             :       process.cwd()+'/tests/**/*.js',
+            unit            :       process.cwd()+'/tests/unit/**/*.js',
+            integration     :       process.cwd()+'/tests/integration/**/*.js',
+            ngMocks         :       process.cwd()+'/node_modules/angular-mocks/angular-mocks.js',
+            karmaConfigFile :       process.cwd()+'/karma.conf.js',
+            karmaConfig     : {
+
+                // base path that will be used to resolve all patterns (eg. files, exclude)
+                basePath: '',
+
+                // frameworks to use
+                // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+                frameworks: ['jasmine'],
+
+                // list of files to exclude
+                exclude: [
+                ],
+
+
+                // preprocess matching files before serving them to the browser
+                // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+                preprocessors : {
+                    '/tests/**/!(*.spec)+(.js)': ['coverage']
+                },
+
+
+                // test results reporter to use
+                // possible values: 'dots', 'progress'
+                // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+                reporters: ['progress', 'coverage'],
+
+
+                //plugins : [
+                //  //require('karma-webpack'),
+                //  'karma-jasmine',
+                //  'karma-chrome-launcher',
+                //  'karma-safari-launcher',
+                //  'karma-firefox-launcher'
+                //],
+
+
+                // enable / disable colors in the output (reporters and logs)
+                colors: true,
+
+                // enable / disable watching file and executing tests whenever any file changes
+                autoWatch: true,
+
+
+                // start these browsers
+                // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+                //browsers: ['Chrome', 'Firefox', 'Safari', 'PhantomJS'],
+                browsers: ['PhantomJS'],
+
+
+                // Continuous Integration mode
+                // if true, Karma captures browsers, runs the tests and exits
+                singleRun: false,
+
+                // Concurrency level
+                // how many browser should be started simultaneous
+                concurrency: Infinity,
+
+                browserNoActivityTimeout: 1000,
+
+                coverage : {
+                    dir : process.cwd()+'/report/coverage',
+                    reporters: [
+                        {type: 'html', subdir: 'report-html'},
+                        {type: 'text-summary'}
+                    ]
+                }
             }
         }
     };
