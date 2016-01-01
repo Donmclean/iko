@@ -104,7 +104,8 @@ module.exports = () => {
                 // preprocess matching files before serving them to the browser
                 // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
                 preprocessors : {
-                    '/tests/**/!(*.spec)+(.js)': ['coverage']
+                    'src/**/*.js': ['babel','coverage'],
+                    'tests/**/*.js': ['babel','coverage']
                 },
 
 
@@ -113,13 +114,21 @@ module.exports = () => {
                 // available reporters: https://npmjs.org/browse/keyword/karma-reporter
                 reporters: ['progress', 'coverage'],
 
+                babelPreprocessor: {
+                    options: {
+                        presets: ['es2015'],
+                        sourceMap: 'inline'
+                    }
+                },
+
 
                 //plugins : [
                 //  //require('karma-webpack'),
                 //  'karma-jasmine',
-                //  'karma-chrome-launcher',
-                //  'karma-safari-launcher',
-                //  'karma-firefox-launcher'
+                //    'karma-coverage'
+                //  //'karma-chrome-launcher',
+                //  //'karma-safari-launcher',
+                //  //'karma-firefox-launcher'
                 //],
 
 
@@ -146,10 +155,11 @@ module.exports = () => {
 
                 browserNoActivityTimeout: 1000,
 
-                coverage : {
-                    dir : process.cwd()+'/report/coverage',
+                coverageReporter : {
+                    dir : process.cwd()+'/coverage',
                     reporters: [
                         {type: 'html', subdir: 'report-html'},
+                        {type: 'lcov', subdir: 'report-lcov'},
                         {type: 'text-summary'}
                     ]
                 }

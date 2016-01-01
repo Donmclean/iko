@@ -36,14 +36,14 @@ module.exports = (gulp, $, config) => {
             var Server = require('karma').Server,
                 excludes = config.tests.karmaConfig.exclude;
 
-            if(isUnitTest) {excludes.push(config.tests.unit);}
-            if(isIntegrationTest) {excludes.push(config.tests.integration);}
+            //if(isUnitTest) {excludes.push(config.tests.unit);}
+            //if(isIntegrationTest) {excludes.push(config.tests.integration);}
 
             var server = new Server(config.vars._.assign(
                 {configFile: config.tests.karmaConfigFile},
-                {singleRun: singleRun},
-                {autoWatch: autoWatch}
-                //{exclude: excludes}
+                {singleRun: !!singleRun},
+                {autoWatch: !!autoWatch},
+                {exclude: excludes}
             ), results => {
 
                 $.util.log("Karma Tests Completed:", results);

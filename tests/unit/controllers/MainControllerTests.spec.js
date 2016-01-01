@@ -7,28 +7,27 @@ describe('Controller', function() {
 
     var $controller;
 
-    beforeEach(inject(function(_$controller_){
+    beforeEach(inject((_$controller_) => {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
     }));
 
-    describe('$scope.models.title', function() {
-        it('name of module', function() {
+    describe('$scope.models.title', () => {
+        it('name of module', () => {
             var $scope = {};
             $controller('MainController', { $scope: $scope });
-            console.log($scope.models.title);
             expect($scope.models.title).toEqual('IKO');
         });
     });
-    describe('$scope.tabs', function() {
-        it('tabs length', function() {
+    describe('$scope.tabs', () => {
+        it('tabs length', () => {
             var $scope = {};
             $controller('MainController', { $scope: $scope });
             expect($scope.tabs.length).toEqual(3);
         });
     });
-    describe('$scope.sayHello', function() {
-        it('should return HELLO WORLD!', function() {
+    describe('$scope.sayHello', () => {
+        it('should return HELLO WORLD!', () => {
             var $scope = {};
             $controller('MainController', { $scope: $scope });
             expect($scope.sayHello()).toBe('HELLO WORLD!');

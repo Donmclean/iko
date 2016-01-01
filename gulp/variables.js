@@ -25,6 +25,7 @@ module.exports = () => {
         beep            : require('beepbeep'),
         args            : require('yargs').argv,
         map             : require('map-stream'),
+        babel           : require("babel-core"),
         async           : require('async'),
         pngquant        : require('imagemin-pngquant'),
         runSequence     : require('run-sequence'),
