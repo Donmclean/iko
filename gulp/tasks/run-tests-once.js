@@ -7,8 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
 
         setTimeout(() => {
             try {
-                funcs.startTests(true, false, true, false,cb);
-
+                funcs.startTests(true, false, true, false, cb);
             }
             catch (err) {
                 $.util.log(err);

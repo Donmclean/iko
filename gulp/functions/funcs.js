@@ -39,8 +39,6 @@ module.exports = (gulp, $, config) => {
             if(isUnitTest) {excludes.push(config.tests.unit);}
             if(isIntegrationTest) {excludes.push(config.tests.integration);}
 
-            $.util.log(singleRun, autoWatch, isUnitTest, isIntegrationTest);
-
             var server = new Server(config.vars._.assign(
                 {configFile: config.tests.karmaConfigFile},
                 {singleRun: singleRun},

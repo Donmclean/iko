@@ -14,7 +14,7 @@ module.exports = function(config) {
         ])
       },{logLevel: config.LOG_INFO},{
           // web server port
-            port: gulpConfig.vars.EXPRESS_PORT
+          //  port: gulpConfig.vars.EXPRESS_PORT
       }));
 
   //});

@@ -34,6 +34,7 @@
     "gulp-image-resize": "^0.7.1",
     "gulp-imagemin": "^2.4.0",
     "gulp-inject": "^3.0.0",
+    "gulp-inject-string": "^1.1.0",
     "gulp-jade": "^1.1.0",
     "gulp-jasmine": "^2.2.1",
     "gulp-jscs": "^3.0.2",

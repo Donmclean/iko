@@ -27,6 +27,8 @@ module.exports = (gulp, $, config, funcs) => {
                     .pipe($.scssLint())
                     .pipe($.scssLint.failReporter('E'))
                     .pipe($.sass().on('error', funcs.sassErrorHandler))
+                    .pipe($.addSrc(config.css.src))
+                    .pipe($.concat('styles.css'))
                     .pipe($.autoprefixer())
                     .pipe($.sourcemaps.write())
                     .pipe($.rev())

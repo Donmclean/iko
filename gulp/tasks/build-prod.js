@@ -5,7 +5,7 @@ module.exports = (gulp, $, config, funcs) => {
     "use strict";
     gulp.task('build-prod',(cb) => {
         funcs.isProd = true;
-        config.vars.runSequence('lint-gulp','lint','clean','clean-temp','sass','template-cache','js-deps','js-srcs','templates','media',cb);
+        config.vars.runSequence('lint-gulp','lint','clean','clean-temp','sass','template-cache','js-deps','js-srcs','run-tests-once','templates','media',cb);
     });
 };
 

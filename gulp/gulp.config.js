@@ -23,7 +23,7 @@ module.exports = () => {
                                     process.cwd()+'/node_modules/angular/angular.js',
                                     process.cwd()+'/node_modules/angular-ui-router/release/angular-ui-router.js',
                                     process.cwd()+'/node_modules/lodash/index.js'],
-            webSrcs         :       '',
+            webSrcs         : [     '' ], //TODO: FIND IMPLEMENTATION
             dest            :       process.cwd()+'/app/assets/js'
         },
 
@@ -38,6 +38,10 @@ module.exports = () => {
             watch           : [     process.cwd()+'/src/sass/**/*.scss'],
             src             : [     process.cwd()+'/src/sass/styles.scss'],
             dest            :       process.cwd()+'/app/assets/css'
+        },
+
+        css                : {
+            src             : [     process.cwd()+'/src/css/**/*.css']
         },
 
         templates           : {
