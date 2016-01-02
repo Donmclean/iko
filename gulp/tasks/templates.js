@@ -97,7 +97,8 @@ module.exports = (gulp, $, config, funcs) => {
                                         })), {
                                             read: false,
                                             ignorePath: config.tempPath.split(process.cwd())[1],
-                                            addPrefix: config.jsSrcs.dest.split(config.dest + '/')[1]
+                                            addPrefix: config.jsSrcs.dest.split(config.dest + '/')[1],
+                                            removeTags: true
                                         }))
 
                                         .pipe($.inject(gulp.src(config.vars._.map(cssModuleFiles, (file) => {
@@ -105,7 +106,8 @@ module.exports = (gulp, $, config, funcs) => {
                                         })), {
                                             read: false,
                                             ignorePath: config.tempPath.split(process.cwd())[1],
-                                            addPrefix: config.sass.dest.split(config.dest + '/')[1]
+                                            addPrefix: config.sass.dest.split(config.dest + '/')[1],
+                                            removeTags: true
                                         }))
 
                                         .pipe($.injectString.before('</body>',funcs.webSrcInjector()))

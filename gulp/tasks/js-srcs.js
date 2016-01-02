@@ -22,21 +22,36 @@ module.exports = (gulp, $, config, funcs) => {
             }
 
             try {
-                gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
-                    .pipe($.sourcemaps.init())
-                    .pipe($.ngAnnotate())
-                    .pipe($.babel({presets: ['es2015']}))
-                    .pipe($.concat(config.moduleName + '.js'))
-                    .pipe($.rev())
-                    .pipe(gulp.dest(config.tempPath))
-                    .pipe(gulp.dest(config.jsSrcs.dest))
-                    .pipe($.rename({suffix: '.min'}))
-                    .pipe($.uglify())
-                    .pipe($.sourcemaps.write())
-                    .pipe(gulp.dest(config.tempPath))
-                    .pipe(gulp.dest(config.jsSrcs.dest))
-                    .pipe($.livereload());
-                cb();
+                if(!funcs.isProd) {
+                    gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
+                        .pipe($.sourcemaps.init())
+                        .pipe($.ngAnnotate())
+                        .pipe($.babel({presets: ['es2015']}))
+                        .pipe($.concat(config.moduleName + '.js'))
+                        .pipe($.rev())
+                        .pipe(gulp.dest(config.tempPath))
+                        .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.rename({suffix: '.min'}))
+                        .pipe($.uglify())
+                        .pipe($.sourcemaps.write())
+                        .pipe(gulp.dest(config.tempPath))
+                        .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.livereload());
+                    cb();
+                } else {
+                    gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
+                        .pipe($.ngAnnotate())
+                        .pipe($.babel({presets: ['es2015']}))
+                        .pipe($.concat(config.moduleName + '.js'))
+                        .pipe($.rev())
+                        .pipe(gulp.dest(config.tempPath))
+                        .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.rename({suffix: '.min'}))
+                        .pipe($.uglify())
+                        .pipe(gulp.dest(config.tempPath))
+                        .pipe(gulp.dest(config.jsSrcs.dest));
+                    cb();
+                }
             }
             catch (err) {
                 $.util.log(err);
