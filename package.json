@@ -1,6 +1,6 @@
 {
   "name": "iko",
-  "version": "1.0.1-1",
+  "version": "1.0.1",
   "description": "Gulp 3.9.x Build System for Angular JS 1.4.x projects",
   "main": "gulpfile.js",
   "scripts": {
