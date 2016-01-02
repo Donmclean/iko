@@ -20,13 +20,6 @@ module.exports = (gulp, $, config, funcs) => {
                             return file.split('.')[1] === 'min';
                         });
 
-                        $.util.log("----------------------");
-                        $.util.log(jsFiles);
-                        $.util.log("----------------------");
-                        $.util.log("----------------------");
-                        $.util.log(cssFiles);
-                        $.util.log("----------------------");
-
                         gulp.src(config.templates.src)
                             .pipe($.jade())
                             .pipe(gulp.dest(config.templates.dest))
@@ -93,20 +86,12 @@ module.exports = (gulp, $, config, funcs) => {
                                         });
                                     }
 
-                                    $.util.log("----------------------");
-                                    $.util.log(jsModuleFiles);
-                                    $.util.log("----------------------");
-                                    $.util.log("----------------------");
-                                    $.util.log(cssModuleFiles);
-                                    $.util.log("----------------------");
-
                                     gulp.src(config.templates.src)
                                         .pipe($.jade())
                                         .pipe(gulp.dest(config.templates.dest))
                                         .pipe(cssFilter)
                                         .pipe($.addSrc(config.templates.main))
                                         .pipe($.jade())
-
                                         .pipe($.inject(gulp.src(config.vars._.map(jsModuleFiles, (file) => {
                                             return config.tempPath + '/' + file;
                                         })), {
@@ -122,6 +107,8 @@ module.exports = (gulp, $, config, funcs) => {
                                             ignorePath: config.tempPath.split(process.cwd())[1],
                                             addPrefix: config.sass.dest.split(config.dest + '/')[1]
                                         }))
+
+                                        .pipe($.injectString.before('</body>',funcs.webSrcInjector()))
 
                                         .pipe(gulp.dest(config.tempPath))
                                         .pipe(gulp.dest(config.templates.dest))

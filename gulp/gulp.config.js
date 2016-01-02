@@ -23,7 +23,7 @@ module.exports = () => {
                                     process.cwd()+'/node_modules/angular/angular.js',
                                     process.cwd()+'/node_modules/angular-ui-router/release/angular-ui-router.js',
                                     process.cwd()+'/node_modules/lodash/index.js'],
-            webSrcs         : [     '' ], //TODO: FIND IMPLEMENTATION
+            webSrcs         : [     'https://code.responsivevoice.org/responsivevoice.js'],
             dest            :       process.cwd()+'/app/assets/js'
         },
 
@@ -156,7 +156,7 @@ module.exports = () => {
                 browserNoActivityTimeout: 1000,
 
                 coverageReporter : {
-                    dir : process.cwd()+'/coverage',
+                    dir : process.cwd()+'/test-coverage',
                     reporters: [
                         {type: 'html', subdir: 'report-html'},
                         {type: 'lcov', subdir: 'report-lcov'},

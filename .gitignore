@@ -52,6 +52,6 @@ node_modules
 bower_components
 app
 temp
-coverage
+test-coverage
 .sass-cache
 npm-debug.log

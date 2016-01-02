@@ -8,6 +8,8 @@ module.exports = (gulp, $, config) => {
             $.util.log("test funcccs");
         },
         isProd: false,
+        isUnitTest: false,
+        isIntegrationTest: false,
         isWatching: false,
 
         jshintErrorHandler: (err) => {
@@ -36,8 +38,9 @@ module.exports = (gulp, $, config) => {
             var Server = require('karma').Server,
                 excludes = config.tests.karmaConfig.exclude;
 
-            //if(isUnitTest) {excludes.push(config.tests.unit);}
-            //if(isIntegrationTest) {excludes.push(config.tests.integration);}
+            if(isUnitTest) {excludes.push(config.tests.integration);}
+            else if(isIntegrationTest) {excludes.push(config.tests.unit);}
+            else {excludes = config.tests.karmaConfig.exclude;}
 
             var server = new Server(config.vars._.assign(
                 {configFile: config.tests.karmaConfigFile},
@@ -58,6 +61,13 @@ module.exports = (gulp, $, config) => {
 
             server.start();
             cb();
+        },
+
+        webSrcInjector: () => {
+                var tags = config.vars._.map(config.jsDeps.webSrcs, (link) => {
+                        return `<script src="${link}" type="text/javascript"></script>`;
+                    });
+                return tags.join('');
         }
     };
 
