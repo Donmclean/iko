@@ -22,6 +22,19 @@ module.exports = (gulp, $, config) => {
             });
             $.util.log($.util.colors.red("................. : ..................."));
             config.vars.exec(process.exit(1));
+
+        },
+
+        jshintErrorHandlerNoExit: (err) => {
+            $.util.log($.util.colors.red("................. : ..................."));
+            config.vars._.forEach(err, (err) => {
+                $.util.log($.util.colors.cyan(`Error:`) + $.util.colors.red(` ${err.file}`) +
+                    $.util.colors.cyan(` - on - `) + $.util.colors.yellow(`line:`)+ $.util.colors.red(` ${err.error.line}`)+
+                    $.util.colors.yellow(` col: `) + $.util.colors.red(`${err.error.character}`) +
+                    $.util.colors.cyan(` Reason:`) + $.util.colors.red(` ${err.error.reason}`)+ $.util.colors.cyan(` ---> `)+ $.util.colors.yellow(`${err.error.evidence}`));
+            });
+            $.util.log($.util.colors.red("................. : ..................."));
+            $.util.beep();
         },
 
         sassErrorHandler: (err) => {
@@ -35,8 +48,16 @@ module.exports = (gulp, $, config) => {
         },
 
         startTests: (singleRun, autoWatch, isUnitTest, isIntegrationTest, cb) => {
-            var Server = require('karma').Server,
+            var timeoutLength,
+                called = false,
+                Server = require('karma').Server,
                 excludes = config.tests.karmaConfig.exclude;
+
+            if(singleRun){
+                timeoutLength = 0;
+            } else {
+                timeoutLength = 1000;
+            }
 
             if(isUnitTest) {excludes.push(config.tests.integration);}
             else if(isIntegrationTest) {excludes.push(config.tests.unit);}
@@ -48,19 +69,43 @@ module.exports = (gulp, $, config) => {
                 {autoWatch: !!autoWatch},
                 {exclude: excludes}
             ), results => {
+                setTimeout(()=> {
+                    if(!called) {
+                        called = true;
 
-                $.util.log("Karma Tests Completed:", results);
-                if(results === 1) {
-                    config.vars.exec(process.exit(1));
-                }
+                        if(results === 0) {
+                            $.util.log($.util.colors.blue("Karma Tests Completed Successfully"));
+                            if(autoWatch) {config.vars.exec(process.exit(results)); }
+                            cb();
+
+                        } else {
+                            $.util.log($.util.colors.red("Karma Tests Failed"));
+                            if(singleRun){
+                                $.util.log($.util.colors.yellow("Rolling Back......"));
+                                try {
+                                    config.vars.runSequence('clean-temp','clean');
+                                } catch (err) {
+                                    $.util.log($.util.colors.red(err));
+                                    config.vars.exec(process.exit(results));
+                                }
+                            } else {
+                                //config.vars.exec(process.exit(results));
+                                //process.exit(results);
+                                cb();
+                            }
+                        }
+                    }
+                },timeoutLength);
             });
 
             server.on('browser_error', function (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
             });
 
             server.start();
-            cb();
+            if(!singleRun){
+                cb();
+            }
         },
 
         webSrcInjector: () => {

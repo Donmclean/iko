@@ -10,8 +10,9 @@ module.exports = (gulp, $, config, funcs) => {
                 funcs.startTests(false, true, true, false, cb);
             }
             catch (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
                 config.vars.exec(process.exit(1));
+                cb();
             }
         }, 100);
     });

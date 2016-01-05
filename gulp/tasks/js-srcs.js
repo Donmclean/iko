@@ -18,7 +18,7 @@ module.exports = (gulp, $, config, funcs) => {
                 }
             }
             catch (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
             }
 
             try {
@@ -32,12 +32,12 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.rev())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.size({showFiles:true}))
                         .pipe($.rename({suffix: '.min'}))
                         .pipe($.uglify())
                         .pipe($.sourcemaps.write())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
-                        .pipe($.filesize())
                         .pipe($.livereload());
                     cb();
                 } else {
@@ -53,12 +53,12 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.uglify())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
-                        .pipe($.filesize());
+                        .pipe($.size({showFiles:true}));
                     cb();
                 }
             }
             catch (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
             }
         }, 100);
     });

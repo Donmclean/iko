@@ -9,16 +9,17 @@ module.exports = (gulp, $, config) => {
                 gulp.src(config.jsDeps.src)
                     .pipe($.plumber())
                     .pipe($.concat(config.jsDeps.mainFileName))
+                    .pipe($.size({showFiles:true}))
                     .pipe($.rename({suffix: '.min'}))
                     .pipe($.uglify())
                     .pipe($.rev())
                     .pipe(gulp.dest(config.tempPath))
                     .pipe(gulp.dest(config.jsDeps.dest))
-                    .pipe($.filesize());
+                    .pipe($.size({showFiles:true}));
                 cb();
             }
             catch (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
             }
         }, 1000);
     });

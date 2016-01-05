@@ -8,7 +8,7 @@ module.exports = (gulp, $, config) => {
             try {
                 config.vars.fs.removeSync(config.tempPath);
             } catch (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
             }
             cb();
         },100);

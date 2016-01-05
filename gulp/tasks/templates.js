@@ -123,7 +123,7 @@ module.exports = (gulp, $, config, funcs) => {
                     }
                 }
                 catch (err) {
-                    $.util.log(err);
+                    $.util.log($.util.colors.red(err));
                 }
             }, 1000);
         });

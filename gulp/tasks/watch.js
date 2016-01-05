@@ -6,7 +6,7 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('watch', function (cb) {
         funcs.isWatching = true;
         gulp.watch(config.jsSrcs.src, () => {
-            config.vars.runSequence('clean-temp','js-srcs','templates');
+            config.vars.runSequence('clean-temp','lint','js-srcs','templates');
         });
 
         gulp.watch(config.templates.src, () => {

@@ -16,7 +16,7 @@ module.exports = (gulp, $, config, funcs) => {
                 cb();
             }
             catch (err) {
-                $.util.log(err);
+                $.util.log($.util.colors.red(err));
             }
         },100);
     });
