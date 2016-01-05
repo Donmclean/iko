@@ -7,6 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
         setTimeout(() => {
             try {
                 gulp.src(config.views.src)
+                    .pipe($.plumber())
                     .pipe($.jade())
                     .pipe($.angularTemplatecache('templates.js',{module: config.moduleName, standAlone: false, root: config.views.dir}))
                     .pipe(gulp.dest(config.views.dest))

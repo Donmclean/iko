@@ -16,6 +16,7 @@ module.exports = (gulp, $, config, funcs) => {
                 return null;
             } else {
                 gulp.src(config.packageFile)
+                    .pipe($.plumber())
                     .pipe($.bump({version: config.vars.args.v}))
                     .pipe(gulp.dest(config.basePath));
             }
@@ -26,6 +27,7 @@ module.exports = (gulp, $, config, funcs) => {
             if(config.vars._.includes(options.type, str)) {
                 $.util.log(str);
                 gulp.src(config.packageFile)
+                    .pipe($.plumber())
                     .pipe($.bump({type: str}))
                     .pipe(gulp.dest(config.basePath));
             } else {

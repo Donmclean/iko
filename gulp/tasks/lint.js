@@ -6,6 +6,7 @@ module.exports = (gulp, $, config, funcs) => {
 
     gulp.task('lint', (cb) => {
         gulp.src(config.jsSrcs.src)
+            .pipe($.plumber())
             .pipe($.jscs())
             .pipe($.jscs.reporter())
             .pipe($.jscs.reporter('failImmediately'))

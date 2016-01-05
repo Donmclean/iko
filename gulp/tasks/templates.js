@@ -21,6 +21,7 @@ module.exports = (gulp, $, config, funcs) => {
                         });
 
                         gulp.src(config.templates.src)
+                            .pipe($.plumber())
                             .pipe($.jade())
                             .pipe(gulp.dest(config.templates.dest))
                             .pipe(filter)
@@ -87,6 +88,7 @@ module.exports = (gulp, $, config, funcs) => {
                                     }
 
                                     gulp.src(config.templates.src)
+                                        .pipe($.plumber())
                                         .pipe($.jade())
                                         .pipe(gulp.dest(config.templates.dest))
                                         .pipe(cssFilter)

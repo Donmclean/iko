@@ -5,6 +5,7 @@ module.exports = (gulp, $, config, funcs) => {
     "use strict";
     gulp.task('audio', (cb) => {
         gulp.src(config.media.audio.src)
+            .pipe($.plumber())
             .pipe(gulp.dest(config.media.audio.dest));
         cb();
     });

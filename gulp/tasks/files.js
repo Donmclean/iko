@@ -5,6 +5,7 @@ module.exports = (gulp, $, config, funcs) => {
     "use strict";
     gulp.task('files', (cb) => {
         gulp.src(config.media.files.src)
+            .pipe($.plumber())
             .pipe(gulp.dest(config.media.files.dest));
         cb();
     });

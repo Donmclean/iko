@@ -29,6 +29,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-data": "^1.2.1",
     "gulp-dest": "^0.2.3",
+    "gulp-filesize": "0.0.6",
     "gulp-filter": "^3.0.1",
     "gulp-flatten": "^0.2.0",
     "gulp-if": "^2.0.0",

@@ -23,6 +23,7 @@ module.exports = (gulp, $, config, funcs) => {
 
             try {
                 gulp.src(config.sass.src)
+                    .pipe($.plumber())
                     .pipe($.sourcemaps.init())
                     .pipe($.scssLint())
                     .pipe($.scssLint.failReporter('E'))
@@ -39,6 +40,7 @@ module.exports = (gulp, $, config, funcs) => {
                     .pipe($.sourcemaps.write())
                     .pipe(gulp.dest(config.tempPath))
                     .pipe(gulp.dest(config.sass.dest))
+                    .pipe($.filesize())
                     .pipe($.livereload());
                 cb();
             }

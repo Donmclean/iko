@@ -24,6 +24,7 @@ module.exports = (gulp, $, config, funcs) => {
             try {
                 if(!funcs.isProd) {
                     gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
+                        .pipe($.plumber())
                         .pipe($.sourcemaps.init())
                         .pipe($.ngAnnotate())
                         .pipe($.babel({presets: ['es2015']}))
@@ -36,10 +37,12 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.sourcemaps.write())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.filesize())
                         .pipe($.livereload());
                     cb();
                 } else {
                     gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
+                        .pipe($.plumber())
                         .pipe($.ngAnnotate())
                         .pipe($.babel({presets: ['es2015']}))
                         .pipe($.concat(config.moduleName + '.js'))
@@ -49,7 +52,8 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.rename({suffix: '.min'}))
                         .pipe($.uglify())
                         .pipe(gulp.dest(config.tempPath))
-                        .pipe(gulp.dest(config.jsSrcs.dest));
+                        .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.filesize());
                     cb();
                 }
             }
