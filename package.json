@@ -75,7 +75,7 @@
     "karma-safari-launcher": "^0.1.1",
     "karma-sinon": "^1.0.4",
     "karma-webpack": "^1.7.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "map-stream": "0.0.6",
     "mocha": "^2.3.4",
     "mocha-clean": "^1.0.0",

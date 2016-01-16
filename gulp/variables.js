@@ -18,7 +18,7 @@ module.exports = () => {
     //***********************************************
     vars.express        = require('express');
     vars.app            = require('express')();
-    vars.EXPRESS_PORT   = 8000;
+    vars.EXPRESS_PORT   = 3000;
     vars.EXPRESS_ROOT   = process.cwd() + '/app';
     //***********************************************
     //******************GULP*************************
