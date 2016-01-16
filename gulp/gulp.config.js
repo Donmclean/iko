@@ -5,167 +5,164 @@ module.exports = () => {
     "use strict";
     const vars = require(process.cwd()+'/gulp/variables')();
 
-    const config = {
-        moduleName          :       'iko',
-        basePath            :       process.cwd(),
-        tempPath            :       process.cwd()+'/temp',
-        dest                :       process.cwd()+'/app',
-        vars                :       require(process.cwd()+'/gulp/variables')(),
-        mainFileName        :       'index.html',
-        packageFile         :       process.cwd()+'/package.json',
-        gulpFile            :       process.cwd()+'/gulpfile.js',
-        gulpFiles           : [     process.cwd()+'/gulpfile.js', process.cwd()+'/gulp/**/*.js'],
+    const config = {};
+
+    config.moduleName       = 'iko';
+    config.mainFileName     = 'index.html';
+    config.basePath         = process.cwd();
+    config.tempPath         = config.basePath+'/temp';
+    config.dest             = config.basePath+'/app';
+    config.vars             = require(config.basePath+'/gulp/variables')();
+    config.packageFile      = config.basePath+'/package.json';
+    config.gulpFile         = config.basePath+'/gulpfile.js';
+    config.gulpFiles        = [     config.basePath+'/gulpfile.js', config.basePath+'/gulp/**/*.js'];
+
+    config.jsDeps           = {
+                                    mainFileName    :       'deps.js',
+                                    src             : [     config.basePath+'/node_modules/jquery/dist/jquery.js',
+                                                            config.basePath+'/node_modules/angular/angular.js',
+                                                            config.basePath+'/node_modules/angular-ui-router/release/angular-ui-router.js',
+                                                            config.basePath+'/node_modules/lodash/index.js'],
+                                    webSrcs         : [     'https://code.responsivevoice.org/responsivevoice.js'],
+                                    dest            :       config.basePath+'/app/assets/js'
+                                };
+
+    config.jsSrcs           = {
+                                    src             : [     config.basePath+'/src/js/**/*.module.js', config.basePath+'/src/js/**/*.js'],
+                                    dest            :       config.basePath+'/app/assets/js',
+                                    templateCache   :       config.basePath+'/temp/templates.js'
+                                };
+
+    config.sass             = {
+                                    mainFileName    :       'styles.css',
+                                    watch           : [     config.basePath+'/src/sass/**/*.scss'],
+                                    src             : [     config.basePath+'/src/sass/styles.scss'],
+                                    dest            :       config.basePath+'/app/assets/css'
+                                };
+    config.css              = {
+                                    src             : [     config.basePath+'/src/css/**/*.css']
+                                };
+
+    config.templates        = {
+                                    main            :       config.basePath+'/src/templates/index.jade',
+                                    src             : [     config.basePath+'/src/templates/**/*.jade'],
+                                    dest            :       config.basePath+'/app'
+                                };
+
+    config.views        = {
+                                dir             :       'views/',
+                                main            :       config.basePath+'/src/templates/views/**/*.jade',
+                                src             : [     config.basePath+'/src/templates/views/**/*.jade'],
+                                dest            :       config.basePath+'/app/assets/js'
+                            };
+
+    config.media        = {
+                                images          : {
+                                    src         : [     config.basePath+'/src/media/images/*'],
+                                    dest        :       config.basePath+'/app/assets/media/images'
+                                },
+                                videos          : {
+                                    src         : [     config.basePath+'/src/media/videos/*'],
+                                    dest        :       config.basePath+'/app/assets/media/videos'
+                                },
+                                audio           : {
+                                    src         : [     config.basePath+'/src/media/audio/*'],
+                                    dest        :       config.basePath+'/app/assets/media/audio'
+                                },
+                                files           : {
+                                    src         : [     config.basePath+'/src/media/files/*'],
+                                    dest        :       config.basePath+'/app/assets/media/files'
+                                },
+                                fonts           : {
+                                    src         : [     config.basePath+'/src/media/fonts/*'],
+                                    dest        :       config.basePath+'/app/assets/media/fonts'
+                                }
+                            };
+
+    config.tests        = {
+                                all             :       config.basePath+'/tests/**/*.js',
+                                unit            :       config.basePath+'/tests/unit/**/*.js',
+                                integration     :       config.basePath+'/tests/integration/**/*.js',
+                                ngMocks         :       config.basePath+'/node_modules/angular-mocks/angular-mocks.js',
+                                karmaConfigFile :       config.basePath+'/karma.conf.js',
+                                karmaConfig     : {
+
+                                    // base path that will be used to resolve all patterns (eg. files, exclude)
+                                    basePath: '',
+
+                                    // frameworks to use
+                                    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+                                    frameworks: ['jasmine'],
+
+                                    // list of files to exclude
+                                    exclude: [
+                                    ],
 
 
-        jsDeps              : {
-            mainFileName    :       'deps.js',
-            src             : [     process.cwd()+'/node_modules/jquery/dist/jquery.js',
-                                    process.cwd()+'/node_modules/angular/angular.js',
-                                    process.cwd()+'/node_modules/angular-ui-router/release/angular-ui-router.js',
-                                    process.cwd()+'/node_modules/lodash/index.js'],
-            webSrcs         : [     'https://code.responsivevoice.org/responsivevoice.js'],
-            dest            :       process.cwd()+'/app/assets/js'
-        },
-
-        jsSrcs              : {
-            src             : [     process.cwd()+'/src/js/**/*.module.js', process.cwd()+'/src/js/**/*.js'],
-            dest            :       process.cwd()+'/app/assets/js',
-            templateCache   :       process.cwd()+'/temp/templates.js'
-        },
-
-        sass                : {
-            mainFileName    :       'styles.css',
-            watch           : [     process.cwd()+'/src/sass/**/*.scss'],
-            src             : [     process.cwd()+'/src/sass/styles.scss'],
-            dest            :       process.cwd()+'/app/assets/css'
-        },
-
-        css                : {
-            src             : [     process.cwd()+'/src/css/**/*.css']
-        },
-
-        templates           : {
-            main            :       process.cwd()+'/src/templates/index.jade',
-            src             : [     process.cwd()+'/src/templates/**/*.jade'],
-            dest            :       process.cwd()+'/app'
-        },
-
-        views               : {
-            dir             :       'views/',
-            main            :       process.cwd()+'/src/templates/views/**/*.jade',
-            src             : [     process.cwd()+'/src/templates/views/**/*.jade'],
-            dest            :       process.cwd()+'/app/assets/js'
-        },
-
-        media               : {
-            images          : {
-                src         : [     process.cwd()+'/src/media/images/*'],
-                dest        :       process.cwd()+'/app/assets/media/images'
-            },
-            videos          : {
-                src         : [     process.cwd()+'/src/media/videos/*'],
-                dest        :       process.cwd()+'/app/assets/media/videos'
-            },
-            audio           : {
-                src         : [     process.cwd()+'/src/media/audio/*'],
-                dest        :       process.cwd()+'/app/assets/media/audio'
-            },
-            files           : {
-                src         : [     process.cwd()+'/src/media/files/*'],
-                dest        :       process.cwd()+'/app/assets/media/files'
-            },
-            fonts           : {
-                src         : [     process.cwd()+'/src/media/fonts/*'],
-                dest        :       process.cwd()+'/app/assets/media/fonts'
-            }
-        },
+                                    // preprocess matching files before serving them to the browser
+                                    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+                                    preprocessors : {
+                                        'src/**/*.js': ['babel','coverage'],
+                                        'tests/**/*.js': ['babel','coverage']
+                                    },
 
 
-        tests               : {
-            all             :       process.cwd()+'/tests/**/*.js',
-            unit            :       process.cwd()+'/tests/unit/**/*.js',
-            integration     :       process.cwd()+'/tests/integration/**/*.js',
-            ngMocks         :       process.cwd()+'/node_modules/angular-mocks/angular-mocks.js',
-            karmaConfigFile :       process.cwd()+'/karma.conf.js',
-            karmaConfig     : {
+                                    // test results reporter to use
+                                    // possible values: 'dots', 'progress'
+                                    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+                                    reporters: ['progress', 'coverage'],
 
-                // base path that will be used to resolve all patterns (eg. files, exclude)
-                basePath: '',
-
-                // frameworks to use
-                // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-                frameworks: ['jasmine'],
-
-                // list of files to exclude
-                exclude: [
-                ],
+                                    babelPreprocessor: {
+                                        options: {
+                                            presets: ['es2015'],
+                                            sourceMap: 'inline'
+                                        }
+                                    },
 
 
-                // preprocess matching files before serving them to the browser
-                // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-                preprocessors : {
-                    'src/**/*.js': ['babel','coverage'],
-                    'tests/**/*.js': ['babel','coverage']
-                },
+                                    //plugins : [
+                                    //  //require('karma-webpack'),
+                                    //  'karma-jasmine',
+                                    //    'karma-coverage'
+                                    //  //'karma-chrome-launcher',
+                                    //  //'karma-safari-launcher',
+                                    //  //'karma-firefox-launcher'
+                                    //],
 
 
-                // test results reporter to use
-                // possible values: 'dots', 'progress'
-                // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-                reporters: ['progress', 'coverage'],
+                                    // enable / disable colors in the output (reporters and logs)
+                                    colors: true,
 
-                babelPreprocessor: {
-                    options: {
-                        presets: ['es2015'],
-                        sourceMap: 'inline'
-                    }
-                },
+                                    // enable / disable watching file and executing tests whenever any file changes
+                                    autoWatch: true,
 
 
-                //plugins : [
-                //  //require('karma-webpack'),
-                //  'karma-jasmine',
-                //    'karma-coverage'
-                //  //'karma-chrome-launcher',
-                //  //'karma-safari-launcher',
-                //  //'karma-firefox-launcher'
-                //],
+                                    // start these browsers
+                                    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+                                    //browsers: ['Chrome', 'Firefox', 'Safari', 'PhantomJS'],
+                                    browsers: ['PhantomJS'],
 
 
-                // enable / disable colors in the output (reporters and logs)
-                colors: true,
+                                    // Continuous Integration mode
+                                    // if true, Karma captures browsers, runs the tests and exits
+                                    singleRun: false,
 
-                // enable / disable watching file and executing tests whenever any file changes
-                autoWatch: true,
+                                    // Concurrency level
+                                    // how many browser should be started simultaneous
+                                    concurrency: Infinity,
 
+                                    browserNoActivityTimeout: 1000,
 
-                // start these browsers
-                // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-                //browsers: ['Chrome', 'Firefox', 'Safari', 'PhantomJS'],
-                browsers: ['PhantomJS'],
-
-
-                // Continuous Integration mode
-                // if true, Karma captures browsers, runs the tests and exits
-                singleRun: false,
-
-                // Concurrency level
-                // how many browser should be started simultaneous
-                concurrency: Infinity,
-
-                browserNoActivityTimeout: 1000,
-
-                coverageReporter : {
-                    dir : process.cwd()+'/test-coverage',
-                    reporters: [
-                        {type: 'html', subdir: 'report-html'},
-                        {type: 'lcov', subdir: 'report-lcov'},
-                        {type: 'text-summary'}
-                    ]
-                }
-            }
-        }
-    };
+                                    coverageReporter : {
+                                        dir : config.basePath+'/test-coverage',
+                                        reporters: [
+                                            {type: 'html', subdir: 'report-html'},
+                                            {type: 'lcov', subdir: 'report-lcov'},
+                                            {type: 'text-summary'}
+                                        ]
+                                    }
+                                }
+                            };
 
     return config;
 

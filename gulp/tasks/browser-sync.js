@@ -5,6 +5,14 @@ module.exports = (gulp, $, config, funcs) => {
     'use strict';
     gulp.task('browser-sync', function (cb) {
         config.vars.browserSync.init({
+            ui: {
+                    port: config.vars.EXPRESS_PORT,
+                    weinre: {
+                        port: config.vars.EXPRESS_PORT + 1000
+                    }
+                },
+
+            port: config.vars.EXPRESS_PORT,
             proxy: 'localhost:' + config.vars.EXPRESS_PORT,
             logLevel: "info",
             files: config.vars._.flattenDeep([config.templates.dest  + '/**/*.html']),

@@ -3,34 +3,35 @@
  */
 module.exports = () => {
     'use strict';
-    const vars = {
+    const vars = {};
+
+
     //***********************************************
     //******************BASE*************************
     //***********************************************
-        exec            : require('child_process').exec,
-        fs              : require('fs-extra'),
-        path            : require('path'),
-        _               : require('lodash'),
+    vars.exec           = require('child_process').exec;
+    vars.fs             = require('fs-extra');
+    vars.path           = require('path');
+    vars._              = require('lodash');
     //***********************************************
     //******************SERVER***********************
     //***********************************************
-        express         : require('express'),
-        app             : require('express')(),
-        EXPRESS_PORT    : 3000,
-        EXPRESS_ROOT    : process.cwd() + '/app',
+    vars.express        = require('express');
+    vars.app            = require('express')();
+    vars.EXPRESS_PORT   = 8000;
+    vars.EXPRESS_ROOT   = process.cwd() + '/app';
     //***********************************************
     //******************GULP*************************
     //***********************************************
-        jscs            : require('gulp-jscs'),
-        beep            : require('beepbeep'),
-        args            : require('yargs').argv,
-        map             : require('map-stream'),
-        babel           : require("babel-core"),
-        async           : require('async'),
-        pngquant        : require('imagemin-pngquant'),
-        runSequence     : require('run-sequence'),
-        browserSync     : require('browser-sync').create()
-    };
+    vars.jscs           = require('gulp-jscs');
+    vars.beep           = require('beepbeep');
+    vars.args           = require('yargs').argv;
+    vars.map            = require('map-stream');
+    vars.babel          = require("babel-core");
+    vars.async          = require('async');
+    vars.pngquant       = require('imagemin-pngquant');
+    vars.runSequence    = require('run-sequence');
+    vars.browserSync    = require('browser-sync').create();
 
     return vars;
 };
