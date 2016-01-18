@@ -22,7 +22,7 @@ module.exports = () => {
                                     src             : [     config.basePath+'/node_modules/jquery/dist/jquery.js',
                                                             config.basePath+'/node_modules/angular/angular.js',
                                                             config.basePath+'/node_modules/angular-ui-router/release/angular-ui-router.js',
-                                                            config.basePath+'/node_modules/lodash/index.js'],
+                                                            config.basePath+'/node_modules/lodash/lodash.js'],
                                     webSrcs         : [     'https://code.responsivevoice.org/responsivevoice.js'],
                                     dest            :       config.basePath+'/app/assets/js'
                                 };
