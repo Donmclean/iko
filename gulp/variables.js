@@ -13,6 +13,7 @@ module.exports = () => {
     vars.fs             = require('fs-extra');
     vars.path           = require('path');
     vars._              = require('lodash');
+    vars._.mixin({ 's':   require('underscore.string') });
     //***********************************************
     //******************SERVER***********************
     //***********************************************
