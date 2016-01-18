@@ -6,10 +6,7 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('browser-sync', function (cb) {
         config.vars.browserSync.init({
             ui: {
-                    port: config.vars.EXPRESS_PORT,
-                    weinre: {
-                        port: config.vars.EXPRESS_PORT + 1000
-                    }
+                    port: config.vars.EXPRESS_PORT
                 },
 
             port: config.vars.EXPRESS_PORT,
