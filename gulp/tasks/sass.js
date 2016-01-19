@@ -37,7 +37,7 @@ module.exports = (gulp, $, config, funcs) => {
                     .pipe(gulp.dest(config.sass.dest))
                     .pipe($.size({showFiles:true}))
                     .pipe($.rename({suffix: '.min'}))
-                    .pipe($.minifyCss())
+                    .pipe($.cssnano())
                     .pipe($.sourcemaps.write())
                     .pipe(gulp.dest(config.tempPath))
                     .pipe(gulp.dest(config.sass.dest))
