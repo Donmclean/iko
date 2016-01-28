@@ -11,7 +11,9 @@ module.exports = () => {
     //***********************************************
     vars.exec           = require('child_process').exec;
     vars.fs             = require('fs-extra');
+    vars.qfs            = require('q-io/fs');
     vars.path           = require('path');
+    vars.Q              = require('q');
     vars._              = require('lodash');
     vars._.mixin({ 's':   require('underscore.string') });
     //***********************************************

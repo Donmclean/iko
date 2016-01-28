@@ -4,7 +4,7 @@
 module.exports = (gulp, $, config, funcs) => {
     "use strict";
     gulp.task('template-cache', (cb) => {
-        setTimeout(() => {
+        //setTimeout(() => {
             try {
                 gulp.src(config.views.src)
                     .pipe($.plumber())
@@ -18,6 +18,6 @@ module.exports = (gulp, $, config, funcs) => {
             catch (err) {
                 $.util.log($.util.colors.red(err));
             }
-        },100);
+        //},100);
     });
 };

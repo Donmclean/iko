@@ -4,13 +4,13 @@
 module.exports = (gulp, $, config) => {
     'use strict';
     gulp.task('clean-temp', (cb) => {
-        setTimeout(() => {
+        //setTimeout(() => {
             try {
                 config.vars.fs.removeSync(config.tempPath);
             } catch (err) {
                 $.util.log($.util.colors.red(err));
             }
             cb();
-        },100);
+        //},100);
     });
 };

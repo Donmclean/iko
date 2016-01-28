@@ -4,25 +4,51 @@
 module.exports = (gulp, $, config, funcs) => {
     "use strict";
     gulp.task('sass', (cb) => {
-        setTimeout(() => {
-            try {
-                if(funcs.isWatching) {
-                    var moduleFiles = config.vars.fs.readdirSync(config.sass.dest);
+        //setTimeout(() => {
 
-                    moduleFiles = config.vars._.filter(moduleFiles, (file) => {
-                        return file.split('-')[0] === 'styles';
+        var deffered = config.vars.Q.defer();
+
+        var run = () => {
+
+            try {
+                console.log("funcs.isWatching: ", funcs.isWatching);
+                if(funcs.isWatching) {
+                    var readStyles = (() => {
+                        return config.vars.Q.fcall(config.vars.fs.readdirSync,config.sass.dest);
                     });
-                    config.vars._.forEach(moduleFiles, (file) => {
-                        config.vars.fs.removeSync(config.sass.dest + '/' + file);
+
+                    readStyles.then((moduleFiles) => {
+                        config.vars._.filter(moduleFiles, (file) => {
+                            return file.split('-')[0] === 'styles';
+                        });
+                    }).then((moduleFiles) => {
+                        config.vars._.forEach(moduleFiles, (file) => {
+                            config.vars.fs.removeSync(config.sass.dest + '/' + file);
+                        });
+                    }).then(() => {
+                        console.log("done!!!");
                     });
+                    //var moduleFiles = config.vars.fs.readdirSync(config.sass.dest);
+
+                    //moduleFiles = config.vars._.filter(moduleFiles, (file) => {
+                    //    return file.split('-')[0] === 'styles';
+                    //});
+                    //config.vars._.forEach(moduleFiles, (file) => {
+                    //    config.vars.fs.removeSync(config.sass.dest + '/' + file);
+                    //});
                 }
             }
             catch (err) {
                 $.util.log($.util.colors.red(err));
             }
 
+            deffered.resolve();
+            return deffered.promise;
+        };
+
+        run().then(() =>{
             try {
-                gulp.src(config.sass.src)
+                return gulp.src(config.sass.src)
                     .pipe($.plumber())
                     .pipe($.sourcemaps.init())
                     .pipe($.scssLint())
@@ -43,12 +69,19 @@ module.exports = (gulp, $, config, funcs) => {
                     .pipe(gulp.dest(config.sass.dest))
                     .pipe($.size({showFiles:true}))
                     .pipe($.livereload());
-                cb();
             }
             catch (err) {
                 $.util.log($.util.colors.red(err));
             }
-        }, 1000);
+        }).then(() => {
+            cb();
+        });
+
+
+
+
+
+        //}, 1000);
     });
 };
 
