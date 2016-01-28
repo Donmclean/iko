@@ -16,6 +16,9 @@ module.exports = (gulp, $, config, funcs) => {
         gulp.watch(config.sass.watch, () => {
             config.vars.runSequence('clean-temp','sass','templates');
         });
+        gulp.watch(config.css.src, () => {
+            config.vars.runSequence('clean-temp','sass','templates');
+        });
         //$.livereload.listen(); //Using Browser Sync instead
         cb();
     });
