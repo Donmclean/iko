@@ -1,19 +1,24 @@
 /**
  * Created by donmclean on 12/29/15.
  */
+"use strict";
 module.exports = (gulp, $, config, funcs) => {
-    "use strict";
     gulp.task('run-tests-watch', (cb) => {
+        var deferred = config.vars.Q.defer();
 
-        setTimeout(() => {
-            try {
-                funcs.startTests(false, true, true, false, cb);
-            }
-            catch (err) {
-                $.util.log($.util.colors.red(err));
-                config.vars.exec(process.exit(1));
-                cb();
-            }
-        }, 100);
+        try {
+            funcs.startTests(false, true, true, false)
+                .then(() => {
+                    deferred.resolve();
+                })
+                .catch((err) => {
+                    $.util.log($.util.colors.red(err));
+                });
+            return deferred.promise;
+        }
+        catch (err) {
+            $.util.log($.util.colors.red(err));
+            config.vars.exec(process.exit(1));
+        }
     });
 };

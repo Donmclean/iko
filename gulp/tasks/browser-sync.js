@@ -1,9 +1,10 @@
 /**
  * Created by donmclean on 12/16/15.
  */
+"use strict";
 module.exports = (gulp, $, config, funcs) => {
-    'use strict';
-    gulp.task('browser-sync', function (cb) {
+    gulp.task('browser-sync', () => {
+        let deferred = config.vars.Q.defer();
         config.vars.browserSync.init({
             ui: {
                     port: config.vars.EXPRESS_PORT
@@ -16,6 +17,7 @@ module.exports = (gulp, $, config, funcs) => {
             reloadOnRestart: false
             //reloadDelay: 1000
         });
-        cb();
+        deferred.resolve();
+        return deferred.promise;
     });
 };

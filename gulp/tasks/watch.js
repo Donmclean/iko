@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/14/15.
  */
+"use strict";
 module.exports = (gulp, $, config, funcs) => {
-    "use strict";
     gulp.task('watch', function (cb) {
         funcs.isWatching = true;
         gulp.watch(config.jsSrcs.src, () => {

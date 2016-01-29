@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/15/15.
  */
+"use strict";
 module.exports = (gulp, $, config,funcs) => {
-    "use strict";
     gulp.task('build-dev',(cb) => {
         funcs.isProd = false;
         funcs.isUnitTest = true;

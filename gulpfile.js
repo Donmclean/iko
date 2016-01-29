@@ -10,8 +10,6 @@ const
     config          = require('./gulp/gulp.config')(),
     $               = require('gulp-load-plugins')({lazy: true, DEBUG: false, scope: ['devDependencies']}),
     _               = require('lodash'),
-    Q               = require('q'),
-    qfs             = require('q-io/fs'),
     taskPath        = process.cwd()+'/gulp/tasks/',
     taskList        = require('fs-extra').readdirSync(taskPath),
     arg             = process.argv[2],

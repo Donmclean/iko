@@ -3,37 +3,30 @@
  */
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
-    gulp.task('lint-gulp', (cb) => {
-        var deffered = config.vars.Q.defer();
+    gulp.task('lint-gulp', () => {
 
-        var run = () => {
-            gulp.src(config.gulpFiles)
-                .pipe($.plumber())
-                .pipe($.jscs())
-                .pipe($.jscs.reporter())
-                .pipe($.jscs.reporter('failImmediately'))
-                .pipe($.jshint())
-                .pipe($.jshint.reporter(funcs.jshintErrorHandler));
-            deffered.resolve();
-            return deffered.promise;
-        };
+        let deferred = config.vars.Q.defer();
 
-        run().then(() => {
-            cb();
-        });
+            try {
+                var runTask = () => {
+                    let deferred2 = config.vars.Q.defer();
+                    gulp.src(config.gulpFiles)
+                        .pipe($.plumber())
+                        .pipe($.jscs())
+                        .pipe($.jscs.reporter())
+                        .pipe($.jscs.reporter('failImmediately'))
+                        .pipe($.jshint())
+                        .pipe($.jshint.reporter(funcs.jshintErrorHandler));
+                    deferred2.resolve();
+                    return deferred2.promise;
+                };
+                runTask().then(() => {
+                    deferred.resolve();
+                });
 
-
-
-
-
-        //return gulp.src(config.gulpFiles)
-        //    .pipe($.plumber())
-        //    .pipe($.jscs())
-        //    .pipe($.jscs.reporter())
-        //    .pipe($.jscs.reporter('failImmediately'))
-        //    .pipe($.jshint())
-        //    .pipe($.jshint.reporter(funcs.jshintErrorHandler));
-        //cb();
+            } catch (err) {
+                $.util.log($.util.colors.red(err));
+            }
+        return deferred.promise;
     });
-
 };

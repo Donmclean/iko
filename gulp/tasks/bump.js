@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/28/15.
  */
+"use strict";
 module.exports = (gulp, $, config, funcs) => {
-    "use strict";
     gulp.task('bump', () => {
 
         let options = {

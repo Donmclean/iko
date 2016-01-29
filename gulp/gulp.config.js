@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/2/15.
  */
+"use strict";
 module.exports = () => {
-    "use strict";
     const vars = require(process.cwd()+'/gulp/variables')();
 
     const config = {};
@@ -163,7 +163,5 @@ module.exports = () => {
                                     }
                                 }
                             };
-
     return config;
-
 };

@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/5/15.
  */
+"use strict";
 module.exports = () => {
-    'use strict';
     const vars = {};
 
 

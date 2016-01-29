@@ -1,8 +1,8 @@
 /**
  * Created by donmclean on 12/6/15.
  */
+"use strict";
 module.exports = (gulp, $, config) => {
-    "use strict";
     const funcs = {};
     funcs.test = () => {
             $.util.log("test funcccs");
@@ -47,17 +47,11 @@ module.exports = (gulp, $, config) => {
         config.vars.exec(process.exit(1));
     };
 
-    funcs.startTests = (singleRun, autoWatch, isUnitTest, isIntegrationTest, cb) => {
-        var timeoutLength,
-            called = false,
+    funcs.startTests = (singleRun, autoWatch, isUnitTest, isIntegrationTest) => {
+        var called = false,
             Server = require('karma').Server,
-            excludes = config.tests.karmaConfig.exclude;
-
-        if(singleRun){
-            timeoutLength = 0;
-        } else {
-            timeoutLength = 1000;
-        }
+            excludes = config.tests.karmaConfig.exclude,
+            deferred = config.vars.Q.defer();
 
         if(isUnitTest) {excludes.push(config.tests.integration);}
         else if(isIntegrationTest) {excludes.push(config.tests.unit);}
@@ -69,14 +63,15 @@ module.exports = (gulp, $, config) => {
             {autoWatch: !!autoWatch},
             {exclude: excludes}
         ), results => {
-            setTimeout(()=> {
                 if(!called) {
                     called = true;
 
                     if(results === 0) {
                         $.util.log($.util.colors.blue("Karma Tests Completed Successfully"));
-                        if(autoWatch) {config.vars.exec(process.exit(results)); }
-                        cb();
+                        if(autoWatch) {
+                            config.vars.exec(process.exit(results));
+                        }
+                        deferred.resolve();
 
                     } else {
                         $.util.log($.util.colors.red("Karma Tests Failed"));
@@ -84,16 +79,17 @@ module.exports = (gulp, $, config) => {
                             $.util.log($.util.colors.yellow("Rolling Back......"));
                             try {
                                 config.vars.runSequence('clean-temp','clean');
+                                deferred.resolve();
                             } catch (err) {
                                 $.util.log($.util.colors.red(err));
+                                deferred.reject();
                                 config.vars.exec(process.exit(results));
                             }
                         } else {
-                            cb();
+                            deferred.resolve();
                         }
                     }
                 }
-            },timeoutLength);
         });
 
         server.on('browser_error', function (err) {
@@ -102,8 +98,10 @@ module.exports = (gulp, $, config) => {
 
         server.start();
         if(!singleRun){
-            cb();
+            deferred.resolve();
         }
+        return deferred.promise;
+
     };
 
     funcs.webSrcInjector = () => {
@@ -111,6 +109,70 @@ module.exports = (gulp, $, config) => {
                 return `<script src="${link}" type="text/javascript"></script>`;
             });
         return tags.join('');
+    };
+
+    funcs.copy = (source, target) => {
+        let deferred = config.vars.Q.defer();
+
+        try {
+            $.util.log($.util.colors.blue(`Copying ${$.util.colors.yellow(source)} to`), $.util.colors.yellow(target));
+
+            (() => {
+                return config.vars.qfs.copyTree(source, target);
+            })().then(() => {
+                $.util.log($.util.colors.red(`${source} copied...`));
+            }).then(() => {
+                deferred.resolve();
+            }).catch((err) => {
+                $.util.log($.util.colors.red(err));
+                deferred.reject();
+            });
+        } catch (err) {
+            $.util.log($.util.colors.red(err));
+        }
+        return deferred.promise;
+    };
+
+    funcs.delete = (name, file) => {
+        let deferred = config.vars.Q.defer();
+        try {
+            $.util.log($.util.colors.red(`Cleaning ${name} directory: `, file));
+
+            (() => {
+                return config.vars.qfs.remove(file);
+            })().then(() => {
+                $.util.log($.util.colors.red(`${name} directory removed...`));
+            }).then(() => {
+                deferred.resolve();
+            }).catch((err) => {
+                $.util.log($.util.colors.red(err));
+                deferred.reject();
+            });
+        } catch (err) {
+            $.util.log($.util.colors.red(err));
+        }
+        return deferred.promise;
+    };
+
+    funcs.deletePath = (name, path) => {
+        let deferred = config.vars.Q.defer();
+        try {
+            $.util.log($.util.colors.red(`Cleaning ${name} directory: `, path));
+
+            (() => {
+                return config.vars.qfs.removeTree(path);
+            })().then(() => {
+                $.util.log($.util.colors.red(`${name} directory removed...`));
+            }).then(() => {
+                deferred.resolve();
+            }).catch((err) => {
+                $.util.log($.util.colors.red(err));
+                deferred.reject();
+            });
+        } catch (err) {
+            $.util.log($.util.colors.red(err));
+        }
+        return deferred.promise;
     };
 
     return funcs;

@@ -1,26 +1,12 @@
 /**
  * Created by donmclean on 12/14/15.
  */
+"use strict";
 module.exports = (gulp, $, config, funcs) => {
-    "use strict";
-    gulp.task('js-srcs', (cb) => {
-        setTimeout(() => {
-            try {
-                if(funcs.isWatching) {
-                    var moduleFiles = config.vars.fs.readdirSync(config.jsSrcs.dest);
+    gulp.task('js-srcs', () => {
+        let deferred = config.vars.Q.defer();
 
-                    moduleFiles = config.vars._.filter(moduleFiles, (file) => {
-                        return file.split('-')[0] === config.moduleName;
-                    });
-                    config.vars._.forEach(moduleFiles, (file) => {
-                        config.vars.fs.removeSync(config.jsSrcs.dest + '/' + file);
-                    });
-                }
-            }
-            catch (err) {
-                $.util.log($.util.colors.red(err));
-            }
-
+        var runTask = () => {
             try {
                 if(!funcs.isProd) {
                     gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
@@ -38,8 +24,13 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.sourcemaps.write())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
-                        .pipe($.livereload());
-                    cb();
+                        .pipe($.size({showFiles:true}))
+                        .pipe($.livereload())
+                        .on('error', (err) => {$.util.log($.util.colors.red(err));})
+                        .on('end', function () {
+                            deferred.resolve();
+                        });
+                    return deferred.promise;
                 } else {
                     gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
                         .pipe($.plumber())
@@ -49,17 +40,50 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.rev())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.size({showFiles:true}))
                         .pipe($.rename({suffix: '.min'}))
                         .pipe($.uglify())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
-                        .pipe($.size({showFiles:true}));
-                    cb();
+                        .pipe($.size({showFiles:true}))
+                        .on('error', (err) => {$.util.log($.util.colors.red(err));})
+                        .on('end', function () {
+                            deferred.resolve();
+                        });
+                    return deferred.promise;
                 }
             }
             catch (err) {
                 $.util.log($.util.colors.red(err));
             }
-        }, 100);
+        };
+
+        try {
+            if(funcs.isWatching) {
+                config.vars.qfs.list(config.jsSrcs.dest)
+                    .then((moduleFiles) => {
+                        $.util.log($.util.colors.green(moduleFiles));
+                        return config.vars._.filter(moduleFiles, (file) => {
+                            return file.split('-')[0] === config.moduleName;
+                        });
+                    })
+                    .then((moduleFiles) => {
+                        config.vars._.forEach(moduleFiles, (file) => {
+                            funcs.delete("old Module", config.jsSrcs.dest + '/' + file);
+                        });
+                    })
+                    .then(() => {
+                        runTask();
+                    })
+                    .catch((err) => {
+                        $.util.log($.util.colors.red(err));
+                });
+            } else {
+                runTask();
+            }
+        }
+        catch (err) {
+            $.util.log($.util.colors.red(err));
+        }
     });
 };
