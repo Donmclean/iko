@@ -33,12 +33,13 @@ module.exports = (gulp, $, config, funcs) => {
                             .pipe($.size({showFiles:true}))
                             .pipe($.rename({suffix: '.min'}))
                             .pipe($.uglify())
+                            .pipe($.size({showFiles:true}))
                             .pipe(gulp.dest(config.tempPath))
                             .pipe(gulp.dest(config.jsSrcs.dest))
-                            .pipe($.size({showFiles:true}))
+
+                            .pipe($.livereload())
                             .on('error', (err) => {$.util.log($.util.colors.red(err));})
                             .on('end', function () {
-                                console.log("worked in js-src watch??????????");
                                 deferred.resolve();
                             });
                     })
@@ -61,10 +62,10 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.size({showFiles:true}))
                         .pipe($.rename({suffix: '.min'}))
                         .pipe($.uglify())
+                        .pipe($.size({showFiles:true}))
                         .pipe($.sourcemaps.write())
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
-                        .pipe($.size({showFiles:true}))
                         .pipe($.livereload())
                         .on('error', (err) => {$.util.log($.util.colors.red(err));})
                         .on('end', function () {
@@ -87,6 +88,7 @@ module.exports = (gulp, $, config, funcs) => {
                         .pipe($.size({showFiles:true}))
                         .pipe(gulp.dest(config.tempPath))
                         .pipe(gulp.dest(config.jsSrcs.dest))
+                        .pipe($.livereload())
                         .on('error', (err) => {$.util.log($.util.colors.red(err));})
                         .on('end', function () {
                             deferred.resolve();

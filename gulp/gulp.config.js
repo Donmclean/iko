@@ -3,7 +3,6 @@
  */
 "use strict";
 module.exports = () => {
-    const vars = require(process.cwd()+'/gulp/variables')();
 
     const config = {};
 

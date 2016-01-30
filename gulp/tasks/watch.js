@@ -9,6 +9,10 @@ module.exports = (gulp, $, config, funcs) => {
             config.vars.runSequence('clean-temp','lint','js-srcs','templates','run-unit-tests');
         });
 
+        gulp.watch(config.tests.unit, () => {
+            config.vars.runSequence('run-unit-tests');
+        });
+
         gulp.watch(config.templates.src, () => {
             config.vars.runSequence('clean-temp','template-cache','js-srcs','templates');
         });

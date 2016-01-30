@@ -5,8 +5,7 @@
 module.exports = (gulp, $, config,funcs) => {
     gulp.task('build-dev',(cb) => {
         funcs.isProd = false;
-        funcs.isUnitTest = true;
-        config.vars.runSequence('lint-gulp','lint','clean','clean-temp','sass','template-cache','js-deps','js-srcs','run-unit-tests','templates','media','express','watch','browser-sync',cb);
+        config.vars.runSequence('lint-gulp','lint','clean','clean-temp','sass','template-cache','js-deps','js-srcs','run-unit-tests','templates','media','express','watch','browser-sync','rollback',cb);
     });
 };
 

@@ -4,7 +4,7 @@
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
     gulp.task('clean-temp', () => {
-        let deferred = config.vars.Q.defer();
+        var deferred = config.vars.Q.defer();
 
         try {
             funcs.deletePath("Temp", config.tempPath)

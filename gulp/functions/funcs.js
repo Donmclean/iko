@@ -10,6 +10,8 @@ module.exports = (gulp, $, config) => {
     funcs.isProd = false;
     funcs.isUnitTest = false;
     funcs.isIntegrationTest = false;
+    funcs.unitTestPassed = false;
+    funcs.integrationTestPassed = false;
     funcs.isWatching = false;
 
     funcs.jshintErrorHandler = (err) => {
@@ -66,30 +68,29 @@ module.exports = (gulp, $, config) => {
                 if(!called) {
                     called = true;
 
-                    if(results === 0) {
-                        $.util.log($.util.colors.blue("Karma Tests Completed Successfully"));
-                        if(autoWatch) {
-                            config.vars.exec(process.exit(results));
-                        }
+                    if(isUnitTest && results === 0) {
+                        funcs.unitTestPassed = true;
+                        $.util.log($.util.colors.blue("Karma Unit Tests Passed"));
                         deferred.resolve();
 
                     } else {
-                        $.util.log($.util.colors.red("Karma Tests Failed"));
-                        if(singleRun){
-                            $.util.log($.util.colors.yellow("Rolling Back......"));
-                            try {
-                                config.vars.runSequence('clean-temp','clean');
-                                deferred.resolve();
-                            } catch (err) {
-                                $.util.log($.util.colors.red(err));
-                                deferred.reject();
-                                config.vars.exec(process.exit(results));
-                            }
-                        } else {
-                            deferred.resolve();
-                        }
+                        funcs.unitTestPassed = false;
+                        $.util.log($.util.colors.red("Karma Unit Tests Failed"));
+                        deferred.resolve();
+                    }
+
+                    if(isIntegrationTest && results === 0) {
+                        funcs.integrationTestPassed = true;
+                        $.util.log($.util.colors.blue("Karma Integration Tests Completed Successfully"));
+                        deferred.resolve();
+
+                    } else if(isIntegrationTest) {
+                        funcs.integrationTestPassed = false;
+                        $.util.log($.util.colors.red("Karma Integration Tests Failed"));
+                        deferred.resolve();
                     }
                 }
+            return deferred.promise;
         });
 
         server.start();

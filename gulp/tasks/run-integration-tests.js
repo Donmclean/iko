@@ -3,12 +3,12 @@
  */
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
-    gulp.task('run-unit-tests', () => {
-        funcs.isUnitTest = true;
+    gulp.task('run-integration-tests', () => {
+        funcs.isIntegrationTest = true;
         var deferred = config.vars.Q.defer();
 
         try {
-            funcs.startTests(true, false, true, false)
+            funcs.startTests(true, false, false, true)
                 .then(() => {
                     deferred.resolve();
                 })
