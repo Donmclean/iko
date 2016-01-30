@@ -6,7 +6,8 @@
   "scripts": {
     "start": "gulp build-prod",
     "dev": "gulp build-dev",
-    "prod": "gulp build-prod"
+    "prod": "gulp build-prod",
+    "server": "node server/www"
   },
   "author": "Don Mclean",
   "license": "MIT",
