@@ -39,7 +39,7 @@ angular.module('iko')
         //    console.log(m);
         //});
 
-        //logService.greets(a);
+        logService.greets(a);
 
         $.ajax("").success(function(){
             console.log("success!!!!!!!!!!!!!!");

@@ -7,12 +7,12 @@ module.exports = (gulp, $, config, funcs) => {
         //let deferred = config.vars.Q.defer();
 
         try {
-            if(funcs.isUnitTest && !funcs.unitTestPassed) {
+            if(funcs.isProd && funcs.isUnitTest && !funcs.unitTestPassed) {
                 $.util.log($.util.colors.red("Karma Unit Tests Failed"));
                 $.util.log($.util.colors.yellow("Rolling Back......"));
                 config.vars.runSequence('clean-temp','clean',cb);
             }
-            else if(funcs.isIntegrationTest && !funcs.integrationTestPassed) {
+            else if(funcs.isProd && funcs.isIntegrationTest && !funcs.integrationTestPassed) {
                 $.util.log($.util.colors.red("Karma Integration Tests Failed"));
                 $.util.log($.util.colors.yellow("Rolling Back......"));
                 config.vars.runSequence('clean-temp','clean',cb);
@@ -22,6 +22,8 @@ module.exports = (gulp, $, config, funcs) => {
                 config.vars.runSequence('clean-temp',cb);
             } else {
                 $.util.log($.util.colors.blue("Build Completed Successfully"));
+                $.util.log($.util.colors.yellow("Cleaning Up ......"));
+                config.vars.runSequence('clean-temp',cb);
             }
         }
         catch (err) {

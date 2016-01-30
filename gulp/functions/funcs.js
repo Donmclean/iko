@@ -96,10 +96,7 @@ module.exports = (gulp, $, config) => {
         server.start();
         server.on('browser_error', (err) => {
             $.util.log($.util.colors.red(err));
-        });
-        server.on('run_complete', () => {
-            $.util.log($.util.colors.blue("Karma Tests Completed Successfully"));
-            deferred.resolve();
+
         });
 
         return deferred.promise;
