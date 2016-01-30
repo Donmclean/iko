@@ -8,6 +8,7 @@ module.exports = (gulp, $, config, funcs) => {
 
         gulp.src(config.media.files.src)
             .pipe($.plumber())
+            .pipe($.debug({title: 'copying other files:'}))
             .pipe(gulp.dest(config.media.files.dest))
             .on('error', (err) => {$.util.log($.util.colors.red(err));})
             .on('end', function () {

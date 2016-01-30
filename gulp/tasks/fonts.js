@@ -8,6 +8,7 @@ module.exports = (gulp, $, config, funcs) => {
 
         gulp.src(config.media.fonts.src)
             .pipe($.plumber())
+            .pipe($.debug({title: 'copying fonts:'}))
             .pipe(gulp.dest(config.media.fonts.dest))
             .on('error', (err) => {$.util.log($.util.colors.red(err));})
             .on('end', function () {

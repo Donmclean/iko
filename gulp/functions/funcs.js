@@ -92,14 +92,15 @@ module.exports = (gulp, $, config) => {
                 }
         });
 
-        server.on('browser_error', function (err) {
+        server.start();
+        server.on('browser_error', (err) => {
             $.util.log($.util.colors.red(err));
         });
-
-        server.start();
-        if(!singleRun){
+        server.on('run_complete', () => {
+            $.util.log($.util.colors.blue("Karma Tests Completed Successfully"));
             deferred.resolve();
-        }
+        });
+
         return deferred.promise;
 
     };
@@ -157,12 +158,12 @@ module.exports = (gulp, $, config) => {
     funcs.deletePath = (name, path) => {
         let deferred = config.vars.Q.defer();
         try {
-            $.util.log($.util.colors.red(`Cleaning ${name} directory: `, path));
+            $.util.log(`Cleaning ${$.util.colors.red(name)} directory: `, $.util.colors.blue(path));
 
             (() => {
                 return config.vars.qfs.removeTree(path);
             })().then(() => {
-                $.util.log($.util.colors.red(`${name} directory removed...`));
+                $.util.log(`${$.util.colors.red(name)} directory removed...`);
             }).then(() => {
                 deferred.resolve();
             }).catch((err) => {

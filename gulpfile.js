@@ -18,15 +18,16 @@ const
 //Load all functions
     funcs           = require('./gulp/functions/funcs')(gulp, $, config);
 
-if (arg === 'build-dev2' || process.argv[2] === 'build-dev' || process.argv[2] === 'build-prod') {
+if (arg === 'build-dev' || arg === 'build-prod' || arg === 'watch' || arg === undefined) {
     _.forEach(taskList, (file) => {
-        if (file.split('.')[0] !== 'build-dev2' && file.split('.')[0] !== 'build-dev' && file.split('.')[0] !== 'build-prod') {
-            $.util.log('Collecting task: ' + file.split('.')[0]);
+            $.util.log('Collecting task: ' + $.util.colors.yellow(file.split('.')[0]));
             require(taskPath + file)(gulp, $, config, funcs);
-        }
     });
-
-    require(taskPath + process.argv[2])(gulp, $, config, funcs);
+    if (arg === undefined) {
+        require(taskPath + 'default')(gulp, $, config, funcs);
+    } else {
+        require(taskPath + process.argv[2])(gulp, $, config, funcs);
+    }
 
 } else if (arg === 'help') {
     _.forEach(taskList, (file) => {

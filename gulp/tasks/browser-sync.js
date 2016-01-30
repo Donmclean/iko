@@ -16,8 +16,10 @@ module.exports = (gulp, $, config, funcs) => {
             files: config.vars._.flattenDeep([config.templates.dest  + '/**/*.html']),
             reloadOnRestart: false
             //reloadDelay: 1000
+        }, () => {
+            deferred.resolve();
         });
-        deferred.resolve();
+
         return deferred.promise;
     });
 };

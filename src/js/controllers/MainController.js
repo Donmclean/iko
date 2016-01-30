@@ -30,7 +30,7 @@ angular.module('iko')
 
         //console.log($templateCache.get('views/t2.html'));
         //var clock = $('.clock').FlipClock({
-        //    // ... your options here
+        // your options here
         //});
 
         //var $ = "test";
@@ -43,7 +43,7 @@ angular.module('iko')
 
         $.ajax("").success(function(){
             console.log("success!!!!!!!!!!!!!!");
-        }).error(function(){
+        }).error(() => {
             console.log("error");
         });
 

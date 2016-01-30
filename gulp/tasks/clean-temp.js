@@ -15,9 +15,9 @@ module.exports = (gulp, $, config, funcs) => {
                     $.util.log($.util.colors.red(err));
                     deferred.reject();
                 });
+            return deferred.promise;
         } catch (err) {
             $.util.log($.util.colors.red(err));
         }
-        return deferred.promise;
     });
 };

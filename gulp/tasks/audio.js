@@ -7,6 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
         let deferred = config.vars.Q.defer();
         gulp.src(config.media.audio.src)
             .pipe($.plumber())
+            .pipe($.debug({title: 'copying audio files:'}))
             .pipe(gulp.dest(config.media.audio.dest))
             .on('error', (err) => {$.util.log($.util.colors.red(err));})
             .on('end', function () {

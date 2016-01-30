@@ -8,25 +8,22 @@ module.exports = (gulp, $, config, funcs) => {
         let deferred = config.vars.Q.defer();
 
             try {
-                var runTask = () => {
-                    let deferred2 = config.vars.Q.defer();
-                    gulp.src(config.gulpFiles)
-                        .pipe($.plumber())
-                        .pipe($.jscs())
-                        .pipe($.jscs.reporter())
-                        .pipe($.jscs.reporter('failImmediately'))
-                        .pipe($.jshint())
-                        .pipe($.jshint.reporter(funcs.jshintErrorHandler));
-                    deferred2.resolve();
-                    return deferred2.promise;
-                };
-                runTask().then(() => {
-                    deferred.resolve();
-                });
-
+                gulp.src(config.gulpFiles)
+                    .pipe($.plumber())
+                    .pipe($.jscs())
+                    .pipe($.jscs.reporter())
+                    .pipe($.jscs.reporter('failImmediately'))
+                    .pipe($.jshint())
+                    .pipe($.jshint.reporter(funcs.jshintErrorHandler))
+                    .pipe($.debug({title: 'linting gulp files:'}))
+                    .pipe($.livereload())
+                    .on('error', (err) => {$.util.log($.util.colors.red(err));})
+                    .on('end', function () {
+                        deferred.resolve();
+                    });
+                return deferred.promise;
             } catch (err) {
                 $.util.log($.util.colors.red(err));
             }
-        return deferred.promise;
     });
 };

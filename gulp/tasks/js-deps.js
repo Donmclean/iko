@@ -9,6 +9,7 @@ module.exports = (gulp, $, config) => {
             try {
                 gulp.src(config.jsDeps.src)
                     .pipe($.plumber())
+                    .pipe($.debug({title: 'copying and minifying js deps:'}))
                     .pipe($.concat(config.jsDeps.mainFileName))
                     .pipe($.size({showFiles:true}))
                     .pipe($.rename({suffix: '.min'}))
@@ -19,7 +20,6 @@ module.exports = (gulp, $, config) => {
                     .pipe(gulp.dest(config.jsDeps.dest))
                     .on('error', (err) => {$.util.log($.util.colors.red(err));})
                     .on('end', function () {
-                        console.log("test");
                         deferred.resolve();
                     });
                 return deferred.promise;

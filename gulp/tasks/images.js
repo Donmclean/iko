@@ -8,6 +8,7 @@ module.exports = (gulp, $, config, funcs) => {
         if(funcs.isProd) {
             gulp.src(config.media.images.src)
                 .pipe($.plumber())
+                .pipe($.debug({title: 'copying and minifying images:'}))
                 .pipe($.imagemin({
                     progressive: true,
                     use: [config.vars.pngquant()]
@@ -20,6 +21,7 @@ module.exports = (gulp, $, config, funcs) => {
         } else {
             gulp.src(config.media.images.src)
                 .pipe($.plumber())
+                .pipe($.debug({title: 'copying images:'}))
                 .pipe(gulp.dest(config.media.images.dest))
                 .on('error', (err) => {$.util.log($.util.colors.red(err));})
                 .on('end', function () {
