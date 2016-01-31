@@ -11,9 +11,9 @@ module.exports = () => {
     //***********************************************
     vars.exec           = require('child_process').exec;
     vars.fs             = require('fs-extra');
+    vars.Q              = require('q');
     vars.qfs            = require('q-io/fs');
     vars.path           = require('path');
-    vars.Q              = require('q');
     vars._              = require('lodash');
     vars._.mixin({ 's':   require('underscore.string') });
     //***********************************************
@@ -21,17 +21,15 @@ module.exports = () => {
     //***********************************************
     vars.express        = require('express');
     vars.app            = require('express')();
+    vars.morgan         = require('morgan');
+    vars.app.use(vars.morgan('dev'));
     vars.EXPRESS_PORT   = 3000;
     vars.EXPRESS_ROOT   = process.cwd() + '/app';
     //***********************************************
     //******************GULP*************************
     //***********************************************
-    vars.jscs           = require('gulp-jscs');
-    vars.beep           = require('beepbeep');
+    vars.beep           = require('beeper');
     vars.args           = require('yargs').argv;
-    vars.map            = require('map-stream');
-    vars.babel          = require("babel-core");
-    vars.async          = require('async');
     vars.pngquant       = require('imagemin-pngquant');
     vars.runSequence    = require('run-sequence');
     vars.browserSync    = require('browser-sync').create();

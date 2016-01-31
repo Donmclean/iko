@@ -15,6 +15,7 @@ module.exports = (gulp, $, config) => {
     funcs.isWatching = false;
 
     funcs.jshintErrorHandler = (err) => {
+        config.vars.beep(3);
         $.util.log($.util.colors.red("................. : ..................."));
         config.vars._.forEach(err, (err) => {
             $.util.log($.util.colors.cyan(`Error:`) + $.util.colors.red(` ${err.file}`) +
@@ -28,6 +29,7 @@ module.exports = (gulp, $, config) => {
     };
 
     funcs.jshintErrorHandlerNoExit = (err) => {
+        config.vars.beep();
         $.util.log($.util.colors.red("................. : ..................."));
         config.vars._.forEach(err, (err) => {
             $.util.log($.util.colors.cyan(`Error:`) + $.util.colors.red(` ${err.file}`) +
@@ -36,7 +38,6 @@ module.exports = (gulp, $, config) => {
                 $.util.colors.cyan(` Reason:`) + $.util.colors.red(` ${err.error.reason}`)+ $.util.colors.cyan(` ---> `)+ $.util.colors.yellow(`${err.error.evidence}`));
         });
         $.util.log($.util.colors.red("................. : ..................."));
-        $.util.beep();
     };
 
     funcs.sassErrorHandler = (err) => {
@@ -76,6 +77,7 @@ module.exports = (gulp, $, config) => {
                     } else {
                         funcs.unitTestPassed = false;
                         $.util.log($.util.colors.red("Karma Unit Tests Failed"));
+                        config.vars.beep(3);
                         deferred.resolve();
                     }
 
@@ -86,6 +88,7 @@ module.exports = (gulp, $, config) => {
 
                     } else if(isIntegrationTest) {
                         funcs.integrationTestPassed = false;
+                        config.vars.beep(3);
                         $.util.log($.util.colors.red("Karma Integration Tests Failed"));
                         deferred.resolve();
                     }
@@ -135,12 +138,12 @@ module.exports = (gulp, $, config) => {
     funcs.delete = (name, file) => {
         let deferred = config.vars.Q.defer();
         try {
-            $.util.log($.util.colors.red(`Cleaning ${name} directory: `, file));
+            $.util.log($.util.colors.red(`Cleaning ${name}: `, file));
 
             (() => {
                 return config.vars.qfs.remove(file);
             })().then(() => {
-                $.util.log($.util.colors.red(`${name} directory removed...`));
+                $.util.log($.util.colors.red(`${file} removed...`));
             }).then(() => {
                 deferred.resolve();
             }).catch((err) => {

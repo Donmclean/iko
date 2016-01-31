@@ -17,7 +17,7 @@ module.exports = (gulp, $, config, funcs) => {
                     })
                     .then((moduleFiles) => {
                         config.vars._.forEach(moduleFiles, (file) => {
-                            funcs.delete("old Module", config.jsSrcs.dest + '/' + file);
+                            funcs.delete("old Module files", config.jsSrcs.dest + '/' + file);
                         });
                     })
                     .then(() => {
