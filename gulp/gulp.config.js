@@ -44,6 +44,7 @@ module.exports = () => {
 
     config.templates        = {
                                     main            :       config.basePath+'/src/templates/index.jade',
+                                    mainHtml        :       config.basePath+'/src/templates/index.html',
                                     src             : [     config.basePath+'/src/templates/**/*.jade'],
                                     dest            :       config.basePath+'/app'
                                 };
@@ -52,6 +53,7 @@ module.exports = () => {
                                 dir             :       'views/',
                                 main            :       config.basePath+'/src/templates/views/**/*.jade',
                                 src             : [     config.basePath+'/src/templates/views/**/*.jade'],
+                                htmlSrc         : [     config.basePath+'/src/templates/views/**/*.html'],
                                 dest            :       config.basePath+'/app/assets/js'
                             };
 

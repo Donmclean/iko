@@ -19,6 +19,9 @@ angular.module('iko')
             },
             {
                 name: "TAB 3", href: "t3"
+            },
+            {
+                name: "TAB 4", href: "t4"
             }
         ];
 

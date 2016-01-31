@@ -30,7 +30,7 @@ module.exports = (gulp, $, config, funcs) => {
                                 .pipe(filter)
                                 .pipe($.addSrc(config.templates.main))
                                 .pipe($.jade())
-
+                                .pipe($.addSrc(config.templates.mainHtml))
                                 .pipe($.inject(gulp.src(config.vars._.map(jsFiles, (file) => {
                                     return config.jsSrcs.dest + '/' + file;
                                 })), {
@@ -101,6 +101,7 @@ module.exports = (gulp, $, config, funcs) => {
                                 .pipe(cssFilter)
                                 .pipe($.addSrc(config.templates.main))
                                 .pipe($.jade())
+                                .pipe($.addSrc(config.templates.mainHtml))
                                 .pipe($.inject(gulp.src(config.vars._.map(obj.jsModuleFiles, (file) => {
                                     return config.tempPath + '/' + file;
                                 })), {

@@ -9,8 +9,9 @@ module.exports = (gulp, $, config, funcs) => {
             try {
                 gulp.src(config.views.src)
                     .pipe($.plumber())
-                    .pipe($.debug({title: 'angular template caching:'}))
                     .pipe($.jade())
+                    .pipe($.addSrc(config.views.htmlSrc))
+                    .pipe($.debug({title: 'angular template caching:'}))
                     .pipe($.angularTemplatecache('templates.js',{module: config.moduleName, standAlone: false, root: config.views.dir}))
                     .pipe(gulp.dest(config.views.dest))
                     .pipe(gulp.dest(config.tempPath))

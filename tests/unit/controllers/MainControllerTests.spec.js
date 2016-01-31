@@ -23,7 +23,7 @@ describe('Controller', function() {
         it('tabs length', () => {
             var $scope = {};
             $controller('MainController', { $scope: $scope });
-            expect($scope.tabs.length).toEqual(3);
+            expect($scope.tabs.length).toEqual(4);
         });
     });
     describe('$scope.sayHello', () => {

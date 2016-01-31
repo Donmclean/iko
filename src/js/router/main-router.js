@@ -21,5 +21,9 @@ angular.module('iko')
             .state('t3', {
                 url: "/t3",
                 template: '<t3></t3>'
-            });
+            })
+            .state('t4', {
+            url: "/t4",
+            template: '<t4></t4>'
+        });
     });
