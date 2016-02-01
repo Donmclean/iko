@@ -84,6 +84,7 @@
     "mocha-clean": "^1.0.0",
     "morgan": "^1.6.1",
     "phantomjs": "^1.9.19",
+    "q-io": "^1.13.2",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
     "sinon": "^1.17.2",
