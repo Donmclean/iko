@@ -118,16 +118,17 @@ module.exports = (gulp, $, config) => {
         try {
             $.util.log($.util.colors.blue(`Copying ${$.util.colors.yellow(source)} to`), $.util.colors.yellow(target));
 
-            (() => {
-                return config.vars.qfs.copyTree(source, target);
-            })().then(() => {
-                $.util.log($.util.colors.red(`${source} copied...`));
-            }).then(() => {
-                deferred.resolve();
-            }).catch((err) => {
-                $.util.log($.util.colors.red(err));
-                deferred.reject();
-            });
+            config.vars.qfs.copyTree(source, target)
+                .then(() => {
+                    $.util.log($.util.colors.red(`${source} copied...`));
+                })
+                .then(() => {
+                    deferred.resolve();
+                })
+                .catch((err) => {
+                    $.util.log($.util.colors.red(err));
+                    deferred.reject();
+                });
         } catch (err) {
             $.util.log($.util.colors.red(err));
         }
