@@ -103,7 +103,6 @@ module.exports = (gulp, $, config) => {
         });
 
         return deferred.promise;
-
     };
 
     funcs.webSrcInjector = () => {
