@@ -105,10 +105,18 @@ module.exports = (gulp, $, config) => {
         return deferred.promise;
     };
 
-    funcs.webSrcInjector = () => {
+    funcs.JsWebSrcInjector = () => {
         var tags = config.vars._.map(config.jsDeps.webSrcs, (link) => {
+            $.util.log("Adding js web source:",$.util.colors.blue(link));
                 return `<script src="${link}" type="text/javascript"></script>`;
             });
+        return tags.join('');
+    };
+    funcs.CssWebSrcInjector = () => {
+        var tags = config.vars._.map(config.css.webSrcs, (link) => {
+            $.util.log("Adding css web source:",$.util.colors.blue(link));
+            return `<link href="${link}" type="text/css" rel="stylesheet">`;
+        });
         return tags.join('');
     };
 

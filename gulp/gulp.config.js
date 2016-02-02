@@ -40,8 +40,10 @@ module.exports = () => {
                                     dest            :       config.basePath+'/app/assets/css'
                                 };
     config.css              = {
-                                    src             : [     config.basePath+'/node_modules/semantic-ui/dist/semantic.css',
-                                                            config.basePath+'/src/css/**/*.css']
+                                    src             : [     config.basePath+'/src/css/**/*.css'],
+                                    deps            : [     config.basePath+'/node_modules/normalize.css/normalize.css',
+                                                            config.basePath+'/node_modules/semantic-ui/dist/semantic.css'],
+                                    webSrcs         : [     '']
                                 };
 
     config.templates        = {

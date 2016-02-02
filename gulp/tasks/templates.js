@@ -120,8 +120,8 @@ module.exports = (gulp, $, config, funcs) => {
                                     removeTags: true
                                 }))
 
-                                .pipe($.injectString.before('</body>',funcs.webSrcInjector()))
-
+                                .pipe($.injectString.before('</body>',funcs.JsWebSrcInjector()))
+                                .pipe($.injectString.after('<head>',funcs.CssWebSrcInjector()))
                                 .pipe(gulp.dest(config.tempPath))
                                 .pipe(gulp.dest(config.templates.dest))
                                 .pipe($.debug({title: 'copying and minifying templates:'}))
