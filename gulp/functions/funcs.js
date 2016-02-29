@@ -13,6 +13,7 @@ module.exports = (gulp, $, config) => {
     funcs.unitTestPassed = false;
     funcs.integrationTestPassed = false;
     funcs.isWatching = false;
+    funcs.errorExitCode = 0;
 
     funcs.jshintErrorHandler = (err) => {
         config.vars.beep(3);
@@ -196,7 +197,7 @@ module.exports = (gulp, $, config) => {
     };
 
     funcs.plumberOptions = () => {
-        console.log('plumberOptions...');
+        //PLUMBERS CALLBACK AFTER TASK
     };
 
     return funcs;

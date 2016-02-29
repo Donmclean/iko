@@ -11,21 +11,19 @@ module.exports = () => {
     config.basePath         = process.cwd();
     config.tempPath         = config.basePath+'/temp';
     config.dest             = config.basePath+'/app';
+    config.src              = config.basePath+'/src';
     config.nodePath         = process.env.NODE_PATH;
     config.sitePrefix       = '';
     config.vars             = require(config.basePath+'/gulp/variables')();
     config.packageFile      = config.basePath+'/package.json';
     config.gulpFile         = config.basePath+'/gulpfile.js';
     config.gulpFiles        = [     config.basePath+'/gulpfile.js', config.basePath+'/gulp/**/*.js'];
+    config.customConfig     = require('../src/config.js')();
 
     config.jsDeps           = {
                                     mainFileName    :       'deps.js',
-                                    src             : [     config.basePath+'/node_modules/jquery/dist/jquery.js',
-                                                            config.basePath+'/node_modules/angular/angular.js',
-                                                            config.basePath+'/node_modules/angular-ui-router/release/angular-ui-router.js',
-                                                            config.basePath+'/node_modules/lodash/lodash.js',
-                                                            config.basePath+'/node_modules/semantic-ui/dist/semantic.js'],
-                                    webSrcs         : [     'https://code.responsivevoice.org/responsivevoice.js'],
+                                    src             :       config.customConfig.jsDeps.src,
+                                    webSrcs         :       config.customConfig.jsDeps.webSrcs,
                                     dest            :       config.basePath+'/app/assets/js'
                                 };
 
@@ -44,8 +42,8 @@ module.exports = () => {
     config.css              = {
                                     mainFileName    :       'deps.css',
                                     src             : [     config.basePath+'/src/css/**/*.css'],
-                                    deps            : [     config.basePath+'/node_modules/semantic-ui/dist/semantic.css'],
-                                    webSrcs         : [     '']
+                                    deps            :       config.customConfig.css.deps,
+                                    webSrcs         :       config.customConfig.css.webSrcs
                                 };
 
     config.templates        = {

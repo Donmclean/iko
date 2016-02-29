@@ -2,7 +2,7 @@
  * Created by donmclean on 12/14/15.
  */
 "use strict";
-module.exports = (gulp, $, config) => {
+module.exports = (gulp, $, config, funcs) => {
     gulp.task('js-deps', () => {
         let deferred = config.vars.Q.defer();
 

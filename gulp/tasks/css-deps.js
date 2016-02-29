@@ -22,7 +22,7 @@ module.exports = (gulp, $, config, funcs) => {
                 .pipe(gulp.dest(config.tempPath))
                 .pipe(gulp.dest(config.sass.dest))
                 .on('error', (err) => {$.util.log($.util.colors.red(err));})
-                .on('end', function () {
+                .on('end', () => {
                     deferred.resolve();
                 });
             return deferred.promise;
