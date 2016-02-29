@@ -9,7 +9,7 @@ module.exports = (gulp, $, config, funcs) => {
         try {
             if(funcs.isWatching) {
                 gulp.src(config.jsSrcs.src)
-                    .pipe($.plumber())
+                    .pipe($.plumber(funcs.plumberOptions()))
                     .pipe($.jscs())
                     .pipe($.jscs.reporter())
                     .pipe($.jscs.reporter('fail'))
@@ -24,7 +24,7 @@ module.exports = (gulp, $, config, funcs) => {
                 return deferred.promise;
             } else {
                 gulp.src(config.jsSrcs.src)
-                    .pipe($.plumber())
+                    .pipe($.plumber(funcs.plumberOptions()))
                     .pipe($.jscs())
                     .pipe($.jscs.reporter())
                     .pipe($.jscs.reporter('failImmediately'))

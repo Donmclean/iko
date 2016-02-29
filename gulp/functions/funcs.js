@@ -148,16 +148,18 @@ module.exports = (gulp, $, config) => {
         try {
             $.util.log($.util.colors.red(`Cleaning ${name}: `, file));
 
-            (() => {
-                return config.vars.qfs.remove(file);
-            })().then(() => {
-                $.util.log($.util.colors.red(`${file} removed...`));
-            }).then(() => {
-                deferred.resolve();
-            }).catch((err) => {
-                $.util.log($.util.colors.red(err));
-                deferred.reject();
-            });
+            config.vars.qfs.remove(file)
+                .then(() => {
+                    $.util.log($.util.colors.red(`${file} removed...`));
+                })
+                .then(() => {
+                    deferred.resolve();
+                })
+                .catch((err) => {
+                    $.util.log($.util.colors.red(err));
+                    deferred.reject();
+                });
+
         } catch (err) {
             $.util.log($.util.colors.red(err));
         }
@@ -166,23 +168,35 @@ module.exports = (gulp, $, config) => {
 
     funcs.deletePath = (name, path) => {
         let deferred = config.vars.Q.defer();
-        try {
-            $.util.log(`Cleaning ${$.util.colors.red(name)} directory: `, $.util.colors.blue(path));
 
-            (() => {
-                return config.vars.qfs.removeTree(path);
-            })().then(() => {
-                $.util.log(`${$.util.colors.red(name)} directory removed...`);
-            }).then(() => {
+        config.vars.qfs.isDirectory(path).then((exists) => {
+            if(exists) {
+                try {
+                    $.util.log(`Cleaning ${$.util.colors.red(name)} directory: `, $.util.colors.blue(path));
+
+                    config.vars.qfs.removeTree(path)
+                        .then(() => {
+                            $.util.log(`${$.util.colors.red(name)} directory removed...`);
+                        }).then(() => {
+                        deferred.resolve();
+                    }).catch((err) => {
+                        $.util.log($.util.colors.red(err));
+                        deferred.reject();
+                    });
+                } catch (err) {
+                    $.util.log($.util.colors.red(err));
+                }
+            } else {
+                $.util.log(`${$.util.colors.red(name)} directory does not exist...`);
                 deferred.resolve();
-            }).catch((err) => {
-                $.util.log($.util.colors.red(err));
-                deferred.reject();
-            });
-        } catch (err) {
-            $.util.log($.util.colors.red(err));
-        }
+            }
+        });
+
         return deferred.promise;
+    };
+
+    funcs.plumberOptions = () => {
+        console.log('plumberOptions...');
     };
 
     return funcs;

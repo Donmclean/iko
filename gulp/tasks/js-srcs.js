@@ -22,7 +22,7 @@ module.exports = (gulp, $, config, funcs) => {
                     })
                     .then(() => {
                         gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
-                            .pipe($.plumber())
+                            .pipe($.plumber(funcs.plumberOptions()))
                             .pipe($.ngAnnotate())
                             .pipe($.babel({presets: ['es2015']}))
                             .pipe($.debug({title: 'copying and minifying js srcs:'}))
@@ -50,7 +50,7 @@ module.exports = (gulp, $, config, funcs) => {
             } else {
                 if(!funcs.isProd) {
                     gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
-                        .pipe($.plumber())
+                        .pipe($.plumber(funcs.plumberOptions()))
                         .pipe($.sourcemaps.init())
                         .pipe($.ngAnnotate())
                         .pipe($.babel({presets: ['es2015']}))
@@ -74,7 +74,7 @@ module.exports = (gulp, $, config, funcs) => {
                     return deferred.promise;
                 } else {
                     gulp.src(config.vars._.flattenDeep([config.jsSrcs.src, config.views.dest + '/templates.js']))
-                        .pipe($.plumber())
+                        .pipe($.plumber(funcs.plumberOptions()))
                         .pipe($.ngAnnotate())
                         .pipe($.babel({presets: ['es2015']}))
                         .pipe($.debug({title: 'copying and minifying js srcs:'}))

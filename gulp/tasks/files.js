@@ -7,7 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
         let deferred = config.vars.Q.defer();
 
         gulp.src(config.media.files.src)
-            .pipe($.plumber())
+            .pipe($.plumber(funcs.plumberOptions()))
             .pipe($.debug({title: 'copying other files:'}))
             .pipe(gulp.dest(config.media.files.dest))
             .on('error', (err) => {$.util.log($.util.colors.red(err));})

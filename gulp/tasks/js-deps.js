@@ -8,13 +8,15 @@ module.exports = (gulp, $, config) => {
 
             try {
                 gulp.src(config.jsDeps.src)
-                    .pipe($.plumber())
+                    .pipe($.plumber(funcs.plumberOptions()))
                     .pipe($.debug({title: 'copying and minifying js deps:'}))
                     .pipe($.concat(config.jsDeps.mainFileName))
+                    .pipe($.rev())
+                    .pipe(gulp.dest(config.tempPath))
+                    .pipe(gulp.dest(config.jsDeps.dest))
                     .pipe($.size({showFiles:true}))
                     .pipe($.rename({suffix: '.min'}))
                     .pipe($.uglify())
-                    .pipe($.rev())
                     .pipe($.size({showFiles:true}))
                     .pipe(gulp.dest(config.tempPath))
                     .pipe(gulp.dest(config.jsDeps.dest))

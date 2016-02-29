@@ -9,7 +9,7 @@ module.exports = (gulp, $, config, funcs) => {
 
             try {
                 gulp.src(config.gulpFiles)
-                    .pipe($.plumber())
+                    .pipe($.plumber(funcs.plumberOptions()))
                     .pipe($.jscs())
                     .pipe($.jscs.reporter())
                     .pipe($.jscs.reporter('failImmediately'))

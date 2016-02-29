@@ -23,12 +23,11 @@ module.exports = (gulp, $, config, funcs) => {
                     })
                     .then(() => {
                         gulp.src(config.sass.src)
-                            .pipe($.plumber())
+                            .pipe($.plumber(funcs.plumberOptions()))
                             .pipe($.sourcemaps.init())
                             .pipe($.scssLint())
                             .pipe($.scssLint.failReporter('E'))
                             .pipe($.sass().on('error', funcs.sassErrorHandler))
-                            .pipe($.addSrc(config.css.deps))
                             .pipe($.addSrc(config.css.src))
                             .pipe($.debug({title: 'copying and minifying sass/css:'}))
                             .pipe($.concat('styles.css'))
@@ -53,12 +52,11 @@ module.exports = (gulp, $, config, funcs) => {
                 return deferred.promise;
             } else {
                 gulp.src(config.sass.src)
-                    .pipe($.plumber())
+                    .pipe($.plumber(funcs.plumberOptions()))
                     .pipe($.sourcemaps.init())
                     .pipe($.scssLint())
                     .pipe($.scssLint.failReporter('E'))
                     .pipe($.sass().on('error', funcs.sassErrorHandler))
-                    .pipe($.addSrc(config.css.deps))
                     .pipe($.addSrc(config.css.src))
                     .pipe($.debug({title: 'copying and minifying sass/css:'}))
                     .pipe($.concat('styles.css'))

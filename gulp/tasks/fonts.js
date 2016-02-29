@@ -7,7 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
         let deferred = config.vars.Q.defer();
 
         gulp.src(config.media.fonts.src)
-            .pipe($.plumber())
+            .pipe($.plumber(funcs.plumberOptions()))
             .pipe($.debug({title: 'copying fonts:'}))
             .pipe(gulp.dest(config.media.fonts.dest))
             .on('error', (err) => {$.util.log($.util.colors.red(err));})

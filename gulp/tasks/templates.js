@@ -7,27 +7,27 @@ module.exports = (gulp, $, config, funcs) => {
         var deferred = config.vars.Q.defer();
             try {
                 if (funcs.isWatching) {
-                    var filter = $.filter("**/*.css"),
+                    var filtered = $.filter("**/*.css"),
                         jsFiles, cssFiles;
 
                     config.vars.qfs.list(config.jsSrcs.dest)
                         .then((js) => {
                             jsFiles = config.vars._.filter(js, (file) => {
-                                return file.split('.')[1] === 'min';
+                                return file.split('.')[1] !== 'min';
                             });
                         });
                     config.vars.qfs.list(config.sass.dest)
                         .then((css) => {
                             cssFiles = config.vars._.filter(css, (file) => {
-                                return file.split('.')[1] === 'min';
+                                return file.split('.')[1] !== 'min';
                             });
                         })
                         .then(() => {
                             gulp.src(config.templates.src)
-                                .pipe($.plumber())
+                                .pipe($.plumber(funcs.plumberOptions()))
                                 .pipe($.jade())
                                 .pipe(gulp.dest(config.templates.dest))
-                                .pipe(filter)
+                                .pipe(filtered)
                                 .pipe($.addSrc(config.templates.main))
                                 .pipe($.jade())
                                 .pipe($.addSrc(config.templates.mainHtml))
@@ -36,7 +36,7 @@ module.exports = (gulp, $, config, funcs) => {
                                 })), {
                                     read: false,
                                     ignorePath: config.jsSrcs.dest.split(process.cwd())[1],
-                                    addPrefix: config.jsSrcs.dest.split(config.dest + '/')[1]
+                                    addPrefix: config.sitePrefix + config.jsSrcs.dest.split(config.dest + '/')[1]
                                 }))
 
                                 .pipe($.inject(gulp.src(config.vars._.map(cssFiles, (file) => {
@@ -46,6 +46,8 @@ module.exports = (gulp, $, config, funcs) => {
                                     ignorePath: config.sass.dest.split(process.cwd())[1],
                                     addPrefix: config.sass.dest.split(config.dest + '/')[1]
                                 }))
+                                .pipe($.injectString.before('</body>',funcs.JsWebSrcInjector()))
+                                .pipe($.injectString.after('<head>',funcs.CssWebSrcInjector()))
                                 .pipe(gulp.dest(config.tempPath))
                                 .pipe(gulp.dest(config.templates.dest))
                                 .pipe($.debug({title: 'copying and minifying templates:'}))
@@ -84,8 +86,7 @@ module.exports = (gulp, $, config, funcs) => {
                                 });
                             } else {
                                 obj.jsModuleFiles = config.vars._.filter(obj.jsModuleFiles, (file) => {
-                                    return file.split('.')[1] === 'js' ||
-                                        file.split('-')[0] === config.jsDeps.mainFileName.split('.')[0];
+                                    return file.split('.')[1] !== 'min';
                                 });
                                 obj.cssModuleFiles = config.vars._.filter(obj.cssModuleFiles, (file) => {
                                     return file.split('.')[1] === 'css';
@@ -95,7 +96,7 @@ module.exports = (gulp, $, config, funcs) => {
                         })
                         .then((obj) => {
                             gulp.src(config.templates.src)
-                                .pipe($.plumber())
+                                .pipe($.plumber(funcs.plumberOptions()))
                                 .pipe($.jade())
                                 .pipe(gulp.dest(config.templates.dest))
                                 .pipe(cssFilter)
@@ -107,7 +108,7 @@ module.exports = (gulp, $, config, funcs) => {
                                 })), {
                                     read: false,
                                     ignorePath: config.tempPath.split(process.cwd())[1],
-                                    addPrefix: config.jsSrcs.dest.split(config.dest + '/')[1],
+                                    addPrefix: config.sitePrefix + config.jsSrcs.dest.split(config.dest + '/')[1],
                                     removeTags: true
                                 }))
 

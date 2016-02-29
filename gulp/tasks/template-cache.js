@@ -8,7 +8,7 @@ module.exports = (gulp, $, config, funcs) => {
 
             try {
                 gulp.src(config.views.src)
-                    .pipe($.plumber())
+                    .pipe($.plumber(funcs.plumberOptions()))
                     .pipe($.jade())
                     .pipe($.addSrc(config.views.htmlSrc))
                     .pipe($.debug({title: 'angular template caching:'}))

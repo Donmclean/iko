@@ -12,8 +12,5 @@ module.exports = (config) => {
             gulpConfig.jsSrcs.src,
           gulpConfig.tests.all
         ])
-      },{logLevel: config.LOG_INFO},{
-          // web server port
-          //  port: gulpConfig.vars.EXPRESS_PORT
       }));
 };
