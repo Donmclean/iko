@@ -12,6 +12,7 @@ module.exports = () => {
     config.tempPath         = config.basePath+'/temp';
     config.dest             = config.basePath+'/app';
     config.src              = config.basePath+'/src';
+    config.vendor           = config.basePath+'/src/vendor';
     config.nodePath         = process.env.NODE_PATH;
     config.sitePrefix       = '';
     config.vars             = require(config.basePath+'/gulp/variables')();
