@@ -7,6 +7,7 @@ module.exports = () => {
 
     const config = {};
 
+    config.sitePrefix   = '';
     config.basePath     = process.cwd();
     config.vendor       = {};
     config.vendor.js    = config.basePath+'/src/vendor/js';

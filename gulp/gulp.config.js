@@ -6,6 +6,7 @@ module.exports = () => {
 
     const config = {};
 
+    config.customConfig     = require('../src/config.js')();
     config.moduleName       = 'iko';
     config.mainFileName     = 'index.html';
     config.basePath         = process.cwd();
@@ -14,12 +15,11 @@ module.exports = () => {
     config.src              = config.basePath+'/src';
     config.vendor           = config.basePath+'/src/vendor';
     config.nodePath         = process.env.NODE_PATH;
-    config.sitePrefix       = '';
+    config.sitePrefix       = config.customConfig.sitePrefix;
     config.vars             = require(config.basePath+'/gulp/variables')();
     config.packageFile      = config.basePath+'/package.json';
     config.gulpFile         = config.basePath+'/gulpfile.js';
     config.gulpFiles        = [     config.basePath+'/gulpfile.js', config.basePath+'/gulp/**/*.js'];
-    config.customConfig     = require('../src/config.js')();
 
     config.jsDeps           = {
                                     mainFileName    :       'deps.js',
