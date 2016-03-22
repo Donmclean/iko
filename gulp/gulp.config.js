@@ -88,7 +88,7 @@ module.exports = () => {
     config.tests            = {
                                     all             :       config.basePath+'/tests/**/*.js',
                                     unit            : [     config.basePath+'/tests/unit/**/*.js',
-                                                            config.basePath+'/tests/bind-polyfill.js'],
+                                                            config.basePath+'/bin/polyfills/bind-polyfill.js'],
                                     integration     :       config.basePath+'/tests/integration/**/*.js',
                                     ngMocks         :       config.basePath+'/node_modules/angular-mocks/angular-mocks.js',
                                     karmaConfigFile :       config.basePath+'/karma.conf.js',

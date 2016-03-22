@@ -31,6 +31,12 @@ angular.module('iko')
             return 'HELLO WORLD!';
         };
 
+        if(a === 'z') {
+            console.log("a = z");
+        } else {
+            console.log("a != z");
+        }
+
         //console.log($templateCache.get('views/t2.html'));
         //var clock = $('.clock').FlipClock({
         // your options here

@@ -51,7 +51,7 @@ module.exports = (gulp, $, config) => {
         config.vars.exec(process.exit(1));
     };
 
-    funcs.startTests = (singleRun, autoWatch) => {
+    funcs.startUnitTests = (singleRun, autoWatch) => {
         var called = false,
             Server = require('karma').Server,
             excludes = config.tests.karmaConfig.exclude,
