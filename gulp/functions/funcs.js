@@ -51,15 +51,13 @@ module.exports = (gulp, $, config) => {
         config.vars.exec(process.exit(1));
     };
 
-    funcs.startTests = (singleRun, autoWatch, isUnitTest, isIntegrationTest) => {
+    funcs.startTests = (singleRun, autoWatch) => {
         var called = false,
             Server = require('karma').Server,
             excludes = config.tests.karmaConfig.exclude,
             deferred = config.vars.Q.defer();
 
-        if(isUnitTest) {excludes.push(config.tests.integration);}
-        else if(isIntegrationTest) {excludes.push(config.tests.unit);}
-        else {excludes = config.tests.karmaConfig.exclude;}
+        excludes.push(config.tests.integration);
 
         var server = new Server(config.vars._.assign(
             {configFile: config.tests.karmaConfigFile},
@@ -70,7 +68,7 @@ module.exports = (gulp, $, config) => {
                 if(!called) {
                     called = true;
 
-                    if(isUnitTest && results === 0) {
+                    if(results === 0) {
                         funcs.unitTestPassed = true;
                         $.util.log($.util.colors.blue("Karma Unit Tests Passed"));
                         deferred.resolve();
@@ -79,18 +77,6 @@ module.exports = (gulp, $, config) => {
                         funcs.unitTestPassed = false;
                         $.util.log($.util.colors.red("Karma Unit Tests Failed"));
                         config.vars.beep(3);
-                        deferred.resolve();
-                    }
-
-                    if(isIntegrationTest && results === 0) {
-                        funcs.integrationTestPassed = true;
-                        $.util.log($.util.colors.blue("Karma Integration Tests Completed Successfully"));
-                        deferred.resolve();
-
-                    } else if(isIntegrationTest) {
-                        funcs.integrationTestPassed = false;
-                        config.vars.beep(3);
-                        $.util.log($.util.colors.red("Karma Integration Tests Failed"));
                         deferred.resolve();
                     }
                 }

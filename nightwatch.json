@@ -40,23 +40,6 @@
         "acceptSslCerts": true
       }
     },
-    "browserstack-firefox" : {
-      "launch_url" : "http://hub.browserstack.com",
-      "selenium_port"  : 80,
-      "selenium_host"  : "hub.browserstack.com",
-      "silent": true,
-      "screenshots" : {
-        "enabled" : false,
-        "path" : ""
-      },
-      "desiredCapabilities": {
-        "browserName": "firefox",
-        "javascriptEnabled": true,
-        "acceptSslCerts": true,
-        "browserstack.user": "santodhar",
-        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
-      }
-    },
     "browserstack-chrome" : {
       "launch_url" : "http://hub.browserstack.com",
       "selenium_port"  : 80,
@@ -74,6 +57,23 @@
         "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
       }
     },
+    "browserstack-firefox" : {
+      "launch_url" : "http://hub.browserstack.com",
+      "selenium_port"  : 80,
+      "selenium_host"  : "hub.browserstack.com",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : false,
+        "path" : ""
+      },
+      "desiredCapabilities": {
+        "browserName": "firefox",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "browserstack.user": "santodhar",
+        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
+      }
+    },
     "browserstack-safari" : {
       "launch_url" : "http://hub.browserstack.com",
       "selenium_port"  : 80,
@@ -84,45 +84,7 @@
         "path" : ""
       },
       "desiredCapabilities": {
-        "browserName": "chrome",
-        "javascriptEnabled": true,
-        "acceptSslCerts": true,
-        "browserstack.user": "santodhar",
-        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
-      }
-    },
-    "browserstack-iphone6" : {
-      "launch_url" : "http://hub.browserstack.com",
-      "selenium_port"  : 80,
-      "selenium_host"  : "hub.browserstack.com",
-      "silent": true,
-      "screenshots" : {
-        "enabled" : false,
-        "path" : ""
-      },
-      "desiredCapabilities": {
-        "browserName": "iPhone",
-        "platform" : "MAC",
-        "device" : "iPhone 6S",
-        "javascriptEnabled": true,
-        "acceptSslCerts": true,
-        "browserstack.user": "santodhar",
-        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
-      }
-    },
-    "browserstack-android" : {
-      "launch_url" : "http://hub.browserstack.com",
-      "selenium_port"  : 80,
-      "selenium_host"  : "hub.browserstack.com",
-      "silent": true,
-      "screenshots" : {
-        "enabled" : false,
-        "path" : ""
-      },
-      "desiredCapabilities": {
-        "browserName": "android",
-        "platform" : "ANDROID",
-        "device" : "Samsung Galaxy S5",
+        "browserName": "safari",
         "javascriptEnabled": true,
         "acceptSslCerts": true,
         "browserstack.user": "santodhar",
@@ -159,6 +121,63 @@
       "desiredCapabilities": {
         "browserName": "IE",
         "browser_version" : "11.0",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "browserstack.user": "santodhar",
+        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
+      }
+    },
+    "browserstack-android" : {
+      "launch_url" : "http://hub.browserstack.com",
+      "selenium_port"  : 80,
+      "selenium_host"  : "hub.browserstack.com",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : false,
+        "path" : ""
+      },
+      "desiredCapabilities": {
+        "browserName": "android",
+        "platform" : "ANDROID",
+        "device" : "Samsung Galaxy S5",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "browserstack.user": "santodhar",
+        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
+      }
+    },
+    "browserstack-iphone6" : {
+      "launch_url" : "http://hub.browserstack.com",
+      "selenium_port"  : 80,
+      "selenium_host"  : "hub.browserstack.com",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : false,
+        "path" : ""
+      },
+      "desiredCapabilities": {
+        "browserName": "iPhone",
+        "platform" : "MAC",
+        "device" : "iPhone 6S",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "browserstack.user": "santodhar",
+        "browserstack.key": "pRzhpSVd2Zzm8PaaDNUh"
+      }
+    },
+    "browserstack-ipad2" : {
+      "launch_url" : "http://hub.browserstack.com",
+      "selenium_port"  : 80,
+      "selenium_host"  : "hub.browserstack.com",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : false,
+        "path" : ""
+      },
+      "desiredCapabilities": {
+        "browserName": "iPad",
+        "platform" : "MAC",
+        "device" : "iPad 2 (5.0)",
         "javascriptEnabled": true,
         "acceptSslCerts": true,
         "browserstack.user": "santodhar",

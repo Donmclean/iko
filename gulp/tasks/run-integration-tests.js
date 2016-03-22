@@ -34,7 +34,21 @@ module.exports = (gulp, $, config, funcs) => {
             // .pipe($.nightwatch({
             //     configFile: './nightwatch.json',
             //     cliArgs: {
+            //         env: 'browserstack-chrome',
+            //         verbose: true
+            //     }
+            // }))
+            // .pipe($.nightwatch({
+            //     configFile: './nightwatch.json',
+            //     cliArgs: {
             //         env: 'browserstack-firefox',
+            //         verbose: true
+            //     }
+            // }))
+            // .pipe($.nightwatch({
+            //     configFile: './nightwatch.json',
+            //     cliArgs: {
+            //         env: 'browserstack-safari',
             //         verbose: true
             //     }
             // }))
@@ -55,17 +69,10 @@ module.exports = (gulp, $, config, funcs) => {
             .pipe($.nightwatch({
                 configFile: './nightwatch.json',
                 cliArgs: {
-                    env: 'browserstack-safari',
+                    env: 'browserstack-ipad2',
                     verbose: true
                 }
             }))
-            // .pipe($.nightwatch({
-            //     configFile: './nightwatch.json',
-            //     cliArgs: {
-            //         env: 'browserstack-android',
-            //         verbose: true
-            //     }
-            // }))
             .on('error', (err) => {$.util.log($.util.colors.red(err));})
             .on('end', function () {
                 deferred.resolve();

@@ -8,7 +8,7 @@ module.exports = (gulp, $, config, funcs) => {
         var deferred = config.vars.Q.defer();
 
         try {
-            funcs.startTests(true, false, true, false)
+            funcs.startTests(true, false)
                 .then(() => {
                     deferred.resolve();
                 })
