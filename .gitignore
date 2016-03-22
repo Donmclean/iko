@@ -56,3 +56,4 @@ test-coverage
 .sass-cache
 npm-debug.log
 selenium-debug.log
+phantomjsdriver.log
