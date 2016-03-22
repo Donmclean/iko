@@ -50,7 +50,7 @@ angular.module('iko')
 
         logService.greets(a);
 
-        $.ajax("").success(function(){
+        $.ajax("").success(() => {
             console.log("success!!!!!!!!!!!!!!");
         }).error(() => {
             console.log("error");

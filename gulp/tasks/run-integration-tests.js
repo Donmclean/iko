@@ -10,13 +10,13 @@ module.exports = (gulp, $, config, funcs) => {
         gulp.src('')
             .pipe($.plumber(funcs.plumberOptions()))
             .pipe($.debug({title: 'running integration tests:'}))
-            // .pipe($.nightwatch({
-            //     configFile: './nightwatch.json',
-            //     cliArgs: {
-            //         env: 'chrome',
-            //         verbose: true
-            //     }
-            // }))
+            .pipe($.nightwatch({
+                configFile: './nightwatch.json',
+                cliArgs: {
+                    env: 'chrome',
+                    verbose: true
+                }
+            }))
             // .pipe($.nightwatch({
             //     configFile: './nightwatch.json',
             //     cliArgs: {
@@ -66,13 +66,14 @@ module.exports = (gulp, $, config, funcs) => {
             //         verbose: true
             //     }
             // }))
-            .pipe($.nightwatch({
-                configFile: './nightwatch.json',
-                cliArgs: {
-                    env: 'browserstack-ipad2',
-                    verbose: true
-                }
-            }))
+            // .pipe($.nightwatch({
+            //     configFile: './nightwatch.json',
+            //     cliArgs: {
+            //         env: 'browserstack-ipad2',
+            //         verbose: true
+            //     }
+            // }))
+            .pipe($.livereload())
             .on('error', (err) => {$.util.log($.util.colors.red(err));})
             .on('end', function () {
                 deferred.resolve();
