@@ -77,20 +77,5 @@ module.exports = (gulp, $, config, funcs) => {
             .on('end', function () {
                 deferred.resolve();
             });
-
-        // try {
-        //     funcs.startTests(true, false, false, true)
-        //         .then(() => {
-        //             deferred.resolve();
-        //         })
-        //         .catch((err) => {
-        //             $.util.log($.util.colors.red(err));
-        //         });
-        //     return deferred.promise;
-        // }
-        // catch (err) {
-        //     $.util.log($.util.colors.red(err));
-        //     config.vars.exec(process.exit(1));
-        // }
     });
 };
