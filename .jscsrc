@@ -1,0 +1,41 @@
+{
+  "disallowSpaceBeforeSemicolon": true,
+  "requireSemicolons": true,
+  "disallowEmptyBlocks": true,
+  "disallowMultiLineTernary": true,
+  "disallowMultipleLineStrings": true,
+  "disallowNestedTernaries": true,
+  "requireSpacesInForStatement": true,
+  "disallowTrailingComma": true,
+  "requireCurlyBraces": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "try",
+    "catch",
+    "case",
+    "default"
+  ],
+
+  "preset": "jquery",
+  "requireEarlyReturn": true,
+  "requireSpacesInsideParentheses": {
+    "all": true,
+    "ignoreParenthesizedExpression": true,
+    "except": [ "{", "}", "[", "]", "function", "\"" ]
+  },
+  "disallowSpacesInsideParentheses": {
+    "only": [ "{", "}", "[", "]", "function" ]
+  },
+  "disallowSpacesInCallExpression": true,
+  "requirePaddingNewLinesBeforeLineComments": null,
+  "requireSpaceAfterLineComment": {
+    "allExcept": ["#", "="]
+  },
+  "disallowMultipleLineBreaks": null,
+  "requireCapitalizedComments": null,
+  "validateIndentation": null,
+  "validateCommentPosition": { "position": "above" }
+}
