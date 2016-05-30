@@ -29,6 +29,10 @@ module.exports = () => {
 
     ];
 
+    config.EXPRESS_PORT             = 3000;
+    config.EXPRESS_ROOT_DEV         = process.cwd();
+    config.EXPRESS_ROOT_PROD        = process.cwd() + '/app';
+
 
     //**********************************************************************
     //*******************************PATHS**********************************

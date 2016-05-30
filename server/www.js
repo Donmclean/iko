@@ -12,9 +12,8 @@ const
     express         = require('express'),
     app             = require('express')(),
     morgan          = require('morgan'),
-    EXPRESS_PORT    = 3000,
-    EXPRESS_ROOT    = config.destDir || cwd + '/app';
-    // EXPRESS_ROOT    = cwd;
+    EXPRESS_PORT    = config.EXPRESS_PORT || 3000,
+    EXPRESS_ROOT    = config.EXPRESS_ROOT_PROD || config.destDir || cwd + '/app';
 
 /**
  * Get port from environment and store in Express.

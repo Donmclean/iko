@@ -7,8 +7,13 @@ module.exports = (gulp, $, config, funcs) => {
         let deferred = config.vars.Q.defer();
 
         try {
-            config.vars.app.use(config.vars.express.static(config.vars.EXPRESS_ROOT));
-            config.vars.app.listen(config.vars.EXPRESS_PORT);
+            if(!!funcs.isProd) {
+                config.vars.app.use(config.vars.express.static(config.EXPRESS_ROOT_PROD));
+            } else {
+                config.vars.app.use(config.vars.express.static(config.EXPRESS_ROOT_DEV));
+            }
+
+            config.vars.app.listen(config.EXPRESS_PORT);
             deferred.resolve();
         } catch (err) {
             config.vars.logi.error(err);

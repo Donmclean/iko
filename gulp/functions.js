@@ -15,6 +15,8 @@ module.exports = (gulp, $, config) => {
     funcs.integrationTestPassed = false;
     funcs.errorExitCode = 0;
 
+    funcs.browserSync = {};
+
     funcs.test = () => {
         
         config.vars.logi.log("in functions", 'test?');
@@ -149,6 +151,28 @@ module.exports = (gulp, $, config) => {
             return `<link href="${link}" type="text/css" rel="stylesheet">`;
         });
         return tags.join('');
+    };
+
+    funcs.initializeBrowserSync = () => {
+        config.vars.logi.warning('initilaizing BrowserSync...');
+
+        let deferred = config.vars.Q.defer();
+
+        funcs.browserSync = config.vars.browserSync.init({
+            ui: {
+                port: config.EXPRESS_PORT
+            },
+            port: config.EXPRESS_PORT,
+            proxy: 'localhost:' + config.EXPRESS_PORT + config.destDir.split(process.cwd())[1],
+            files: config.vars._.flattenDeep([config.templates.destDir  + '/**/*.html']),
+            logLevel: "info",
+            reloadOnRestart: false
+        }, () => {
+            deferred.resolve();
+        });
+
+        return deferred.promise;
+
     };
 
     return funcs;

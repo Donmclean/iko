@@ -25,8 +25,6 @@ module.exports = () => {
     vars.app            = require('express')();
     vars.morgan         = require('morgan');
     vars.app.use(vars.morgan('dev'));
-    vars.EXPRESS_PORT   = 3000;
-    vars.EXPRESS_ROOT   = process.cwd() + '/app';
     //***********************************************
     //******************GULP*************************
     //***********************************************
