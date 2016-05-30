@@ -19,6 +19,7 @@ module.exports = () => {
     config.srcDir                   = config.baseDir+'/src';
     config.destDir                  = config.baseDir+'/app';
     config.tempDir                  = config.baseDir+'/temp';
+    config.jscsConfig               = config.baseDir+'/.jscsrc';
 
     config.gulpFile                 = config.baseDir+'/gulpfile.js'; //TODO: throw error is gulpfile not found
     config.gulpFiles                = [
@@ -41,10 +42,10 @@ module.exports = () => {
     config.vendor.css               = {};
 
     config.vendor.js.srcDir         = config.baseDir+'/src/vendor/js';
-    config.vendor.js.src            = config.baseDir+'/src/vendor/js/**/**.js';
+    config.vendor.js.src            = [config.baseDir+'/src/vendor/js/**/*.js'];
 
     config.vendor.css.srcDir        = config.baseDir+'/src/vendor/css';
-    config.vendor.css.src           = config.baseDir+'/src/vendor/css/**/**.js';
+    config.vendor.css.src           = [config.baseDir+'/src/vendor/css/**/*.css'];
 
     //**********************************************************************
     //********************************JS************************************
@@ -55,7 +56,7 @@ module.exports = () => {
 
 
     //*************************JS DEPENDENCIES******************************
-    config.js.deps.mainFileName     = config.moduleName+'.js';
+    config.js.deps.mainFileName     = 'deps.js';
     config.js.deps.srcDir           = config.baseDir+'/node_modules';
     config.js.deps.destDir          = config.baseDir+'/app/assets/js';
     config.js.deps.src              = [
@@ -63,9 +64,8 @@ module.exports = () => {
         config.baseDir+'/node_modules/jquery/dist/jquery.js',
         config.baseDir+'/node_modules/angular/angular.js',
         config.baseDir+'/node_modules/angular-ui-router/release/angular-ui-router.js',
-        config.baseDir+'/node_modules/lodash/lodash.js',
-        config.baseDir+'/node_modules/semantic-ui/dist/semantic.js',
-        config.vendor.js.src
+        config.baseDir+'/node_modules/lodash/lodash.js'
+        // config.baseDir+'/node_modules/semantic-ui/dist/semantic.js',
 
     ];
 
@@ -76,7 +76,7 @@ module.exports = () => {
     ];
 
     //***************************JS SOURCES*********************************
-    config.js.src.mainFileName      = 'deps.js';
+    config.js.src.mainFileName      = config.moduleName+'.js';
     config.js.src.srcDir            = config.baseDir+'/src/js';
     config.js.src.destDir           = config.baseDir+'/app/assets/js';
     config.js.src.src               = [
@@ -94,6 +94,7 @@ module.exports = () => {
     config.sass                     = {};
     config.sass.mainFileName        = 'styles.css';
     config.sass.srcDir              = config.baseDir+'/src/sass';
+    config.sass.tempSrc             = config.tempDir+'/**/*.css';
     config.sass.destDir             = config.baseDir+'/app/assets/css';
     config.sass.src                 = [
 
@@ -123,14 +124,13 @@ module.exports = () => {
 
     config.css.deps.src             = [
 
-        config.baseDir+'/node_modules/semantic-ui/dist/semantic.css',
-        config.vendor.css.src
+        config.baseDir+'/node_modules/normalize.css/normalize.css'
 
     ];
 
-    config.js.deps.webSrcs          = [
+    config.css.deps.webSrcs          = [
 
-        'https://code.responsivevoice.org/responsivevoice.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css'
 
     ];
 
@@ -139,8 +139,7 @@ module.exports = () => {
     config.css.deps.destDir         = config.baseDir+'/app/assets/css';
     config.css.src.src              = [
 
-        config.baseDir+'/src/css/**/**.css',
-        config.vendor.css.src
+        config.baseDir+'/src/css/**/*.css'
 
     ];
     config.css.src.webSrcs          = [];
@@ -155,6 +154,11 @@ module.exports = () => {
     config.templates.src            = [
 
         config.baseDir+'/src/templates/**/*.jade'
+
+    ];
+    config.templates.srcHTML        = [
+
+        config.baseDir+'/src/templates/**/*.html'
 
     ];
 

@@ -14,6 +14,7 @@ const
     morgan          = require('morgan'),
     EXPRESS_PORT    = 3000,
     EXPRESS_ROOT    = config.destDir || cwd + '/app';
+    // EXPRESS_ROOT    = cwd;
 
 /**
  * Get port from environment and store in Express.

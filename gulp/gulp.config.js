@@ -12,7 +12,7 @@ module.exports = () => {
     //**********************************************************************************
 
     config                          = require('../src/config')();
-    config.vars                     = require(config.baseDir+'/gulp/variables')();
+    config.vars                     = require(baseDir+'/gulp/variables')();
     config.packageJsonFile          = baseDir+'/package.json';
     config.taskDir                  = baseDir +'/gulp/tasks/';
     config.taskList                 = config.vars.fs.readdirSync(config.taskDir);
