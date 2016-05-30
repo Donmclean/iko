@@ -5,7 +5,7 @@ angular.module('iko')
     .controller('ErrorController', ['$scope', function($scope) {
         "use strict";
         $scope.models = {
-          test : "HELLO WORLD!"
+          test : "HELLO WORLD!!!"
         };
 
         console.log($scope.models.test);

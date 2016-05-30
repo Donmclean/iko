@@ -24,7 +24,7 @@ module.exports = () => {
     vars.express        = require('express');
     vars.app            = require('express')();
     vars.morgan         = require('morgan');
-    vars.app.use(vars.morgan('dev'));
+    // vars.app.use(vars.morgan('dev'));
     //***********************************************
     //******************GULP*************************
     //***********************************************
@@ -34,6 +34,7 @@ module.exports = () => {
     vars.pngquant       = require('imagemin-pngquant');
     vars.args           = require('yargs').argv;
     vars.browserSync    = require('browser-sync').create();
+    vars.moment         = require('moment');
 
     return vars;
 };

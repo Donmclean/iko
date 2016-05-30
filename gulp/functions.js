@@ -15,8 +15,6 @@ module.exports = (gulp, $, config) => {
     funcs.integrationTestPassed = false;
     funcs.errorExitCode = 0;
 
-    funcs.browserSync = {};
-
     funcs.test = () => {
         
         config.vars.logi.log("in functions", 'test?');
@@ -158,7 +156,7 @@ module.exports = (gulp, $, config) => {
 
         let deferred = config.vars.Q.defer();
 
-        funcs.browserSync = config.vars.browserSync.init({
+        config.vars.browserSync.init({
             ui: {
                 port: config.EXPRESS_PORT
             },
@@ -166,6 +164,7 @@ module.exports = (gulp, $, config) => {
             proxy: 'localhost:' + config.EXPRESS_PORT + config.destDir.split(process.cwd())[1],
             files: config.vars._.flattenDeep([config.templates.destDir  + '/**/*.html']),
             logLevel: "info",
+            logPrefix: config.vars.moment(Date.now()).format('HH:mm:ss'),
             reloadOnRestart: false
         }, () => {
             deferred.resolve();
@@ -173,6 +172,10 @@ module.exports = (gulp, $, config) => {
 
         return deferred.promise;
 
+    };
+
+    funcs.reloadBrowserSync = () => {
+        return config.vars.browserSync.reload();
     };
 
     return funcs;

@@ -80,6 +80,7 @@
     "logi": "git+https://github.com/Donmclean/logi.git",
     "mocha": "^2.4.5",
     "mocha-clean": "^1.0.0",
+    "moment": "^2.13.0",
     "morgan": "^1.7.0",
     "node-sass": "^3.7.0",
     "phantomjs": "^2.1.7",
