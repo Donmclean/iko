@@ -8,11 +8,13 @@ module.exports = (gulp, $, config, funcs) => {
     
     gulp.task('build-dev',
         gulp.series(
+            gulp.parallel('lint-gulp', 'lint-js-src'),
             'clean','clean-temp',
-            gulp.parallel('lint-gulp', 'lint-js-src','media','sass','js-src','js-deps'),
-            'templates','express',
-            'watch',
+            'media','sass','js-src','js-deps',
+            'express',
+            'templates',
             'browser-sync',
+            'watch',
             done => done()
         )
     );

@@ -33,7 +33,7 @@ module.exports = () => {
     vars.beep           = require('beeper');
     vars.pngquant       = require('imagemin-pngquant');
     vars.args           = require('yargs').argv;
-    vars.browserSync    = require('browser-sync').create();
+    vars.browserSync    = require('browser-sync').create('iko');
     vars.moment         = require('moment');
 
     return vars;

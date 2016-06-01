@@ -9,6 +9,28 @@ module.exports = (gulp, $, config, funcs) => {
 
     gulp.task('templates', () => {
 
+        if(funcs.isWatching) {
+            return gulp.src(config.templates.main)
+                .pipe($.addSrc(config.templates.mainHTML))
+        
+                //Inject Module Files in Dev Mode
+                .pipe($.inject(gulp.src(config.vars._.concat(config.js.deps.src, config.js.src.src, config.vendor.js.src)), {
+                    addRootSlash: false,
+                    addPrefix: '..',
+                    removeTags: true
+                }), {read: false})
+        
+                .pipe($.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.destSrc)), {
+                    addRootSlash: false,
+                    addPrefix: '..',
+                    removeTags: true
+                }), {read: false})
+        
+                .pipe($.injectString.before('</body>',funcs.jsWebSrcInjector()))
+                .pipe($.injectString.after('<head>',funcs.cssWebSrcInjector()))
+                .pipe(gulp.dest(config.templates.destDir));
+        }
+
         return gulp.src(config.templates.src)
             // .pipe($.plumber(funcs.plumberOptions()))
             
@@ -29,14 +51,14 @@ module.exports = (gulp, $, config, funcs) => {
             //Inject Module Files in Dev Mode
             .pipe($.inject(gulp.src(config.vars._.concat(config.js.deps.src, config.js.src.src, config.vendor.js.src)), {
                 addRootSlash: false,
-                addPrefix: '..',
-                removeTags: true
+                addPrefix: '..'
+                // removeTags: true
             }), {read: false})
             
             .pipe($.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.tempSrc)), {
                 addRootSlash: false,
-                addPrefix: '..',
-                removeTags: true
+                addPrefix: '..'
+                // removeTags: true
             }), {read: false})
                 
             // .pipe($.inject(gulp.src(config.js.deps.src, {read: false}, file => {

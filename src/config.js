@@ -99,6 +99,7 @@ module.exports = () => {
     config.sass.mainFileName        = 'styles.css';
     config.sass.srcDir              = config.baseDir+'/src/sass';
     config.sass.tempSrc             = config.tempDir+'/**/*.css';
+    config.sass.destSrc             = config.tempDir+'/**/*.css';
     config.sass.destDir             = config.baseDir+'/app/assets/css';
     config.sass.src                 = [
 

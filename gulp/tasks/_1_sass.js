@@ -14,15 +14,15 @@ module.exports = (gulp, $, config, funcs) => {
             .pipe($.concat(config.sass.mainFileName))
             .pipe($.autoprefixer())
             .pipe($.sourcemaps.write())
-            .pipe($.rev())
+            .pipe($.if(funcs.isProd, $.rev()))
             .pipe(gulp.dest(config.tempDir))
             .pipe(gulp.dest(config.sass.destDir))
             .pipe($.size({showFiles:true}))
-            .pipe($.rename({suffix: '.min'}))
-            .pipe($.if(false, $.cleanCss()))
-            .pipe($.sourcemaps.write())
+            .pipe($.if(!funcs.isWatching,$.rename({suffix: '.min'})))
+            .pipe($.if(!funcs.isWatching, $.cleanCss()))
+            .pipe($.if(!funcs.isWatching, $.sourcemaps.write()))
             // .pipe(gulp.dest(config.tempDir))
-            .pipe(gulp.dest(config.sass.destDir))
-            .pipe($.size({showFiles:true}));
+            .pipe($.if(!funcs.isWatching, gulp.dest(config.sass.destDir)))
+            .pipe($.if(!funcs.isWatching, $.size({showFiles:true})));
     });
 };
