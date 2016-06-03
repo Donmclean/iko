@@ -13,7 +13,10 @@ module.exports = (gulp, $, config) => {
     funcs.isIntegrationTest = false;
     funcs.unitTestPassed = false;
     funcs.integrationTestPassed = false;
+
+    funcs.errors = [];
     funcs.errorExitCode = 0;
+    funcs.exitOnGulpGlobalErrors = false;
 
     funcs.test = () => {
         
@@ -25,6 +28,22 @@ module.exports = (gulp, $, config) => {
         config.vars.logi.info("processing GulpArgs...", args);
 
         return true;
+    };
+
+    funcs.gulpGlobalErrorHandler = err => {
+        if(!!err) {
+            funcs.errors.push(err);
+            funcs.errorExitCode = 1;
+        }
+
+        config.vars.logi.error('Error:',err);
+        config.vars.logi.info('funcs.errors:',funcs.errors);
+        config.vars.logi.info('funcs.errorExitCode:',funcs.errorExitCode);
+
+        if(funcs.exitOnGulpGlobalErrors) {
+            config.vars.exec(process.exit(funcs.errorExitCode));
+        }
+
     };
 
     funcs.jshintErrorHandler = (err, doExit) => {

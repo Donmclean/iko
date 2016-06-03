@@ -9,7 +9,7 @@ module.exports = (gulp, $, config, funcs) => {
             jsFilter = $.filter(['**.js'], {restore: true});
 
         return gulp.src(config.js.src.src)
-            // .pipe($.plumber(funcs.plumberOptions()))
+            .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.sourcemaps.init())
             .pipe($.ngAnnotate())
             .pipe($.babel({presets: ['es2015']}))

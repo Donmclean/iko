@@ -14,12 +14,13 @@ module.exports = (gulp, $, config, funcs) => {
                 port: config.EXPRESS_PORT
             },
             port: config.EXPRESS_PORT,
-            proxy: 'localhost:' + config.EXPRESS_PORT + config.destDir.split(process.cwd())[1],
-            // files: config.vars._.flattenDeep(config.sass.watch),
+            server: [config.baseDir,config.destDir],
+            // server: [config.destDir,config.baseDir],
+            //proxy: 'localhost:' + config.EXPRESS_PORT + config.destDir.split(process.cwd())[1],
+            open: "external",
             logLevel: "info",
             logPrefix: config.vars.moment(Date.now()).format('HH:mm:ss'),
-            reloadOnRestart: true,
-            reloadDelay: 1000
+            reloadOnRestart: true
         }, () => {
             deferred.resolve();
         });

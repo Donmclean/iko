@@ -13,10 +13,12 @@ module.exports = (gulp, $, config, funcs) => {
                 })
                 .catch((err) => {
                     $.util.log($.util.colors.red(err));
+                    funcs.gulpGlobalErrorHandler(err);
                     deferred.reject();
                 });
         } catch (err) {
             $.util.log($.util.colors.red(err));
+            funcs.gulpGlobalErrorHandler(err);
         }
         return deferred.promise;
     });

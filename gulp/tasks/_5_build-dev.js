@@ -11,7 +11,7 @@ module.exports = (gulp, $, config, funcs) => {
             gulp.parallel('lint-gulp', 'lint-js-src'),
             'clean','clean-temp',
             'media','sass','js-src','js-deps',
-            'express',
+            //'express',
             'templates',
             'browser-sync',
             'watch',

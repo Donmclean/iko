@@ -6,6 +6,7 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('videos', () => {
 
         return gulp.src(config.media.videos.src)
+            .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.debug({title: 'copying video files:'}))
             .pipe(gulp.dest(config.media.videos.destDir));
 

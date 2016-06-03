@@ -5,6 +5,7 @@
 module.exports = (gulp, $, config, funcs) => {
     gulp.task('sass', () => {
         return gulp.src(config.sass.src)
+            .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.sourcemaps.init())
             .pipe($.sass().on('error', funcs.sassErrorHandler))
             .pipe($.addSrc(config.css.src.src))

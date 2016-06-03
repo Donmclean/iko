@@ -9,36 +9,37 @@ module.exports = (gulp, $, config, funcs) => {
 
     gulp.task('templates', () => {
 
-        if(funcs.isWatching) {
-            return gulp.src(config.templates.main)
-                .pipe($.addSrc(config.templates.mainHTML))
-        
-                //Inject Module Files in Dev Mode
-                .pipe($.inject(gulp.src(config.vars._.concat(config.js.deps.src, config.js.src.src, config.vendor.js.src)), {
-                    addRootSlash: false,
-                    addPrefix: '..',
-                    removeTags: true
-                }), {read: false})
-        
-                .pipe($.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.destSrc)), {
-                    addRootSlash: false,
-                    addPrefix: '..',
-                    removeTags: true
-                }), {read: false})
-        
-                .pipe($.injectString.before('</body>',funcs.jsWebSrcInjector()))
-                .pipe($.injectString.after('<head>',funcs.cssWebSrcInjector()))
-                .pipe(gulp.dest(config.templates.destDir));
-        }
+        // if(funcs.isWatching) {
+        //     return gulp.src(config.templates.main)
+        //         .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
+        //         .pipe($.addSrc(config.templates.mainHTML))
+        //
+        //         //Inject Module Files in Dev Mode
+        //         .pipe($.inject(gulp.src(config.vars._.concat(config.js.deps.src, config.js.src.src, config.vendor.js.src)), {
+        //             addRootSlash: false,
+        //             addPrefix: '..',
+        //             removeTags: true
+        //         }), {read: false})
+        //
+        //         .pipe($.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.destSrc)), {
+        //             addRootSlash: false,
+        //             addPrefix: '..',
+        //             removeTags: true
+        //         }), {read: false})
+        //
+        //         .pipe($.injectString.before('</body>',funcs.jsWebSrcInjector()))
+        //         .pipe($.injectString.after('<head>',funcs.cssWebSrcInjector()))
+        //         .pipe(gulp.dest(config.templates.destDir))
+        // }
 
         return gulp.src(config.templates.src)
-            // .pipe($.plumber(funcs.plumberOptions()))
+            .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             
             //Parse & copy all templates
             .pipe($.jade())
             .pipe($.addSrc(config.templates.srcHTML))
             .pipe($.debug({title: 'copying and minifying templates:'}))
-            .pipe($.htmlmin({collapseWhitespace: true}))
+            .pipe($.if(!funcs.isWatching,$.htmlmin({collapseWhitespace: true})))
             .pipe(gulp.dest(config.templates.destDir))
 
 

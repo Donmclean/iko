@@ -6,21 +6,8 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('watch', function (cb) {
         funcs.isWatching = true;
 
-        gulp.task('reload', config.vars.browserSync.reload, done => done);
-
-        let browserSync = require("browser-sync").get('iko');
-
-        browserSync.watch(config.js.src.src).on("change", () => {
-            console.log('reloading...');
-            browserSync.reload();
-        });
-
-        // setInterval(() => {config.vars.browserSync.reload(config.destDir + '/**/*.html');},4000);
-
         // Watch JS SOURCE files
-        // gulp.watch(config.js.src.src, () => {
-        //     funcs.reloadBrowserSync();
-        // });
+        gulp.watch(config.js.src.src, gulp.series('lint-js-src','reload-browser-sync'), done => done);
 
         // Watch UNIT TEST files
         // gulp.watch(config.tests.unit, () => {
@@ -28,13 +15,15 @@ module.exports = (gulp, $, config, funcs) => {
         // });
 
         // Watch TEMPLATE (jade/html) files
+        gulp.watch(config.templates.src, gulp.series('templates','reload-browser-sync'), done => done);
         // gulp.watch(config.templates.src, () => {
         //     funcs.reloadBrowserSync();
         //     // config.vars.runSequence('clean-temp','template-cache','js-srcs','templates','clean-temp');
         // });
         //
         // // Watch SASS files
-        gulp.watch(config.sass.watch, gulp.series('sass','reload'));
+
+        gulp.watch(config.sass.watch, gulp.series('sass','reload-browser-sync'), done => done);
 
             // gulp.series('sass', 'templates',done);
             // funcs.reloadBrowserSync();
@@ -42,6 +31,7 @@ module.exports = (gulp, $, config, funcs) => {
         // });
         //
         // // Watch CSS files
+        gulp.watch(config.css.src.src, gulp.series('sass','reload-browser-sync'), done => done);
         // gulp.watch(config.css.src, () => {
         //     funcs.reloadBrowserSync();
         //     // config.vars.runSequence('clean-temp','sass','templates','clean-temp');

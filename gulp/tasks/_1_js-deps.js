@@ -7,7 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('js-deps', () => {
 
         return gulp.src(config.js.deps.src)
-            // .pipe($.plumber(funcs.plumberOptions()))
+            .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.debug({title: 'copying and minifying js deps:'}))
             .pipe($.concat(config.js.deps.mainFileName))
             .pipe($.rev())

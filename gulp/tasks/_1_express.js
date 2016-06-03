@@ -17,6 +17,7 @@ module.exports = (gulp, $, config, funcs) => {
             deferred.resolve();
         } catch (err) {
             config.vars.logi.error(err);
+            funcs.gulpGlobalErrorHandler(err);
             deferred.reject();
         }
 

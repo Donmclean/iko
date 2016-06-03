@@ -6,6 +6,7 @@ module.exports = (gulp, $, config, funcs) => {
     gulp.task('lint-js-src', () => {
 
         return gulp.src(config.js.src.src)
+            .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.jshint())
             .pipe($.jscs({configPath: config.jscsConfig}))
             .pipe($.jscsStylish.combineWithHintResults())
