@@ -4,9 +4,6 @@
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
 
-    const
-        Filter = $.filter(['**/*.css'], {restore: true});
-
     gulp.task('templates', () => {
 
         // if(funcs.isWatching) {
@@ -32,22 +29,30 @@ module.exports = (gulp, $, config, funcs) => {
         //         .pipe(gulp.dest(config.templates.destDir))
         // }
 
+        const
+            Filter = $.filter(['**/*.css'], {restore: true});
+
+        console.log('MainFilter',config.vars._.concat('!'+config.templates.mainHTML, '!'+config.templates.main));
+        
+        let jade = config.vars._.concat(config.templates.src, '!'+config.templates.main),
+            html = config.vars._.concat(config.templates.srcHTML, '!'+config.templates.mainHTML);
+
         return gulp.src(config.templates.src)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
-            
-            //Parse & copy all templates
+
+            //Parse & copy all templates *(Minus The Top Level Index File)*
             .pipe($.jade())
-            .pipe($.addSrc(config.templates.srcHTML))
+            .pipe($.addSrc(html))
             .pipe($.debug({title: 'copying and minifying templates:'}))
-            .pipe($.if(!funcs.isWatching,$.htmlmin({collapseWhitespace: true})))
-            .pipe(gulp.dest(config.templates.destDir))
 
-
-            //Filter for Top level index file
+            //Filter for Top level Index file
             .pipe(Filter)
+
             .pipe($.addSrc(config.templates.main))
             .pipe($.jade())
             .pipe($.addSrc(config.templates.mainHTML))
+            .pipe($.debug({title: 'copying and minifying Top level templates:'}))
+            .pipe($.if(!funcs.isWatching,$.htmlmin({collapseWhitespace: true})))
 
             //Inject Module Files in Dev Mode
             .pipe($.inject(gulp.src(config.vars._.concat(config.js.deps.src, config.js.src.src, config.vendor.js.src)), {
@@ -55,12 +60,14 @@ module.exports = (gulp, $, config, funcs) => {
                 addPrefix: '..'
                 // removeTags: true
             }), {read: false})
-            
+
             .pipe($.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.tempSrc)), {
                 addRootSlash: false,
                 addPrefix: '..'
                 // removeTags: true
             }), {read: false})
+
+
                 
             // .pipe($.inject(gulp.src(config.js.deps.src, {read: false}, file => {
             //     console.log('filex:',file);
@@ -91,9 +98,13 @@ module.exports = (gulp, $, config, funcs) => {
             // }))
 
 
+            //Inject Web Sources
             .pipe($.injectString.before('</body>',funcs.jsWebSrcInjector()))
             .pipe($.injectString.after('<head>',funcs.cssWebSrcInjector()))
-            // .pipe(gulp.dest(config.tempPath))
+
+            //Restore filtered templates
+            .pipe(Filter.restore)
+
             .pipe(gulp.dest(config.templates.destDir));
     });
 };
