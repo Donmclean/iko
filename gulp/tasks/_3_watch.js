@@ -7,7 +7,12 @@ module.exports = (gulp, $, config, funcs) => {
         funcs.isWatching = true;
 
         // Watch JS SOURCE files
-        gulp.watch(config.js.src.src, gulp.series('lint-js-src','reload-browser-sync'), done => done);
+        let jsWatcher = gulp.watch(config.js.src.src, gulp.series('lint-js-src','reload-browser-sync'), done => done);
+
+        jsWatcher.on('change', function(path, stats) {
+            funcs.logChangedFile(path);
+            config.js.src.changed.push(path);
+        });
 
         // Watch UNIT TEST files
         // gulp.watch(config.tests.unit, () => {
@@ -15,27 +20,22 @@ module.exports = (gulp, $, config, funcs) => {
         // });
 
         // Watch TEMPLATE (jade/html) files
-        gulp.watch(config.templates.src, gulp.series('templates','reload-browser-sync'), done => done);
-        // gulp.watch(config.templates.src, () => {
-        //     funcs.reloadBrowserSync();
-        //     // config.vars.runSequence('clean-temp','template-cache','js-srcs','templates','clean-temp');
-        // });
-        //
-        // // Watch SASS files
+        let templateFiles = config.vars._.concat(config.templates.src,config.templates.srcHTML);
 
+        let templateWatcher = gulp.watch( templateFiles, gulp.series('templates','reload-browser-sync'), done => done);
+        templateWatcher.on('change', function(path, stats) {
+            funcs.logChangedFile(path);
+            config.templates.changed.push(path);
+        });
+
+        // // Watch SASS files
         gulp.watch(config.sass.watch, gulp.series('sass','reload-browser-sync'), done => done);
 
-            // gulp.series('sass', 'templates',done);
-            // funcs.reloadBrowserSync();
-            // config.vars.runSequence('clean-temp','sass','templates','clean-temp');
-        // });
-        //
         // // Watch CSS files
         gulp.watch(config.css.src.src, gulp.series('sass','reload-browser-sync'), done => done);
-        // gulp.watch(config.css.src, () => {
-        //     funcs.reloadBrowserSync();
-        //     // config.vars.runSequence('clean-temp','sass','templates','clean-temp');
-        // });
+
+        // // Watch Media files
+        gulp.watch(config.media.watch, gulp.series('media','reload-browser-sync'), done => done);
 
         cb();
     });

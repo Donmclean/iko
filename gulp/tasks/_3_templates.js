@@ -6,43 +6,28 @@ module.exports = (gulp, $, config, funcs) => {
 
     gulp.task('templates', () => {
 
-        // if(funcs.isWatching) {
-        //     return gulp.src(config.templates.main)
-        //         .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
-        //         .pipe($.addSrc(config.templates.mainHTML))
-        //
-        //         //Inject Module Files in Dev Mode
-        //         .pipe($.inject(gulp.src(config.vars._.concat(config.js.deps.src, config.js.src.src, config.vendor.js.src)), {
-        //             addRootSlash: false,
-        //             addPrefix: '..',
-        //             removeTags: true
-        //         }), {read: false})
-        //
-        //         .pipe($.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.destSrc)), {
-        //             addRootSlash: false,
-        //             addPrefix: '..',
-        //             removeTags: true
-        //         }), {read: false})
-        //
-        //         .pipe($.injectString.before('</body>',funcs.jsWebSrcInjector()))
-        //         .pipe($.injectString.after('<head>',funcs.cssWebSrcInjector()))
-        //         .pipe(gulp.dest(config.templates.destDir))
-        // }
-
         const
             Filter = $.filter(['**/*.css'], {restore: true});
 
-        console.log('MainFilter',config.vars._.concat('!'+config.templates.mainHTML, '!'+config.templates.main));
-        
-        let jade = config.vars._.concat(config.templates.src, '!'+config.templates.main),
-            html = config.vars._.concat(config.templates.srcHTML, '!'+config.templates.mainHTML);
+        //Check for changed files
+        let changedTemplateFiles = [];
+        if(config.vars._.isEmpty(config.templates.changed)) {
+            changedTemplateFiles = config.vars._.concat(config.templates.src,config.templates.srcHTML);
+        } else {
+            changedTemplateFiles = config.templates.changed;
+            config.templates.changed = [];
+        }
 
-        return gulp.src(config.templates.src)
+        return gulp.src(funcs.isWatching ? changedTemplateFiles : config.templates.src)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
+
+            // .pipe($.changed(config.templates.destDir, { extension: '.html'}))
 
             //Parse & copy all templates *(Minus The Top Level Index File)*
             .pipe($.jade())
-            .pipe($.addSrc(html))
+            .pipe($.addSrc(config.templates.srcHTML))
+            //filter only changed files
+            //.pipe($.if(funcs.isWatching, $.changed(config.templates.destDir, { extension: '.html'})))
             .pipe($.debug({title: 'copying and minifying templates:'}))
 
             //Filter for Top level Index file

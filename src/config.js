@@ -83,6 +83,7 @@ module.exports = () => {
     config.js.src.mainFileName      = config.moduleName+'.js';
     config.js.src.srcDir            = config.baseDir+'/src/js';
     config.js.src.destDir           = config.baseDir+'/app/assets/js';
+    config.js.src.changed           = [];
     config.js.src.src               = [
 
         config.baseDir+'/src/js/**/*.module.js',
@@ -156,6 +157,7 @@ module.exports = () => {
     config.templates                = {};
     config.templates.main           = config.baseDir+'/src/templates/index.jade';
     config.templates.mainHTML       = config.baseDir+'/src/templates/index.html';
+    config.templates.changed        = [];
     config.templates.src            = [
 
         config.baseDir+'/src/templates/**/*.jade'
@@ -167,6 +169,7 @@ module.exports = () => {
 
     ];
 
+    config.templates.srcDir         = config.baseDir+'/src/templates/';
     config.templates.destDir        = config.baseDir+'/app';
 
     //**********************************************************************
@@ -179,6 +182,9 @@ module.exports = () => {
     config.media.files              = {};
     config.media.fonts              = {};
 
+    config.media.srcDir             = [ config.baseDir+'/src/media/' ];
+    config.media.destDir            = [ config.baseDir+'/app/assets/media/' ];
+    config.media.watch              = [ config.baseDir+'/src/media/**/**' ];
     config.media.images.src         = [ config.baseDir+'/src/media/images/**/*.{png,gif,jpg,svg}' ];
     config.media.images.destDir     = config.baseDir+'/app/assets/media/images';
     config.media.videos.src         = [ config.baseDir+'/src/media/videos/**/*' ];

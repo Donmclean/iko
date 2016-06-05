@@ -171,5 +171,15 @@ module.exports = (gulp, $, config) => {
         return tags.join('');
     };
 
+    funcs.logChangedFile = path => {
+        config.vars.logi.mixed([{
+            color: 'yellow',
+            value: "Changed File:"
+        },{
+            color: 'blue',
+            value: config.vars.path.basename(path)
+        }]);
+    };
+
     return funcs;
 };

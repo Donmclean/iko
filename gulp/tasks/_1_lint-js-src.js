@@ -5,7 +5,16 @@
 module.exports = (gulp, $, config, funcs) => {
     gulp.task('lint-js-src', () => {
 
-        return gulp.src(config.js.src.src)
+        //Check for changed files
+        let changedJSFiles = [];
+        if(config.vars._.isEmpty(config.js.src.changed)) {
+            changedJSFiles = config.js.src.src;
+        } else {
+            changedJSFiles = config.js.src.changed;
+            config.js.src.changed = [];
+        }
+
+        return gulp.src(funcs.isWatching ? changedJSFiles : config.js.src.src)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.jshint())
             .pipe($.jscs({configPath: config.jscsConfig}))
