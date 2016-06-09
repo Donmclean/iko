@@ -3,5 +3,5 @@
  */
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
-    gulp.task('default',gulp.series('build-dev', done => done()));
+    gulp.task('default',gulp.series('build-dev'),done => done());
 };
