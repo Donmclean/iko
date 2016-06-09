@@ -14,6 +14,10 @@ angular.module('iko')
                 url: "/",
                 template: '<home></home>'
             })
+            .state('test', {
+                url: "/test",
+                template: '<test></test>'
+            })
             .state('t2', {
                 url: "/t2",
                 template: '<t2></t2>'

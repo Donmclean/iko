@@ -36,7 +36,7 @@ module.exports = (gulp, $, config, funcs) => {
 
         // // Watch Media files
         gulp.watch(config.media.watch, gulp.series('media','reload-browser-sync'), done => done);
-
+        
         cb();
     });
 };

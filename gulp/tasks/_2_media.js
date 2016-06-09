@@ -3,6 +3,7 @@
  */
 
 module.exports = (gulp, $, config, funcs) => {
+    "use strict";
     
     gulp.task('media',
         gulp.parallel('audio', 'files', 'fonts', 'images','videos', done => done())

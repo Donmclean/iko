@@ -169,7 +169,7 @@ module.exports = () => {
 
     ];
 
-    config.templates.srcDir         = config.baseDir+'/src/templates/';
+    config.templates.srcDir         = config.baseDir+'/src/templates';
     config.templates.destDir        = config.baseDir+'/app';
 
     //**********************************************************************
