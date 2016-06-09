@@ -12,6 +12,8 @@ module.exports = (gulp, $, config, funcs) => {
             gulp.parallel('media','sass'),
             //'express',
             'templates',
+            'run-unit-tests',
+            'run-integration-tests',
             'browser-sync',
             'watch',
             done => done()

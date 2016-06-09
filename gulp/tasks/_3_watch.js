@@ -7,7 +7,7 @@ module.exports = (gulp, $, config, funcs) => {
         funcs.isWatching = true;
 
         // Watch JS SOURCE files
-        let jsWatcher = gulp.watch(config.js.src.src, gulp.series('lint-js-src','reload-browser-sync'), done => done);
+        let jsWatcher = gulp.watch(config.js.src.src, gulp.series('lint-js-src','run-unit-tests','reload-browser-sync'), done => done);
 
         jsWatcher.on('change', function(path, stats) {
             funcs.logChangedFile(path);
@@ -15,9 +15,7 @@ module.exports = (gulp, $, config, funcs) => {
         });
 
         // Watch UNIT TEST files
-        // gulp.watch(config.tests.unit, () => {
-        //     config.vars.runSequence('run-unit-tests');
-        // });
+        gulp.watch(config.tests.unit, gulp.series('run-unit-tests'), done => done);
 
         // Watch TEMPLATE (jade/html) files
         let templateFiles = config.vars._.concat(config.templates.src,config.templates.srcHTML);

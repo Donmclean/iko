@@ -196,5 +196,106 @@ module.exports = () => {
     config.media.fonts.src          = [ config.baseDir+'/src/media/fonts/**/*' ];
     config.media.fonts.destDir      = config.baseDir+'/app/assets/media/fonts';
 
+
+    //**********************************************************************
+    //*******************************TESTS**********************************
+    //**********************************************************************
+
+
+    config.tests                    = {};
+    config.tests.all                = config.baseDir+'/tests/**/*.js';
+    config.tests.unit               = [
+
+            config.baseDir+'/tests/unit/**/*.js',
+            config.baseDir+'/bin/polyfills/bind-polyfill.js'
+
+    ];
+    config.tests.integration        = config.baseDir+'/tests/integration/**/*.js';
+    config.tests.ngMocks            = config.baseDir+'/node_modules/angular-mocks/angular-mocks.js';
+    config.tests.nightWatchConfig   = config.baseDir+'/nightwatch.json';
+    config.tests.karmaConfigFile    = config.baseDir+'/karma.conf.js';
+    config.tests.karmaConfig        = {
+
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: '',
+
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: ['jasmine'],
+
+        // list of files to exclude
+        exclude: [
+        ],
+
+
+        // preprocess matching files before serving them to the browser
+        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        preprocessors : {
+            'src/**/*.js': ['babel','coverage'],
+            'tests/**/*.js': ['babel','coverage']
+        },
+
+
+        // test results reporter to use
+        // possible values: 'dots', 'progress'
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        reporters: ['progress', 'coverage'],
+
+        babelPreprocessor: {
+            options: {
+                presets: ['es2015'],
+                sourceMap: 'inline'
+            }
+        },
+
+
+        // plugins : [
+        //  //require('karma-webpack'),
+        //  // 'karma-jasmine',
+        //  //   'karma-coverage',
+        //  //    'karma-phantomjs-launcher'
+        //  //'karma-chrome-launcher',
+        //  //'karma-safari-launcher',
+        //  //'karma-firefox-launcher'
+        // ],
+
+
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
+
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: false,
+
+
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        //browsers: ['Chrome', 'Firefox', 'Safari', 'PhantomJS'],
+        browsers: ['PhantomJS'],
+
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: true,
+
+        // Concurrency level
+        // how many browser should be started simultaneous
+        concurrency: Infinity,
+
+        browserNoActivityTimeout: 0,
+
+        captureConsole: true,
+
+        //logLevel: config.LOG_INFO,
+
+        coverageReporter : {
+            dir : config.baseDir+'/test-coverage',
+            reporters: [
+                {type: 'html', subdir: 'report-html'},
+                {type: 'lcov', subdir: 'report-lcov'},
+                {type: 'text-summary'}
+            ]
+        }
+    };
+
     return config;
 };

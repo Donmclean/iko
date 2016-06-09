@@ -97,6 +97,45 @@ module.exports = (gulp, $, config) => {
 
     };
 
+    funcs.startUnitTests = (singleRun, autoWatch) => {
+        let called = false,
+            Server = require('karma').Server,
+            excludes = config.tests.karmaConfig.exclude,
+            deferred = config.vars.Q.defer();
+
+        let server = new Server(config.vars._.assign(
+            {configFile: config.tests.karmaConfigFile},
+            {singleRun: !!singleRun},
+            {autoWatch: !!autoWatch},
+            {exclude: excludes}
+        ), results => {
+            if(!called) {
+                called = true;
+
+                if(results === 0) {
+                    funcs.unitTestPassed = true;
+                    config.vars.logi.info("Karma Unit Tests Passed");
+                    deferred.resolve();
+
+                } else {
+                    funcs.unitTestPassed = false;
+                    config.vars.logi.error("Karma Unit Tests Failed");
+                    config.vars.beep(3);
+                    deferred.resolve();
+                }
+            }
+            return deferred.promise;
+        });
+
+        server.start();
+        server.on('browser_error', (err) => {
+            config.vars.logi.error('ERROR:', err);
+
+        });
+
+        return deferred.promise;
+    };
+
     funcs.delete = (name, file) => {
         let deferred = config.vars.Q.defer();
         try {
