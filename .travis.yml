@@ -5,4 +5,4 @@ before_script:
   - npm install -g "gulpjs/gulp-cli#4.0"
 install:
   - npm install
-script: gulp
+script: gulp build-custom && npm start

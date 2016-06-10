@@ -142,7 +142,7 @@ module.exports = () => {
 
     //***************************CSS SOURCES********************************
     config.css.src.srcDir           = config.baseDir+'/src/css';
-    config.css.deps.destDir         = config.baseDir+'/app/assets/css';
+    config.css.src.destDir          = config.baseDir+'/app/assets/css';
     config.css.src.src              = [
 
         config.baseDir+'/src/css/**/*.css'

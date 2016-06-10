@@ -9,13 +9,13 @@ module.exports = (gulp, $, config, funcs) => {
         return gulp.src(config.tests.nightWatchConfig)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
             .pipe($.debug({title: 'running integration tests:'}))
-            .pipe($.nightwatch({
-                configFile: config.tests.nightWatchConfig,
-                cliArgs: {
-                    env: 'chrome',
-                    verbose: true
-                }
-            }));
+            // .pipe($.nightwatch({
+            //     configFile: config.tests.nightWatchConfig,
+            //     cliArgs: {
+            //         env: 'chrome',
+            //         verbose: true
+            //     }
+            // }))
             // .pipe($.nightwatch({
             //     configFile: './nightwatch.json',
             //     cliArgs: {
@@ -30,13 +30,13 @@ module.exports = (gulp, $, config, funcs) => {
             //         verbose: true
             //     }
             // }))
-            // .pipe($.nightwatch({
-            //     configFile: './nightwatch.json',
-            //     cliArgs: {
-            //         env: 'browserstack-chrome',
-            //         verbose: true
-            //     }
-            // }))
+            .pipe($.nightwatch({
+                configFile: './nightwatch.json',
+                cliArgs: {
+                    env: 'browserstack-chrome',
+                    verbose: true
+                }
+            }));
             // .pipe($.nightwatch({
             //     configFile: './nightwatch.json',
             //     cliArgs: {

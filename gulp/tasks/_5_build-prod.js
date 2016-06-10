@@ -3,20 +3,19 @@
  */
 
 module.exports = (gulp, $, config, funcs) => {
-
-    gulp.task('build-dev',
+    
+    gulp.task('build-prod',
         gulp.series(
             (cb) => {
-                funcs.isDev = true;
+                funcs.isProd = true;
                 cb();
             },
             gulp.parallel('lint-gulp','lint-js-src','clean','clean-temp'),
-            gulp.parallel('media','sass'),
+            gulp.parallel('media','sass','css-deps','js-src','js-deps'),
             //'express',
             'templates',
             'run-unit-tests',
-            'browser-sync',
-            'watch',
+            'run-integration-tests',
             done => done()
         )
     );

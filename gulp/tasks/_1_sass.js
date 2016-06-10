@@ -17,14 +17,12 @@ module.exports = (gulp, $, config, funcs) => {
             .pipe($.autoprefixer())
             .pipe($.sourcemaps.write())
             .pipe($.if(!!funcs.isProd, $.rev()))
-            .pipe($.if(!!funcs.isDev, gulp.dest(config.tempDir)))
-            .pipe($.if(!funcs.isDev, gulp.dest(config.sass.destDir)))
+            .pipe($.if(!!funcs.isDev, gulp.dest(config.tempDir), gulp.dest(config.sass.destDir)))
             .pipe($.size({showFiles:true}))
-            .pipe($.if(!funcs.isWatching && !funcs.isDev,$.rename({suffix: '.min'})))
-            .pipe($.if(!funcs.isWatching && !funcs.isDev, $.cleanCss()))
-            .pipe($.if(!funcs.isWatching && !funcs.isDev, $.sourcemaps.write()))
-            // .pipe(gulp.dest(config.tempDir))
-            .pipe($.if(!funcs.isWatching && !funcs.isDev, gulp.dest(config.sass.destDir)))
-            .pipe($.if(!funcs.isWatching && !funcs.isDev, $.size({showFiles:true})));
+            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.rename({suffix: '.min'})))
+            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.cleanCss()))
+            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.sourcemaps.write()))
+            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, gulp.dest(config.sass.destDir)))
+            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.size({showFiles:true})));
     });
 };

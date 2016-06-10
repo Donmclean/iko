@@ -1,10 +1,10 @@
 /**
- * Created by donmclean on 5/25/16.
+ * Created by donmclean on 6/10/16.
  */
-
+"use strict";
 module.exports = (gulp, $, config, funcs) => {
 
-    gulp.task('build-dev',
+    gulp.task('build-custom',
         gulp.series(
             (cb) => {
                 funcs.isDev = true;
@@ -15,8 +15,6 @@ module.exports = (gulp, $, config, funcs) => {
             //'express',
             'templates',
             'run-unit-tests',
-            'browser-sync',
-            'watch',
             done => done()
         )
     );
