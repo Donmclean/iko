@@ -187,14 +187,19 @@ module.exports = () => {
     config.media.watch              = [ config.baseDir+'/src/media/**/**' ];
     config.media.images.src         = [ config.baseDir+'/src/media/images/**/*.{png,gif,jpg,svg}' ];
     config.media.images.destDir     = config.baseDir+'/app/assets/media/images';
+    config.media.images.tempDir     = config.baseDir+'/temp/assets/media/images';
     config.media.videos.src         = [ config.baseDir+'/src/media/videos/**/*' ];
     config.media.videos.destDir     = config.baseDir+'/app/assets/media/videos';
+    config.media.videos.tempDir     = config.baseDir+'/temp/assets/media/videos';
     config.media.audio.src          = [ config.baseDir+'/src/media/audio/**/*'];
     config.media.audio.destDir      = config.baseDir+'/app/assets/media/audio';
+    config.media.audio.tempDir      = config.baseDir+'/temp/assets/media/audio';
     config.media.files.src          = [ config.baseDir+'/src/media/files/**/*' ];
     config.media.files.destDir      = config.baseDir+'/app/assets/media/files';
+    config.media.files.tempDir      = config.baseDir+'/temp/assets/media/files';
     config.media.fonts.src          = [ config.baseDir+'/src/media/fonts/**/*' ];
     config.media.fonts.destDir      = config.baseDir+'/app/assets/media/fonts';
+    config.media.fonts.tempDir      = config.baseDir+'/temp/assets/media/fonts';
 
 
     //**********************************************************************
@@ -206,9 +211,12 @@ module.exports = () => {
     config.tests.all                = config.baseDir+'/tests/**/*.js';
     config.tests.unit               = [
 
-            config.baseDir+'/tests/unit/**/*.js',
-            config.baseDir+'/bin/polyfills/bind-polyfill.js'
+            config.baseDir+'/tests/unit/**/*.js'
 
+    ];
+    config.tests.extras             = [
+
+        config.baseDir+'/bin/polyfills/bind-polyfill.js'
     ];
     config.tests.integration        = config.baseDir+'/tests/integration/**/*.js';
     config.tests.ngMocks            = config.baseDir+'/node_modules/angular-mocks/angular-mocks.js';

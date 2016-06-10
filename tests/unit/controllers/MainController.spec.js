@@ -6,7 +6,7 @@ describe('Controller: MainController', () => {
     // load the controller's module
     beforeEach(module('iko'));
 
-    var MainController,
+    let MainController,
         $scope, $state;
 
     // Initialize the controller and a mock scope
@@ -18,9 +18,20 @@ describe('Controller: MainController', () => {
         });
     }));
 
+    //Sample Test 1
     it('title should be IKO', () => {
         expect($scope.models.title).toEqual('IKO');
         expect($scope.models.title.length).toBe(3);
+    });
+
+    //Sample Test 2
+    it('should be a total of 4 tabs', () => {
+        expect($scope.tabs.length).toBe(4);
+    });
+
+    //Sample Test 3
+    it('state should exist', () => {
+        expect($state).toBeTruthy();
     });
 
 });

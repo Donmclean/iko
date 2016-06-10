@@ -120,7 +120,7 @@ module.exports = (gulp, $, config) => {
                 } else {
                     funcs.unitTestPassed = false;
                     config.vars.logi.error("Karma Unit Tests Failed");
-                    config.vars.beep(3);
+                    config.vars.beep(2);
                     deferred.resolve();
                 }
             }

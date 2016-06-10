@@ -12,7 +12,8 @@ module.exports = (gulp, $, config, funcs) => {
             //     progressive: true,
             //     use: [config.vars.pngquant()]
             // }))
-            .pipe(gulp.dest(config.media.images.destDir));
+            .pipe($.if(!!funcs.isDev, gulp.dest(config.media.images.tempDir)))
+            .pipe($.if(!funcs.isDev, gulp.dest(config.media.images.destDir)));
 
     });
 };

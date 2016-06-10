@@ -11,7 +11,8 @@ module.exports = (config) => {
                 gulpConfig.js.deps.src,
                 gulpConfig.tests.ngMocks,
                 gulpConfig.js.src.src,
-                gulpConfig.tests.all
+                gulpConfig.tests.all,
+                gulpConfig.tests.extras
             ])
         },
         {

@@ -35,7 +35,8 @@ module.exports = (gulp, $, config, funcs) => {
                 .pipe($.if(config.vars.path.extname(changedTemplateFile) === '.jade',$.jade()))
 
                 .pipe($.debug({title: 'copying and minifying templates:'}))
-                .pipe(gulp.dest(config.templates.destDir+changedTemplateFile[0].split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile[0]))[0]));
+                .pipe($.if(!!funcs.isDev, gulp.dest(config.tempDir+changedTemplateFile[0].split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile[0]))[0])))
+                .pipe($.if(!funcs.isDev, gulp.dest(config.templates.destDir+changedTemplateFile[0].split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile[0]))[0])));
         } else {
             return gulp.src(config.templates.src)
                 .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
@@ -105,7 +106,8 @@ module.exports = (gulp, $, config, funcs) => {
                 //Restore filtered templates
                 .pipe(Filter.restore)
 
-                .pipe(gulp.dest(config.templates.destDir));
+                .pipe($.if(!!funcs.isDev, gulp.dest(config.tempDir)))
+                .pipe($.if(!funcs.isDev, gulp.dest(config.templates.destDir)));
         }
 
     });
