@@ -10,9 +10,9 @@ module.exports = (gulp, $, config) => {
     funcs.isDev = false;
     funcs.isWatching = false;
     funcs.isUnitTest = false;
-    funcs.isIntegrationTest = false;
+    funcs.isSeleniumTest = false;
     funcs.unitTestPassed = false;
-    funcs.integrationTestPassed = false;
+    funcs.seleniumTestPassed = false;
 
     funcs.errors = [];
     funcs.errorExitCode = 0;
@@ -121,7 +121,7 @@ module.exports = (gulp, $, config) => {
                     funcs.unitTestPassed = false;
                     config.vars.logi.error("Karma Unit Tests Failed");
                     config.vars.beep(2);
-                    deferred.resolve();
+                    deferred.resolve(results);
                 }
             }
             return deferred.promise;

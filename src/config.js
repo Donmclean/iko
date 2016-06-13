@@ -218,7 +218,7 @@ module.exports = () => {
 
         config.baseDir+'/bin/polyfills/bind-polyfill.js'
     ];
-    config.tests.integration        = config.baseDir+'/tests/integration/**/*.js';
+    config.tests.selenium           = config.baseDir+'/tests/selenium/**/*.js';
     config.tests.ngMocks            = config.baseDir+'/node_modules/angular-mocks/angular-mocks.js';
     config.tests.nightWatchConfig   = config.baseDir+'/nightwatch.json';
     config.tests.karmaConfigFile    = config.baseDir+'/karma.conf.js';

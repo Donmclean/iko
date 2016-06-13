@@ -15,7 +15,7 @@ module.exports = (gulp, $, config, funcs) => {
             //'express',
             'templates',
             'run-unit-tests',
-            'run-integration-tests',
+            'run-selenium-tests',
             done => done()
         )
     );

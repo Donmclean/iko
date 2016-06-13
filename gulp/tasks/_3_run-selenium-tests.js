@@ -3,12 +3,12 @@
  */
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
-    gulp.task('run-integration-tests', () => {
-        funcs.isIntegrationTest = true;
+    gulp.task('run-selenium-tests', () => {
+        funcs.isSeleniumTest = true;
 
         return gulp.src(config.tests.nightWatchConfig)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
-            .pipe($.debug({title: 'running integration tests:'}))
+            .pipe($.debug({title: 'running selenium tests:'}))
             // .pipe($.nightwatch({
             //     configFile: config.tests.nightWatchConfig,
             //     cliArgs: {
