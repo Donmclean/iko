@@ -4,18 +4,17 @@
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
 
-    gulp.task('build-custom',
-        gulp.series(
-            (cb) => {
-                funcs.isDev = true;
-                cb();
-            },
-            gulp.parallel('lint-gulp','lint-js-src','clean','clean-temp'),
-            gulp.parallel('media','sass'),
-            //'express',
-            'templates',
-            'run-unit-tests',
-            done => done()
-        )
-    );
+    funcs.processGulpArgs(funcs.args).then(() => {
+        gulp.task('build-custom',
+            // Process Gulp Arguments
+            gulp.series(
+                funcs.runGulpTaskParallel(['lint-gulp', 'lint-js-src','lint-js-tests', 'clean', 'clean-temp']),
+                funcs.runGulpTaskParallel(['media', 'sass']),
+                funcs.runGulpTaskSeries(['templates', 'run-unit-tests']),
+                funcs.runGulpTaskCustom(funcs.runServer,'browser-sync'),
+                funcs.runGulpTaskCustom(funcs.isWatching,'watch'),
+                done => done()
+            )
+        );
+    });
 };

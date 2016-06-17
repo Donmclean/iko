@@ -15,7 +15,11 @@ module.exports = (gulp, $, config, funcs) => {
         });
 
         // Watch UNIT TEST files
-        gulp.watch(config.tests.unit, gulp.series('run-unit-tests'), done => done);
+        let testWatcher = gulp.watch(config.tests.all, gulp.series('lint-js-tests','run-unit-tests'), done => done);
+        testWatcher.on('change', function(path, stats) {
+            funcs.logChangedFile(path);
+            config.tests.changed.push(path);
+        });
 
         // Watch TEMPLATE (jade/html) files
         let templateFiles = config.vars._.concat(config.templates.src,config.templates.srcHTML);

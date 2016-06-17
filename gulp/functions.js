@@ -6,13 +6,17 @@
 module.exports = (gulp, $, config) => {
     const funcs = {};
 
+    funcs.args = process.argv.slice(3);
     funcs.isProd = false;
     funcs.isDev = false;
+    funcs.isCustom = false;
     funcs.isWatching = false;
     funcs.isUnitTest = false;
     funcs.isSeleniumTest = false;
     funcs.unitTestPassed = false;
     funcs.seleniumTestPassed = false;
+
+    funcs.runServer = false;
 
     funcs.errors = [];
     funcs.errorExitCode = 0;
@@ -24,10 +28,50 @@ module.exports = (gulp, $, config) => {
         return 'working';
     };
 
-    funcs.processGulpArgs = (args) => {
-        config.vars.logi.info("processing GulpArgs...", args);
+    funcs.processGulpArgs = args => {
+        let deferred = config.vars.Q.defer();
 
-        return true;
+        config.vars.logi.info("processing gulp arguments...", args);
+
+        config.vars._.forEach(args, (arg, i) => {
+            switch (arg) {
+                case '--w': {
+                    config.vars.logi.warning('build will now watch files...');
+                    funcs.isWatching = true;
+                    funcs.isDev = true;
+                    break;
+                }
+                case '--s': {
+
+                    config.vars.logi.warning('build will now serve files on port',config.EXPRESS_PORT);
+                    funcs.runServer = true;
+                    break;
+                }
+            }
+
+            if(i === args.length -1) {
+                deferred.resolve();
+            }
+        });
+        
+        return deferred.promise;
+    };
+
+    funcs.runGulpTaskParallel = tasks => {
+        return gulp.parallel(tasks);
+    };
+
+    funcs.runGulpTaskSeries = tasks => {
+        return gulp.series(tasks);
+    };
+
+    funcs.runGulpTaskCustom = (condition, task) => {
+        if(!!condition) {
+            return gulp.series(task);
+        } else {
+            return 'noop';
+        }
+
     };
 
     funcs.gulpGlobalErrorHandler = err => {
@@ -36,8 +80,6 @@ module.exports = (gulp, $, config) => {
             funcs.errorExitCode = 1;
         }
 
-        config.vars.logi.error('Error:',err);
-        config.vars.logi.info('funcs.errors:',funcs.errors);
         config.vars.logi.info('funcs.errorExitCode:',funcs.errorExitCode);
 
         if(funcs.exitOnGulpGlobalErrors) {
@@ -121,6 +163,12 @@ module.exports = (gulp, $, config) => {
                     funcs.unitTestPassed = false;
                     config.vars.logi.error("Karma Unit Tests Failed");
                     config.vars.beep(2);
+
+                    if(funcs.exitOnGulpGlobalErrors) {
+                        config.vars.exec(process.exit(results));
+                        deferred.reject(results);
+                    }
+
                     deferred.resolve(results);
                 }
             }

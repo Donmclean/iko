@@ -10,7 +10,7 @@ module.exports = (gulp, $, config, funcs) => {
                 funcs.isDev = true;
                 cb();
             },
-            gulp.parallel('lint-gulp','lint-js-src','clean','clean-temp'),
+            gulp.parallel('lint-gulp','lint-js-src','lint-js-tests','clean','clean-temp'),
             gulp.parallel('media','sass'),
             //'express',
             'templates',

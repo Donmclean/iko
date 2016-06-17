@@ -1,6 +1,8 @@
 /**
  * Created by donmclean on 6/9/16.
  */
+
+/*jshint -W117 */
 describe('Controller: MainController', () => {
 
     // load the controller's module

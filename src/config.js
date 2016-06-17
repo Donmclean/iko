@@ -208,6 +208,7 @@ module.exports = () => {
 
 
     config.tests                    = {};
+    config.tests.changed            = [];
     config.tests.all                = config.baseDir+'/tests/**/*.js';
     config.tests.unit               = [
 

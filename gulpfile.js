@@ -8,20 +8,15 @@
 // Load config
 const
     config          = require('./gulp/gulp.config')(),
-    args            = process.argv.slice(2),
 
 // Load functions
     funcs           = require(config.baseDir +'/gulp/functions')(config.vars.gulp, config.vars.$, config);
 
-// Process Gulp Arguments
-const isValidArgs = funcs.processGulpArgs(args);
+// Define/Collect all tasks
+config.vars._.forEach(config.taskList, (file) => {
 
-if(isValidArgs) {
-    // Define/Collect all tasks
-    config.vars._.forEach(config.taskList, (file) => {
+    config.vars.logi.mixed([{value: "Collecting task:"}, {color: 'yellow', value: file.split('.')[0]}]);
 
-        config.vars.logi.mixed([{value: "Collecting task:"}, {color: 'yellow', value: file.split('.')[0]}]);
+    require(config.taskDir + file)(config.vars.gulp, config.vars.$, config, funcs);
+});
 
-        require(config.taskDir + file)(config.vars.gulp, config.vars.$, config, funcs);
-    });
-}
