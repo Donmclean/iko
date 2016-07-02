@@ -4,6 +4,7 @@ jdk:
 node_js:
   - "5"
 before_script:
+  - npm install -g npm@next
   - npm install -g "gulpjs/gulp-cli"
 install:
   - npm install
