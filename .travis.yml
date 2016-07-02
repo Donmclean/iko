@@ -7,4 +7,5 @@ before_script:
   - npm install -g "gulpjs/gulp-cli"
 install:
   - npm install
+  - npm rebuild node-sass
 script: npm start
