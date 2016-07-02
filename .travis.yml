@@ -8,4 +8,5 @@ before_script:
 install:
   - npm install
   - npm rebuild node-sass
+  - npm rebuild
 script: npm start
