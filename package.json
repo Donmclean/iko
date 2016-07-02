@@ -83,7 +83,7 @@
     "mocha-clean": "^1.0.0",
     "moment": "^2.13.0",
     "morgan": "^1.7.0",
-    "node-sass": "^3.7.0",
+    "node-sass": "^3.8.0",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.7",
     "q": "^1.4.1",
