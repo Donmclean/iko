@@ -6,6 +6,7 @@ node_js:
 before_script:
   - npm install -g npm@next
   - npm install -g "gulpjs/gulp-cli"
+  - npm install -g phantomjs
 install:
   - npm install
   - npm rebuild node-sass
