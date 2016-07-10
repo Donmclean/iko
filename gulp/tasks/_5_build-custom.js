@@ -8,11 +8,16 @@ module.exports = (gulp, $, config, funcs) => {
         gulp.task('build-custom',
             // Process Gulp Arguments
             gulp.series(
+                (cb) => {
+                    funcs.isCustom = true;
+                    cb();
+                },
                 funcs.runGulpTaskParallel(['lint-gulp', 'lint-js-src','lint-js-tests', 'clean', 'clean-temp']),
-                funcs.runGulpTaskParallel(['media', 'sass']),
-                funcs.runGulpTaskSeries(['templates', 'run-unit-tests']),
-                funcs.runGulpTaskCustom(funcs.runServer,'browser-sync'),
-                funcs.runGulpTaskCustom(funcs.isWatching,'watch'),
+                funcs.runGulpTaskParallel(['media','sass','css-deps','js-src','js-deps']),
+                // funcs.runGulpTaskParallel(['media','sass','css-deps','js-src','js-deps']),
+                // funcs.runGulpTaskSeries(['templates', 'run-unit-tests']),
+                // funcs.runGulpTaskCustom(funcs.runServer,'browser-sync'),
+                // funcs.runGulpTaskCustom(funcs.isWatching,'watch'),
                 done => done()
             )
         );

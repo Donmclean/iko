@@ -22,6 +22,8 @@ module.exports = (gulp, $, config) => {
     funcs.errorExitCode = 0;
     funcs.exitOnGulpGlobalErrors = false;
 
+    funcs.customBuild = {};
+
     funcs.test = () => {
         
         config.vars.logi.log("in functions", 'test?');
@@ -38,7 +40,6 @@ module.exports = (gulp, $, config) => {
                 case '--w': {
                     config.vars.logi.warning('build will now watch files...');
                     funcs.isWatching = true;
-                    funcs.isDev = true;
                     break;
                 }
                 case '--s': {
@@ -46,6 +47,14 @@ module.exports = (gulp, $, config) => {
                     config.vars.logi.warning('build will now serve files on port',config.EXPRESS_PORT);
                     funcs.runServer = true;
                     break;
+                }
+                case '--m': {
+                    funcs.customBuild.minifySASS = true;
+                    funcs.customBuild.minifyJS = true;
+                    break;
+                }
+                case '--sm': {
+                    funcs.customBuild.sourcemaps = true;
                 }
             }
 

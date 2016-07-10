@@ -30,27 +30,15 @@ module.exports = (gulp, $, config, funcs) => {
 
             .pipe($.concat(config.js.src.mainFileName))
             .pipe($.rev())
+            .pipe($.if(!!funcs.customBuild.sourcemaps || !!funcs.isProd, $.sourcemaps.write()))
             .pipe(gulp.dest(config.js.src.destDir))
             .pipe($.size({showFiles:true}))
-            .pipe($.rename({suffix: '.min'}))
-            .pipe($.uglify())
-            .pipe($.size({showFiles:true}))
-            .pipe($.sourcemaps.write())
+            .pipe($.if(!!funcs.customBuild.minifyJS || !!funcs.isProd, $.rename({suffix: '.min'})))
+            .pipe($.if(!!funcs.customBuild.minifyJS || !!funcs.isProd, $.uglify()))
+            .pipe($.if(!!funcs.customBuild.minifyJS || !!funcs.isProd, $.size({showFiles:true})))
+            .pipe($.if(!!funcs.customBuild.sourcemaps || !!funcs.isProd, $.sourcemaps.write()))
 
             .pipe(gulp.dest(config.js.src.destDir));
 
-        // return gulp.src(config.js.deps.src)
-        //     // .pipe($.plumber(funcs.plumberOptions()))
-        //     .pipe($.debug({title: 'copying and minifying js deps:'}))
-        //     .pipe($.concat(config.js.deps.mainFileName))
-        //     .pipe($.rev())
-        //     // .pipe(gulp.dest(config.tempPath))
-        //     .pipe(gulp.dest(config.js.deps.destDir))
-        //     .pipe($.size({showFiles:true}))
-        //     .pipe($.rename({suffix: '.min'}))
-        //     // .pipe($.uglify())
-        //     .pipe($.size({showFiles:true}))
-        //     // .pipe(gulp.dest(config.tempPath))
-        //     .pipe(gulp.dest(config.js.deps.destDir));
     });
 };

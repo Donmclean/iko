@@ -15,14 +15,15 @@ module.exports = (gulp, $, config, funcs) => {
             .pipe($.debug({title: 'copying and minifying sass/css:'}))
             .pipe($.concat(config.sass.mainFileName))
             .pipe($.autoprefixer())
-            .pipe($.sourcemaps.write())
-            .pipe($.if(!!funcs.isProd, $.rev()))
+            .pipe($.if(!!funcs.customBuild.minifySASS || !!funcs.isProd, $.rev()))
+            .pipe($.if(!!funcs.customBuild.minifySASS, $.cleanCss()))
+            .pipe($.if(!!funcs.customBuild.sourcemaps || !!funcs.isDev || !!funcs.isProd, $.sourcemaps.write()))
             .pipe($.if(!!funcs.isDev, gulp.dest(config.tempDir), gulp.dest(config.sass.destDir)))
             .pipe($.size({showFiles:true}))
-            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.rename({suffix: '.min'})))
-            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.cleanCss()))
-            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.sourcemaps.write()))
-            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, gulp.dest(config.sass.destDir)))
-            .pipe($.if((!funcs.isWatching && !funcs.isDev) || !!funcs.isProd, $.size({showFiles:true})));
+            .pipe($.if(!!funcs.isProd, $.rename({suffix: '.min'})))
+            .pipe($.if(!!funcs.isProd, $.cleanCss()))
+            .pipe($.if(!!funcs.isProd, $.sourcemaps.write()))
+            .pipe($.if(!!funcs.isProd, gulp.dest(config.sass.destDir)))
+            .pipe($.if(!!funcs.isProd, $.size({showFiles:true})));
     });
 };
