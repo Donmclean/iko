@@ -57,3 +57,4 @@ test-coverage
 npm-debug.log
 selenium-debug.log
 phantomjsdriver.log
+*.DS_Store

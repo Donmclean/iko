@@ -37,24 +37,27 @@ module.exports = (gulp, $, config) => {
 
         config.vars._.forEach(args, (arg, i) => {
             switch (arg) {
-                case '--w': {
-                    config.vars.logi.warning('build will now watch files...');
-                    funcs.isWatching = true;
-                    break;
-                }
-                case '--s': {
-
-                    config.vars.logi.warning('build will now serve files on port',config.EXPRESS_PORT);
-                    funcs.runServer = true;
-                    break;
-                }
                 case '--m': {
+                    config.vars.logi.warning('build will now minify files...');
                     funcs.customBuild.minifySASS = true;
                     funcs.customBuild.minifyJS = true;
                     break;
                 }
+                case '--s': {
+
+                    config.vars.logi.warning('build will now serve files on port', config.EXPRESS_PORT);
+                    funcs.runServer = true;
+                    break;
+                }
                 case '--sm': {
+                    config.vars.logi.warning('build will now add sourcemaps to files...');
                     funcs.customBuild.sourcemaps = true;
+                    break;
+                }
+                case '--t': {
+                    config.vars.logi.warning('build will now cache templates via (template cache)...');
+                    funcs.customBuild.templateCache = true;
+                    break;
                 }
             }
 

@@ -10,20 +10,39 @@ module.exports = (gulp, $, config, funcs) => {
             Filter = $.filter(['**/*.css'], {restore: true}),
             obj = {};
         
-        if(!!funcs.isProd) {
+        if(!!funcs.isProd || !!funcs.isCustom) {
 
             //Get JS Files
             obj.js = config.vars._.chain(config.vars.fs.readdirSync(config.js.src.destDir), config.vars.fs.readdirSync(config.js.deps.destDir))
                 .concat()
                 .uniq()
-                .filter(file => file.search('.min') > -1)
+                .filter(file => () => {
+                    if(!!funcs.isCustom) {
+                        if(!!funcs.customBuild.minifyJS) {
+                            return file.search('.min') > -1;
+                        } else {
+                            return file.search('.js') > -1;
+                        }
+                    } else {
+                        return file.search('.min') > -1;
+                    }})
                 .value();
 
             //Get CSS Files
             obj.css = config.vars._.chain(config.vars.fs.readdirSync(config.css.src.destDir), config.vars.fs.readdirSync(config.css.deps.destDir))
                 .concat()
                 .uniq()
-                .filter(file => file.search('.min') > -1)
+                .filter(file => () => {
+                    if(!!funcs.isCustom) {
+                        if(!!funcs.customBuild.minifyJS) {
+                            return file.search('.min') > -1;
+                        } else {
+                            return file.search('.css') > -1;
+                        }
+                    } else {
+                        return file.search('.min') > -1;
+                    }})
+                // .filter(file => file.search('.min') > -1)
                 .value();
 
         }
@@ -46,16 +65,17 @@ module.exports = (gulp, $, config, funcs) => {
         }
 
         //run if changed file is NOT main index file
-        if(funcs.isWatching && indexFileChanged === false) {
-            return gulp.src(changedTemplateFile[0])
+        if(funcs.isWatching && !funcs.isCustom && indexFileChanged === false) {
+            changedTemplateFile = changedTemplateFile[0];
+            return gulp.src(changedTemplateFile)
                 .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
 
                 //Parse changed file based on template type
                 .pipe($.if(config.vars.path.extname(changedTemplateFile) === '.jade',$.jade()))
 
                 .pipe($.debug({title: 'copying and minifying templates:'}))
-                .pipe($.if(!!funcs.isDev, gulp.dest(config.tempDir+changedTemplateFile[0].split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile[0]))[0])))
-                .pipe($.if(!funcs.isDev, gulp.dest(config.templates.destDir+changedTemplateFile[0].split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile[0]))[0])));
+                .pipe($.if(!!funcs.isDev || !!funcs.isCustom, gulp.dest(config.tempDir+changedTemplateFile.split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile))[0])))
+                .pipe($.if(!funcs.isDev || !!funcs.isCustom, gulp.dest(config.templates.destDir+changedTemplateFile.split(config.templates.srcDir)[1].split(config.vars.path.basename(changedTemplateFile))[0])));
         } else {
             return gulp.src(config.templates.src)
                 .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
@@ -88,8 +108,8 @@ module.exports = (gulp, $, config, funcs) => {
                 })), {read: false})
 
 
-                //For PROD
-                .pipe(!!funcs.isProd ? $.inject(gulp.src(config.vars._.map(obj.js, (file) => {
+                //For PROD OR CUSTOM
+                .pipe(!!funcs.isProd || !!funcs.isCustom ? $.inject(gulp.src(config.vars._.map(obj.js, (file) => {
                     return config.js.deps.destDir + '/' + file;
                 }),{read: false}), {
                     ignorePath: config.js.deps.destDir.split(process.cwd())[1],
@@ -98,7 +118,7 @@ module.exports = (gulp, $, config, funcs) => {
                     removeTags: true
                 }) : $.util.noop())
 
-                .pipe(!!funcs.isProd ? $.inject(gulp.src(config.vars._.map(obj.css, (file) => {
+                .pipe(!!funcs.isProd || !!funcs.isCustom ? $.inject(gulp.src(config.vars._.map(obj.css, (file) => {
                     return config.css.deps.destDir + '/' + file;
                 }),{read: false}), {
                     ignorePath: config.css.deps.destDir.split(process.cwd())[1],

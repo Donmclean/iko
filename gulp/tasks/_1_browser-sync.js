@@ -9,12 +9,13 @@ module.exports = (gulp, $, config, funcs) => {
 
         let deferred = config.vars.Q.defer();
 
+
         config.vars.browserSync.init({
             ui: {
                 port: config.EXPRESS_PORT
             },
             port: config.EXPRESS_PORT,
-            server: [config.baseDir,config.tempDir],
+            server: !!funcs.isCustom ? config.destDir : [config.destDir,config.baseDir],
             // server: [config.destDir,config.baseDir],
             //proxy: 'localhost:' + config.EXPRESS_PORT + config.destDir.split(process.cwd())[1],
             open: "external",

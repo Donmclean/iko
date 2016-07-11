@@ -2,7 +2,7 @@
  * Created by donmclean on 12/15/15.
  */
 angular.module('iko')
-    .controller('MainController', ['$scope','$http', '$timeout','$templateCache','logService', ($scope,$http,$timeout,$templateCache,logService) => {
+    .controller('MainController', ['$scope','$http', '$timeout','$templateCache','$window','logService', ($scope,$http,$timeout,$templateCache,$window,logService) => {
         "use strict";
 
         $scope.models = {
@@ -28,29 +28,17 @@ angular.module('iko')
         let a = "z";
 
         $scope.sayHello = () => {
-            return 'HELLO WORLD!';
+            return 'HELLO WORLD!!';
         };
 
-        if(a === 'z') {
-            console.log("a = z");
-        } else {
-            console.log("a != z");
-        }
+        _.forEach([1,2,3,4], function(m){
+            console.log(m);
+        });
 
-        //console.log($templateCache.get('views/t2.html'));
-        //var clock = $('.clock').FlipClock({
-        // your options here
-        //});
-
-        //var $ = "test";
-
-        //_.each($scope.models, function(m){
-        //    console.log(m);
-        //});
 
         logService.greets(a);
 
-        $.ajax("").success(() => {
+        angular.element.ajax("").success(() => {
             console.log("success!!!!!!!!!!!!!!");
         }).error(() => {
             console.log("error");
