@@ -101,7 +101,7 @@ module.exports = (gulp, $, config, funcs) => {
                     // removeTags: true
                 })), {read: false})
 
-                .pipe($.if(!!funcs.isDev, $.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.css.src.src, config.sass.tempSrc)), {
+                .pipe($.if(!!funcs.isDev, $.inject(gulp.src(config.vars._.concat(config.css.deps.src, config.vendor.css.src, config.sass.tempSrc)), {
                     addRootSlash: false,
                     addPrefix: '..'
                     // removeTags: true

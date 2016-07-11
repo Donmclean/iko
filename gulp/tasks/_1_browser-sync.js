@@ -15,7 +15,7 @@ module.exports = (gulp, $, config, funcs) => {
                 port: config.EXPRESS_PORT
             },
             port: config.EXPRESS_PORT,
-            server: !!funcs.isCustom ? config.destDir : [config.destDir,config.baseDir],
+            server: !!funcs.isCustom ? config.destDir : !!funcs.isDev ? [config.tempDir,config.baseDir] : [config.destDir,config.baseDir],
             // server: [config.destDir,config.baseDir],
             //proxy: 'localhost:' + config.EXPRESS_PORT + config.destDir.split(process.cwd())[1],
             open: "external",

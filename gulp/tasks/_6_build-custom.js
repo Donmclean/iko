@@ -4,7 +4,7 @@
 "use strict";
 module.exports = (gulp, $, config, funcs) => {
 
-    funcs.processGulpArgs(funcs.args).then((hasArgs) => {
+    funcs.processGulpArgs(funcs.args).then(() => {
 
         gulp.task('build-custom',
             // Process Gulp Arguments
@@ -17,7 +17,6 @@ module.exports = (gulp, $, config, funcs) => {
                 funcs.runGulpTaskParallel(['media','sass','css-deps','js-src','js-deps']),
                 funcs.runGulpTaskSeries(['templates', 'run-unit-tests']),
                 funcs.runGulpTaskCustom(funcs.runServer,'browser-sync'),
-                funcs.runGulpTaskCustom(funcs.isWatching,'watch'),
                 done => done()
             )
         );

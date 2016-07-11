@@ -7,11 +7,11 @@ module.exports = (gulp, $, config, funcs) => {
 
         return gulp.src(config.css.deps.src)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
-            .pipe($.sourcemaps.init())
+            .pipe($.if(!!funcs.customBuild.sourcemaps || !!funcs.isProd, $.sourcemaps.init()))
             .pipe($.debug({title: 'copying and minifying css deps:'}))
             .pipe($.concat(config.css.deps.mainFileName))
             .pipe($.rev())
-            .pipe($.autoprefixer())
+            .pipe($.if(!!funcs.customBuild.autoprefix || !!funcs.isDev || !!funcs.isProd, $.autoprefixer()))
             .pipe($.if(!funcs.customBuild.minifySASS && !!funcs.customBuild.sourcemaps || !!funcs.isDev || !!funcs.isProd, $.sourcemaps.write()))
             .pipe($.if(!!funcs.isCustom && !funcs.customBuild.minifySASS, gulp.dest(config.sass.destDir)))
             .pipe($.size({showFiles:true}))

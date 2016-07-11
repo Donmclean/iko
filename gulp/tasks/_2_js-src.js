@@ -10,7 +10,7 @@ module.exports = (gulp, $, config, funcs) => {
 
         return gulp.src(config.js.src.src)
             .pipe($.plumber({errorHandler: funcs.gulpGlobalErrorHandler}))
-            .pipe($.sourcemaps.init())
+            .pipe($.if(!!funcs.customBuild.sourcemaps || funcs.isProd, $.sourcemaps.init()))
             .pipe($.ngAnnotate())
             .pipe($.babel({presets: ['es2015']}))
             .pipe($.debug({title: 'copying and minifying js srcs:'}))

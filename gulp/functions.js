@@ -37,6 +37,11 @@ module.exports = (gulp, $, config) => {
 
         config.vars._.forEach(args, (arg, i) => {
             switch (arg) {
+                case '--a': {
+                    config.vars.logi.warning('build will now add autoprefixing to sass/css files...');
+                    funcs.customBuild.autoprefix = true;
+                    break;
+                }
                 case '--m': {
                     config.vars.logi.warning('build will now minify files...');
                     funcs.customBuild.minifySASS = true;
