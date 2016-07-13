@@ -5,16 +5,22 @@
 module.exports = (gulp, $, config, funcs) => {
     gulp.task('run-unit-tests', () => {
         funcs.isUnitTest = true;
-        var deferred = config.vars.Q.defer();
+        let deferred = config.vars.Q.defer();
 
         try {
-            funcs.startUnitTests(true, false)
-                .then(() => {
-                    deferred.resolve();
-                })
-                .catch((err) => {
-                    config.vars.logi.error('ERROR:', err);
-                });
+
+            if(config.vars._.isEmpty(config.tests.all)) {
+                deferred.resolve();
+            } else {
+                funcs.startUnitTests(true, false)
+                    .then(() => {
+                        deferred.resolve();
+                    })
+                    .catch((err) => {
+                        config.vars.logi.error('ERROR:', err);
+                    });
+            }
+            
             return deferred.promise;
         }
         catch (err) {
