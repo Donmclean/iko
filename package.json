@@ -85,7 +85,6 @@
     "moment": "^2.13.0",
     "morgan": "^1.7.0",
     "node-sass": "^3.8.0",
-    "phantomjs-prebuilt": "^2.1.7",
     "q": "^1.4.1",
     "q-io": "^1.13.2",
     "selenium-webdriver": "^2.53.2",
