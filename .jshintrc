@@ -8,6 +8,8 @@
   "globals": {
     "s": false,
     "angular": false,
+    "window": false,
+    "document":false,
     "_": false,
     "$": false
   }
