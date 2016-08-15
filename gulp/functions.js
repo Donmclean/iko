@@ -49,6 +49,11 @@ module.exports = (gulp, $, config) => {
                     funcs.customBuild.minifyJS = true;
                     break;
                 }
+                case '--mi': {
+                    config.vars.logi.warning('build will now minify images...');
+                    funcs.minifyImages = true;
+                    break;
+                }
                 case '--s': {
 
                     config.vars.logi.warning('build will now serve files on port', config.EXPRESS_PORT);
