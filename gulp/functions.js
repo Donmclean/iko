@@ -15,6 +15,7 @@ module.exports = (gulp, $, config) => {
     funcs.isSeleniumTest = false;
     funcs.unitTestPassed = false;
     funcs.seleniumTestPassed = false;
+    funcs.minifyImages = false;
 
     funcs.runServer = false;
 
